@@ -6,6 +6,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { json as jsonLang } from "@codemirror/lang-json";
 import Split from "react-split";
+import * as gtag from "../lib/gtag";
 import styled from "@/styles/Home.module.css";
 
 const borderRadius = EditorView.theme({
@@ -38,6 +39,13 @@ function Jsontool() {
         const obj = JSON.parse(inputVal);
         setOutputVal(obj);
       }
+
+      gtag.event({
+        action: "format",
+        category: "button",
+        label: "Format",
+        value: "format",
+      });
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -49,6 +57,12 @@ function Jsontool() {
     try {
       setError("");
       setInputVal(JSON.stringify(JSON.parse(inputVal)));
+      gtag.event({
+        action: "minify",
+        category: "button",
+        label: "Minify",
+        value: "minify",
+      });
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
