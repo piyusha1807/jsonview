@@ -10,11 +10,11 @@ import * as gtag from "../lib/gtag";
 import styled from "@/styles/Home.module.css";
 
 const borderRadius = EditorView.theme({
-  ".cm-scroller, &": {
-    borderRadius: "0px",
-  },
   "&": {
-    border: "1px solid transparent",
+    outline: "none !important",
+  },
+  "&.ͼ2 .cm-gutters": {
+    backgroundColor: "#d9d9d9",
   },
 });
 
@@ -26,19 +26,19 @@ function Jsontool() {
   const handleFormat = () => {
     try {
       setError("");
-      setInputVal(
-        prettier.format(inputVal, {
-          parser: "json",
-          tabWidth: 2,
-          printWidth: 30,
-          plugins: [parserBabel],
-        })
-      );
+      const formattedInputVal = prettier.format(inputVal, {
+        parser: "json",
+        tabWidth: 2,
+        printWidth: 30,
+        plugins: [parserBabel],
+      });
+      setInputVal(formattedInputVal);
 
-      if (inputVal) {
-        const obj = JSON.parse(inputVal);
-        setOutputVal(obj);
+      let obj = "";
+      if (formattedInputVal) {
+        obj = JSON.parse(formattedInputVal);
       }
+      setOutputVal(obj);
 
       gtag.event({
         action: "format",
@@ -49,6 +49,7 @@ function Jsontool() {
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
+        setOutputVal("");
       }
     }
   };
@@ -56,7 +57,16 @@ function Jsontool() {
   const handleMinify = () => {
     try {
       setError("");
-      setInputVal(JSON.stringify(JSON.parse(inputVal)));
+      let minifyInputVal = "";
+      if (inputVal) {
+        minifyInputVal = JSON.stringify(JSON.parse(inputVal));
+      }
+      setInputVal(minifyInputVal);
+
+      if (minifyInputVal) {
+        minifyInputVal = JSON.parse(minifyInputVal);
+      }
+      setOutputVal(minifyInputVal);
       gtag.event({
         action: "minify",
         category: "button",
@@ -66,9 +76,11 @@ function Jsontool() {
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
+        setOutputVal("");
       }
     }
   };
+
   return (
     <div>
       <div className={styled.header}>
@@ -89,29 +101,37 @@ function Jsontool() {
             Remove white spaces
           </button>
         </div>
-        {error && <div className={styled.error}>{error}</div>}
       </div>
       <Split className={styled.container}>
         <div className={styled.inputArea}>
           <CodeMirror
             extensions={[jsonLang(), borderRadius]}
             height="100%"
+            width="100%"
             style={{ height: "100%" }}
             placeholder="Enter your JSON here..."
             value={inputVal}
-            onChange={(val: any) => setInputVal(val)}
+            onChange={(val: any) => {
+              setInputVal(val);
+            }}
           />
         </div>
         <div className={styled.outputArea}>
           {error && <pre className={styled.outputError}>{error}</pre>}
-
           {outputVal && typeof outputVal === "object" && (
             <ReactJson
               src={outputVal}
               theme="rjv-default"
               displayDataTypes={false}
-              collapsed={true}
+              indentWidth={2}
+              collapsed={1}
               enableClipboard={false}
+              groupArraysAfterLength={0}
+              quotesOnKeys={false}
+              style={{
+                height: "100%",
+                overflow: "auto",
+              }}
             />
           )}
         </div>
