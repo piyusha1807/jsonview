@@ -23,7 +23,7 @@ export default function Home() {
         />
         <meta
           name="keywords"
-          content="json, json viewer, json formatter, json validator, online json formatter, json formatter online, json beautifier, json beautify, format json, jsonlint, JSON Checker, JSON Cleaner, json format, format json online, jsonviewer.info"
+          content="json prettify online, json formatter check, json lint online, json reader online, how to view json files, json format checker, check json validity, jsonformatter online, json syntax checker, json formatter beautify, json string formatter, how to format json files, json path finder, json pretty online, code beautify json, json formatter online free, sublime json formatter, json diff online, vscode format json, json formatter chrome extension"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
