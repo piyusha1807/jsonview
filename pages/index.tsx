@@ -1,16 +1,46 @@
 import Head from "next/head";
 import Image from "next/image";
+// import Jsontool from "@/components/jsontool";
+import DashboardLayout from "@/components/dashboardLayout";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-const Jsontool = dynamic(
-  () => {
-    return import("../components/jsontool");
-  },
-  { ssr: false }
-);
+// const Jsontool = dynamic(
+//   () => {
+//     return import("../components/dashboardLayout/jsontool");
+//   },
+//   { ssr: false }
+// );
+
+// const DashboardLayout = dynamic(
+//   () => {
+//     return import("../components/dashboardLayout");
+//   },
+//   { ssr: false }
+// );
 
 export default function Home() {
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("set-theme");
+
+    if (currentTheme) {
+      setTheme(currentTheme);
+    }
+  }, []);
+
+  const handleThemeChange = () => {
+    if (theme === "light") {
+      setTheme("dark");
+      localStorage.setItem("set-theme", "dark");
+    } else {
+      setTheme("light");
+      localStorage.setItem("set-theme", "light");
+    }
+  };
+
   return (
     <>
       <Head>
@@ -28,8 +58,8 @@ export default function Home() {
         <meta name="robots" content="noindex, nofollow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Jsontool />
+      <main className={theme}>
+        <DashboardLayout />
       </main>
     </>
   );
