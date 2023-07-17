@@ -1,3 +1,87 @@
 {
-  "extends": "next/core-web-vitals"
+	"env": {
+		"browser": true,
+		"node": true,
+		"jest": true,
+		"es2021": true
+	},
+	"extends": ["next/core-web-vitals"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": ["jsx-a11y","react"],
+	"rules": {
+		"@typescript-eslint/no-use-before-define": "off",
+		"react/jsx-no-duplicate-props": [1, { "ignoreCase": false }],
+		"react/jsx-fragments": "off",
+		"react/jsx-filename-extension": "off",
+		"import/no-extraneous-dependencies": "off",
+		"linebreak-style":"off",
+		"no-tabs": "off",
+		"jsx-a11y/rule-name": 0,
+		"timport/prefer-default-export": "off",
+		"import/no-unresolved": "off",
+		"import/extensions": "off",
+		"no-irregular-whitespace": "off",
+        "no-param-reassign": ["error", { "props": false }],
+		"prefer-template": 0,
+		"react/jsx-closing-tag-location":"off",
+		"semi": 0,
+		"comma-dangle": 0,
+		"no-trailing-spaces": 0,
+		"react/prop-types": 0,
+		"padded-blocks": 0,
+		"implicit-arrow-linebreak": 0,
+		"import/prefer-default-export": 0,
+		"no-extra-boolean-cast": 0,
+		"react/forbid-prop-types": 0,
+		"react/jsx-curly-spacing": 0,
+		"react/jsx-one-expression-per-line": 0,
+		"react/jsx-indent-props": 0,
+		"react/require-default-props": 0,
+		"react/button-has-type": 0,
+		"react/jsx-indent": 0,
+		"react/no-array-index-key": 0,
+		"react/jsx-tag-spacing": 0,
+		"react/jsx-wrap-multilines": 0,
+		"react/jsx-curly-brace-presence": 0,
+		"react/destructuring-assignment": 0,
+		"operator-linebreak": 0,
+		"object-curly-newline": 0,
+		"no-multiple-empty-lines": 0,
+		"no-console": 0,
+		"no-restricted-globals": 0,
+		"prefer-destructuring": 0,
+		"prefer-promise-reject-errors": 0,
+		"function-paren-newline": 0,
+		"no-use-before-define": 0,
+		"arrow-body-style": 0,
+		"arrow-parens": 0,
+		"no-confusing-arrow": 0,
+		"no-alert": 0,
+		"no-plusplus": 0,
+		"one-var-declaration-per-line": 0,
+		"no-shadow": 0,
+		"class-methods-use-this": 0,
+		"no-else-return": 0,
+		"curly": 0,
+		"indent": 0,
+		"max-statements": [1, 50],
+		"max-len": [
+			"error",
+			{
+				"code": 220,
+				"ignoreComments": true
+			}
+		],
+		"no-debugger": "off",
+		"react/jsx-props-no-spreading": [1, {
+			"custom": "ignore"
+		}]
+	}
 }
