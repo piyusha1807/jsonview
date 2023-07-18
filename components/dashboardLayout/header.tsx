@@ -53,7 +53,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const HeaderMenu = ({ onInputVal }) => {
+const HeaderMenu = ({ }) => {
   const { classes, theme } = useStyles();
   const [dropZoneOpened, { open: dropZoneOpen, close: dropZoneClose }] =
     useDisclosure(false);
