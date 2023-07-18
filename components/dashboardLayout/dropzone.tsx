@@ -9,7 +9,8 @@ import {
   IconAlertCircle,
 } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
-import { setInputData } from "@/store/actions/dashboardAction";
+import { setInputData, setOutputData, setInputError } from "@/store/actions/dashboardAction";
+import * as gtag from "../../lib/gtag";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -67,13 +68,34 @@ export function DropzoneButton({ onClose }) {
 
   const handleImport = () => {
     if (uploadStatus === "uploaded" && file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const fileContent = event.target.result;
-        dispatch(setInputData(fileContent));
-        onClose();
-      };
-      reader.readAsText(file);
+      
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const fileContent = event.target.result;
+            dispatch(setInputError(""));
+            dispatch(setInputData(fileContent));
+            onClose();
+      
+            let obj = "";
+            if (fileContent) {
+              obj = JSON.parse(fileContent);
+            }
+            dispatch(setOutputData(obj));
+      
+            gtag.event({
+              action: "import",
+              category: "button",
+              label: "Import",
+              value: "import",
+            });
+          } catch (error) {
+            if (error instanceof Error) {
+              dispatch(setInputError(error.message));
+            }
+          };
+        }
+        reader.readAsText(file);
     }
   };
 

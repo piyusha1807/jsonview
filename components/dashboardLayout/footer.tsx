@@ -5,6 +5,7 @@ import {
   Text,
   rem,
   Button,
+  HoverCard
 } from "@mantine/core";
 import {
   IconUser,
@@ -37,7 +38,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function FooterMenu({ error }) {
+function FooterMenu({ }) {
   const { classes } = useStyles();
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData, inputError, outputData } = dashboard;
@@ -62,15 +63,28 @@ function FooterMenu({ error }) {
           >
             Saved
           </Button>
-          <Button
-            leftIcon={<IconCircleCheck size="1.25rem" />}
-            className={classes.myCustomButton}
-            style={{ backgroundColor: inputError === "" ? "#F03E3E" : "" }}
-            variant="subtle"
-            size="xs"
-          >
-            {inputError === "" ? "Valid Format" : "Invalid Format"}
-          </Button>
+          <Group position="center">
+            <HoverCard width={280} shadow="md">
+              <HoverCard.Target>
+              <Button
+                leftIcon={<IconCircleCheck size="1.25rem" />}
+                className={classes.myCustomButton}
+                style={{ backgroundColor: inputError === "" ? "#2F9E44" : "#E03131" }}
+                variant="subtle"
+                size="xs"
+              >
+                {inputError === "" ? "Valid sdFormat" : "Invalid Format"}
+              </Button>
+              </HoverCard.Target>
+              {inputError && (
+                <HoverCard.Dropdown>
+                  <Text size="sm">
+                    {inputError}
+                  </Text>
+                </HoverCard.Dropdown>
+              )}
+            </HoverCard>
+          </Group>
         </Group>
       </div>
     </div>

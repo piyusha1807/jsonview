@@ -49,11 +49,6 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
 };
 
 function Jsontool({
-  inputVal,
-  outputVal,
-  onInputVal,
-  onOutputVal,
-  onError,
   theme = "dark",
   changeTheme,
 }: any) {
@@ -64,23 +59,15 @@ function Jsontool({
 
   const editorRef: any = useRef(null);
 
-  const handleEditorChange: any = (value: string, event: any) => {
+  const handleEditorChange: any = (value: string) => {
     try {
-      onError("");
-      // const formattedInputVal = prettier.format(value, {
-      //   parser: "json",
-      //   tabWidth: 2,
-      //   printWidth: 30,
-      //   plugins: [parserBabel],
-      // });
+      dispatch(setInputError(""));
       dispatch(setInputData(value));
-      // onInputVal(formattedInputVal);
 
       let obj = "";
       if (value) {
         obj = JSON.parse(value);
       }
-      // onOutputVal(obj);
       dispatch(setOutputData(obj));
 
       gtag.event({
@@ -92,36 +79,6 @@ function Jsontool({
     } catch (error) {
       if (error instanceof Error) {
         dispatch(setInputError(error.message));
-        // onError(error.message);
-        // onOutputVal("");
-        dispatch(setOutputData(""));
-      }
-    }
-  };
-
-  const handleMinify = () => {
-    try {
-      onError("");
-      let minifyInputVal = "";
-      if (inputData) {
-        minifyInputVal = JSON.stringify(JSON.parse(inputData));
-      }
-      onInputVal(minifyInputVal);
-
-      if (minifyInputVal) {
-        minifyInputVal = JSON.parse(minifyInputVal);
-      }
-      onOutputVal(minifyInputVal);
-      gtag.event({
-        action: "minify",
-        category: "button",
-        label: "Minify",
-        value: "minify",
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        onError(error.message);
-        onOutputVal("");
       }
     }
   };
