@@ -25,8 +25,8 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   selectOnLineNumbers: true,
   // renderLineHighlight: "none",
   // overviewRulerBorder: false,
-  wordWrap: "on",
-  wrappingStrategy: "advanced",
+  // wordWrap: "on",
+  // wrappingStrategy: "advanced",
   minimap: {
     enabled: false,
   },
@@ -40,7 +40,7 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
 function Jsontool({ theme = "dark", changeTheme }: any) {
   const dispatch = useDispatch();
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, outputData } = dashboard;
+  const { inputData, outputData, monacoConfig } = dashboard;
   const [initialSizes, setInitialSizes] = useState([40, 60]);
 
   const editorRef: any = useRef(null);
@@ -97,7 +97,7 @@ function Jsontool({ theme = "dark", changeTheme }: any) {
             value={inputData}
             onChange={handleEditorChange}
             onMount={handleEditorDidMount}
-            options={MONACO_OPTIONS}
+            options={{...MONACO_OPTIONS, ...monacoConfig}}
             theme="vs-dark"
           />
         </div>
@@ -105,7 +105,7 @@ function Jsontool({ theme = "dark", changeTheme }: any) {
           {outputData && typeof outputData === "object" && (
             <DynamicReactJson
               src={outputData}
-              theme={theme === "light" ? "rjv-default" : "google"}
+              theme={theme === "light" ? "rjv-default" : "chalk"}
               displayDataTypes={false}
               indentWidth={2}
               collapsed={2}

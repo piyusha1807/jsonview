@@ -12,6 +12,8 @@ import {
   setInputData,
   setInputError,
   setOutputData,
+  setMinifyConfig,
+  setFormatConfig,
 } from "@/store/actions/dashboardAction";
 import prettier from "prettier";
 import parserBabel from "prettier/parser-babel";
@@ -102,6 +104,7 @@ const LeftHeader = ({}) => {
       if (inputData) {
         minifyInputVal = JSON.stringify(JSON.parse(inputData));
       }
+      dispatch(setMinifyConfig());
       dispatch(setInputData(minifyInputVal));
 
       if (minifyInputVal) {
@@ -131,6 +134,7 @@ const LeftHeader = ({}) => {
         plugins: [parserBabel],
       });
       dispatch(setInputError(""));
+      dispatch(setFormatConfig());
       dispatch(setInputData(formattedJSON));
 
       let obj = "";

@@ -2,12 +2,15 @@ import {
   INPUT_DATA,
   OUTPUT_DATA,
   INPUT_ERROR,
+  MINIFY_CONFIG,
+  FORMAT_CONFIG,
 } from "../constants/dashboardConstants";
 
 const dashboardInitialState = {
   inputData: "",
   outputData: "",
   inputError: "",
+  monacoConfig: {}
 };
 
 export const dashboardReducer = (
@@ -30,6 +33,22 @@ export const dashboardReducer = (
       return {
         ...state,
         inputError: payload,
+      };
+    case MINIFY_CONFIG:
+      return {
+        ...state,
+        monacoConfig: {
+          wordWrap: "on",
+          wrappingStrategy: "advanced",
+        },
+      };
+    case FORMAT_CONFIG:
+      return {
+        ...state,
+        monacoConfig: {
+          wordWrap: "off",
+          wrappingStrategy: "simple",
+        },
       };
     default:
       return state;

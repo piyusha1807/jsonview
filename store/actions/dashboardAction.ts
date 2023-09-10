@@ -2,6 +2,8 @@ import {
   INPUT_DATA,
   OUTPUT_DATA,
   INPUT_ERROR,
+  MINIFY_CONFIG,
+  FORMAT_CONFIG,
 } from "../constants/dashboardConstants";
 
 export function setInputData(payload: any) {
@@ -22,5 +24,17 @@ export function setInputError(payload: any) {
   return {
     type: INPUT_ERROR,
     payload,
+  };
+}
+
+export function setMinifyConfig() {
+  return {
+    type: MINIFY_CONFIG,
+  };
+}
+
+export function setFormatConfig() {
+  return {
+    type: FORMAT_CONFIG,
   };
 }
