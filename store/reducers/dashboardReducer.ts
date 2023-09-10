@@ -16,6 +16,7 @@ export const dashboardReducer = (
 ) => {
   switch (type) {
     case INPUT_DATA:
+      localStorage.setItem("input-data", payload);
       return {
         ...state,
         inputData: payload,

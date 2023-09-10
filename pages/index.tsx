@@ -1,27 +1,24 @@
 import Head from "next/head";
-import Image from "next/image";
-// import Jsontool from "@/components/jsontool";
 import DashboardLayout from "@/components/dashboardLayout";
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-
-// const Jsontool = dynamic(
-//   () => {
-//     return import("../components/dashboardLayout/jsontool");
-//   },
-//   { ssr: false }
-// );
-
-// const DashboardLayout = dynamic(
-//   () => {
-//     return import("../components/dashboardLayout");
-//   },
-//   { ssr: false }
-// );
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setInputData,
+  setInputError,
+  setOutputData,
+} from "@/store/actions/dashboardAction";
+import { get } from "@/utils/api";
+import { notifications } from "@mantine/notifications";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { id } = router.query;
   const [theme, setTheme] = useState("dark");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const currentTheme = localStorage.getItem("set-theme");
@@ -31,6 +28,12 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      getData(id);
+    }
+  }, [id]);
+
   const handleThemeChange = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -38,6 +41,37 @@ export default function Home() {
     } else {
       setTheme("light");
       localStorage.setItem("set-theme", "light");
+    }
+  };
+
+  const getData = async (id) => {
+    try {
+      setIsLoading(true);
+      const response = await get(`/api/getFile/?id=${id}`);
+
+      handleEditorChange(response.data.json);
+      // notifications.show({ message: response.message, color: "green" });
+    } catch (error) {
+      notifications.show({ message: error.message, color: "red" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEditorChange: any = (value: string) => {
+    try {
+      dispatch(setInputError(""));
+      dispatch(setInputData(value));
+
+      let obj = "";
+      if (value) {
+        obj = JSON.parse(value);
+      }
+      dispatch(setOutputData(obj));
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setInputError(error.message));
+      }
     }
   };
 
