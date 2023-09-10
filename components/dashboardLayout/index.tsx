@@ -1,15 +1,13 @@
-import HeaderMenu from "./header";
-import FooterMenu from "./footer";
-import Jsontool from "./jsontool";
+import HeaderMenu from "../header";
+import FooterMenu from "../footer";
+import Jsontool from "../jsontool";
 import { Box } from "@mantine/core";
-import { useState } from "react";
 
 const DashboardLayout = ({ children }: any) => {
-
   return (
     <Box>
       <HeaderMenu />
-      <Jsontool  />
+      <Jsontool />
       <FooterMenu />
     </Box>
   );

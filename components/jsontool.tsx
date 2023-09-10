@@ -1,14 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import prettier from "prettier";
-import parserBabel from "prettier/parser-babel";
-import ReactJson from "react-json-view";
-import CodeMirror from "@uiw/react-codemirror";
 import Editor from "@monaco-editor/react";
-import { EditorView } from "@codemirror/view";
-import { json as jsonLang } from "@codemirror/lang-json";
 import * as monaco from "monaco-editor";
 import Split from "react-split";
-import * as gtag from "../../lib/gtag";
+import * as gtag from "../lib/gtag";
 import styled from "@/styles/Home.module.css";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,15 +16,6 @@ const DynamicReactJson = dynamic(() => import("react-json-view"), {
   ssr: false, // Render only on the client-side
 });
 
-const borderRadius = EditorView.theme({
-  "&": {
-    outline: "none !important",
-  },
-  // "&.ͼ2 .cm-gutters": {
-  //   backgroundColor: "#c1c1c1",
-  // },
-});
-
 const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   autoIndent: "full",
   automaticLayout: true,
@@ -38,6 +23,10 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   hideCursorInOverviewRuler: true,
   matchBrackets: "always",
   selectOnLineNumbers: true,
+  // renderLineHighlight: "none",
+  // overviewRulerBorder: false,
+  wordWrap: "on",
+  wrappingStrategy: "advanced",
   minimap: {
     enabled: false,
   },
@@ -48,16 +37,17 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   },
 };
 
-function Jsontool({
-  theme = "dark",
-  changeTheme,
-}: any) {
+function Jsontool({ theme = "dark", changeTheme }: any) {
   const dispatch = useDispatch();
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData, outputData } = dashboard;
   const [initialSizes, setInitialSizes] = useState([40, 60]);
 
   const editorRef: any = useRef(null);
+
+  useEffect(() => {
+    handleEditorChange(inputData);
+  }, []);
 
   const handleEditorChange: any = (value: string) => {
     try {
@@ -98,7 +88,7 @@ function Jsontool({
         sizes={initialSizes}
         onDragEnd={handleResize}
         direction="horizontal"
-        gutterSize={2}
+        gutterSize={5}
       >
         <div className={styled.inputArea}>
           <Editor
