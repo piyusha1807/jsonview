@@ -14,6 +14,8 @@ import {
   IconCloudCheck,
   IconCloud,
   IconDatabase,
+  IconCloudLockOpen,
+  IconCloudLock,
 } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
@@ -49,21 +51,21 @@ function FooterMenu() {
   const { data: session, status }: any = useSession();
 
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, inputError, outputData, savedData, fileData } = dashboard;
+  const { inputData, inputError, outputData, savedFileData } = dashboard;
 
   const [authOpened, { open: authOpen, close: authClose }] =
     useDisclosure(false);
 
   
-  function checkPublicPrivate() {
+  function isFilePublic() {
     if(status !== 'authenticated') {
-      return 'Public'
+      return true
     }
-    else if(fileData.globalView.view || fileData.globalView.edit){
-      return 'Public'
+    else if(savedFileData?.globalView || savedFileData.globalEdit){
+      return true
     }
 
-    return 'Private'
+    return false
   }
 
   return (
@@ -81,20 +83,20 @@ function FooterMenu() {
               {session ? session.user.name : "Login"}
             </Button>
             <Button
-              leftIcon={inputData === savedData ? <IconCloudCheck size="1.25rem" /> : <IconCloud size="1.25rem" />}
+              leftIcon={inputData === savedFileData?.json ? <IconCloudCheck size="1.25rem" /> : <IconCloud size="1.25rem" />}
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              {inputData === savedData ? 'Saved' : 'Not Saved'}
+              {inputData === savedFileData?.json ? 'Saved' : 'Not Saved'}
             </Button>
             <Button
-              leftIcon={<IconCloudCheck size="1.25rem" />}
+              leftIcon={isFilePublic() ? <IconCloudLockOpen size="1.25rem" /> : <IconCloudLock size="1.25rem" />}
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              {checkPublicPrivate()}
+              {isFilePublic() ? 'Public' : 'Private'}
             </Button>
             <Group position="center">
               <HoverCard width={280} shadow="md" withArrow>

@@ -6,11 +6,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setFileData,
   setInputData,
   setInputError,
   setOutputData,
-  setSavedData,
+  setSavedFileData,
 } from "@/store/actions/dashboardAction";
 import { get } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
@@ -52,7 +51,7 @@ export default function Home() {
       const { data } = await get(`/api/getFile/?id=${id}`);
 
       handleEditorChange(data.json);
-      dispatch(setFileData(data))
+      dispatch(setSavedFileData(data))
       // notifications.show({ message: response.message, color: "green" });
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });
@@ -65,7 +64,6 @@ export default function Home() {
     try {
       dispatch(setInputError(""));
       dispatch(setInputData(value));
-      dispatch(setSavedData(value));
 
       let obj = "";
       if (value) {

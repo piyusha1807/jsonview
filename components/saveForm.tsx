@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
-import { setSavedData } from "@/store/actions/dashboardAction";
+import { setSavedFileData } from "@/store/actions/dashboardAction";
 
 export function SaveForm({ opened, open, close }: any) {
   const dashboard = useSelector((state: any) => state.dashboard);
@@ -54,7 +54,7 @@ export function SaveForm({ opened, open, close }: any) {
         pathname: "/",
         query: { id: response.data.id },
       });
-      dispatch(setSavedData(inputData));
+      dispatch(setSavedFileData({json: inputData}));
       notifications.show({ message: response.message, color: "green" });
       form.reset();
     } catch (error) {
