@@ -4,11 +4,27 @@ import {
   INPUT_ERROR,
   MINIFY_CONFIG,
   FORMAT_CONFIG,
+  SAVED_DATA,
+  FILE_DATA,
 } from "../constants/dashboardConstants";
 
 export function setInputData(payload: any) {
   return {
     type: INPUT_DATA,
+    payload,
+  };
+}
+
+export function setSavedData(payload: any) {
+  return {
+    type: SAVED_DATA,
+    payload,
+  };
+}
+
+export function setFileData(payload: any) {
+  return {
+    type: FILE_DATA,
     payload,
   };
 }

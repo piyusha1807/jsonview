@@ -36,7 +36,7 @@
 
 .outputArea {
     width: 100%;
-    background-color: #25262B;
+    background-color: #25262b;
 }
 
 .outputError {
@@ -45,23 +45,6 @@
     border-radius: 8px;
     color: var(--color);
     background-color: var(--output-error-background-color);
-}
-
-.controls__button {
-    cursor: pointer;
-    padding: 4px;
-    border: 1px solid var(--button-border-color);
-    border-radius: 5px;
-    background-color: var(--button-background);
-    color: var(--color);
-    box-sizing: border-box;
-    font-size: 12px;
-}
-
-.controls__button:hover {
-    border-color: var(--button-border-color-hover);
-    background-color: var(--button-background-color-hover);
-    color: var(--button-color-hover);
 }
 
 @media (max-width:400px) {

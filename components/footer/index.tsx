@@ -12,6 +12,7 @@ import {
   IconUser,
   IconCircleCheck,
   IconCloudCheck,
+  IconCloud,
   IconDatabase,
 } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,10 +49,22 @@ function FooterMenu() {
   const { data: session, status }: any = useSession();
 
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, inputError, outputData } = dashboard;
+  const { inputData, inputError, outputData, savedData, fileData } = dashboard;
 
   const [authOpened, { open: authOpen, close: authClose }] =
     useDisclosure(false);
+
+  
+  function checkPublicPrivate() {
+    if(status !== 'authenticated') {
+      return 'Public'
+    }
+    else if(fileData.globalView.view || fileData.globalView.edit){
+      return 'Public'
+    }
+
+    return 'Private'
+  }
 
   return (
     <>
@@ -68,12 +81,12 @@ function FooterMenu() {
               {session ? session.user.name : "Login"}
             </Button>
             <Button
-              leftIcon={<IconCloudCheck size="1.25rem" />}
+              leftIcon={inputData === savedData ? <IconCloudCheck size="1.25rem" /> : <IconCloud size="1.25rem" />}
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              Saved
+              {inputData === savedData ? 'Saved' : 'Not Saved'}
             </Button>
             <Button
               leftIcon={<IconCloudCheck size="1.25rem" />}
@@ -81,7 +94,7 @@ function FooterMenu() {
               variant="subtle"
               size="xs"
             >
-              Public
+              {checkPublicPrivate()}
             </Button>
             <Group position="center">
               <HoverCard width={280} shadow="md" withArrow>
