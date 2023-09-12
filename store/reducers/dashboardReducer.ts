@@ -4,13 +4,12 @@ import {
   INPUT_ERROR,
   MINIFY_CONFIG,
   FORMAT_CONFIG,
-  SAVED_DATA,
-  FILE_DATA,
+  SAVED_FILE_DATA,
 } from "../constants/dashboardConstants";
 
 const dashboardInitialState = {
   inputData: "",
-  savedData: "",
+  savedFileData: {},
   outputData: "",
   inputError: "",
   monacoConfig: {}
@@ -27,15 +26,10 @@ export const dashboardReducer = (
         ...state,
         inputData: payload,
       };
-    case SAVED_DATA:
+    case SAVED_FILE_DATA:
       return {
         ...state,
-        savedData: payload,
-      };
-    case FILE_DATA:
-      return {
-        ...state,
-        savedData: payload,
+        savedFileData: {...payload},
       };
     case OUTPUT_DATA:
       return {

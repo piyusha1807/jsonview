@@ -14,7 +14,7 @@ import {
   setOutputData,
   setMinifyConfig,
   setFormatConfig,
-  setSavedData,
+  setSavedFileData,
 } from "@/store/actions/dashboardAction";
 import prettier from "prettier";
 import parserBabel from "prettier/parser-babel";
@@ -174,7 +174,8 @@ const LeftHeader = ({}) => {
         query: { id: response.data.id },
       });
 
-      dispatch(setSavedData(inputData));
+      dispatch(setSavedFileData({json: inputData}));
+      
       type === "update"
         ? notifications.show({ message: response.message, color: "green" })
         : saveMessageOpen();
