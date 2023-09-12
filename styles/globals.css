@@ -80,3 +80,7 @@ body {
 .json-view-container {
   background-color: #25262B;
 }
+
+.react-json-view {
+  background-color: #25262B !important; /* Change this to your desired background color */
+}

@@ -29,9 +29,20 @@ export default async function handler(req, res) {
           .json({ error: "You do not have permission to view this file" });
       }
 
+      const modifiedResult =  {
+          id: result._id,
+          fileName: result.fileName,
+          comments: result.comments,
+          json: result.json,
+          createdAt: result.createdAt,
+          lastModifiedAt: result.lastModifiedAt,
+          globalView: result?.globalAccess?.view,
+          globalEdit: result?.globalAccess?.edit,
+      };
+
       res.status(201).json({
         message: "Data fetch successfully",
-        data: result,
+        data: modifiedResult,
       });
     } catch (error) {
       console.log(error);

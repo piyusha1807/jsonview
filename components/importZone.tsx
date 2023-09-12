@@ -11,6 +11,7 @@ import {
   setInputData,
   setOutputData,
   setInputError,
+  setFormatConfig,
 } from "@/store/actions/dashboardAction";
 import * as gtag from "../lib/gtag";
 
@@ -75,6 +76,7 @@ export function ImportZone({ opened, open, close }) {
         try {
           const fileContent = event.target.result;
           dispatch(setInputError(""));
+          dispatch(setFormatConfig());
           dispatch(setInputData(fileContent));
           close();
 

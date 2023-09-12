@@ -11,16 +11,18 @@ import {
   Modal,
   Space,
 } from "@mantine/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
+import { setSavedData } from "@/store/actions/dashboardAction";
 
 export function SaveForm({ opened, open, close }: any) {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData } = dashboard;
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
@@ -52,6 +54,7 @@ export function SaveForm({ opened, open, close }: any) {
         pathname: "/",
         query: { id: response.data.id },
       });
+      dispatch(setSavedData(inputData));
       notifications.show({ message: response.message, color: "green" });
       form.reset();
     } catch (error) {
