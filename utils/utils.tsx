@@ -1,4 +1,4 @@
-export function formatTimestamp(timestamp) {
+export function formatTimestamp(timestamp):any {
   if (!timestamp) {
     return "";
   }

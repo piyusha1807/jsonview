@@ -5,6 +5,7 @@ import {
   MINIFY_CONFIG,
   FORMAT_CONFIG,
   SAVED_FILE_DATA,
+  SETTINGS_CONFIG,
 } from "../constants/dashboardConstants";
 
 export function setInputData(payload: any) {
@@ -44,5 +45,12 @@ export function setMinifyConfig() {
 export function setFormatConfig() {
   return {
     type: FORMAT_CONFIG,
+  };
+}
+
+export function setSettingsConfig(payload: any) {
+  return {
+    type: SETTINGS_CONFIG,
+    payload,
   };
 }

@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, ColorSchemeProvider, ColorScheme } from "@mantine/core";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { Provider } from "react-redux";
+import { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { SessionProvider } from "next-auth/react";
 import store from "../store";
 import * as gtag from "../lib/gtag";
@@ -14,6 +14,17 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const router = useRouter();
+
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    
+    if(theme) {
+      setColorScheme(theme);
+    }
+  }, []);
+
   useEffect(() => {
     const handleRouteChange = (url: any) => {
       gtag.pageview(url);
@@ -24,21 +35,26 @@ export default function App({
     };
   }, [router.events]);
 
+  const toggleColorScheme = () => {
+    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+  }
+
   return (
     <>
       <SessionProvider session={session}>
         <Provider store={store}>
+          <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider
+            theme={{
+              colorScheme: colorScheme,
+            }}
             withGlobalStyles
             withNormalizeCSS
-            theme={{
-              /** Put your mantine theme override here */
-              colorScheme: "dark",
-            }}
           >
-            <Notifications position="top-right" style={{}} />
-            <Component {...pageProps} />
+            <Notifications position="top-right" />
+            <Component {...pageProps}/>
           </MantineProvider>
+          </ColorSchemeProvider>
         </Provider>
       </SessionProvider>
     </>

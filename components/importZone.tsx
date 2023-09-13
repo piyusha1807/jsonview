@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === "dark"
         ? theme.colors.dark[3]
-        : theme.colors.gray[4],
+        : theme.colors.gray[5],
   },
 
   control: {
@@ -131,11 +131,7 @@ export function ImportZone({ opened, open, close }) {
                 <Dropzone.Idle>
                   <IconCloudUpload
                     size={rem(50)}
-                    color={
-                      theme.colorScheme === "dark"
-                        ? theme.colors.dark[0]
-                        : theme.black
-                    }
+                    className={classes.icon}
                     stroke={1.5}
                   />
                 </Dropzone.Idle>

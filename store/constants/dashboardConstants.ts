@@ -4,3 +4,4 @@ export const OUTPUT_DATA = "OUTPUT_DATA";
 export const INPUT_ERROR = "INPUT_ERROR";
 export const MINIFY_CONFIG = "MINIFY_CONFIG";
 export const FORMAT_CONFIG = "FORMAT_CONFIG";
+export const SETTINGS_CONFIG = "SETTINGS_CONFIG";
