@@ -5,6 +5,7 @@ import {
   MINIFY_CONFIG,
   FORMAT_CONFIG,
   SAVED_FILE_DATA,
+  SETTINGS_CONFIG,
 } from "../constants/dashboardConstants";
 
 const dashboardInitialState = {
@@ -12,7 +13,8 @@ const dashboardInitialState = {
   savedFileData: {},
   outputData: "",
   inputError: "",
-  monacoConfig: {}
+  monacoConfig: {},
+  settingsConfig: {}
 };
 
 export const dashboardReducer = (
@@ -55,6 +57,13 @@ export const dashboardReducer = (
         monacoConfig: {
           wordWrap: "off",
           wrappingStrategy: "simple",
+        },
+      };
+    case SETTINGS_CONFIG:
+      return {
+        ...state,
+        settingsConfig: {
+          ...payload
         },
       };
     default:

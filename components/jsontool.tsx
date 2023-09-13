@@ -3,7 +3,6 @@ import Editor from "@monaco-editor/react";
 import * as monaco from "monaco-editor";
 import Split from "react-split";
 import * as gtag from "../lib/gtag";
-import styled from "@/styles/Home.module.css";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +10,7 @@ import {
   setInputError,
   setOutputData,
 } from "@/store/actions/dashboardAction";
+import { Box, useMantineColorScheme } from "@mantine/core";
 
 const DynamicReactJson = dynamic(() => import("react-json-view"), {
   ssr: false, // Render only on the client-side
@@ -37,12 +37,12 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   },
 };
 
-function Jsontool({ theme = "dark", changeTheme }: any) {
+function Jsontool() {
   const dispatch = useDispatch();
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, outputData, monacoConfig } = dashboard;
+  const { inputData, outputData, monacoConfig, settingsConfig } = dashboard;
+  const { colorScheme } = useMantineColorScheme();
   const [initialSizes, setInitialSizes] = useState([40, 60]);
-
   const editorRef: any = useRef(null);
 
   useEffect(() => {
@@ -82,15 +82,14 @@ function Jsontool({ theme = "dark", changeTheme }: any) {
   };
 
   return (
-    <div>
       <Split
-        className={styled.container}
+        className="container"
         sizes={initialSizes}
         onDragEnd={handleResize}
         direction="horizontal"
         gutterSize={5}
       >
-        <div className={styled.inputArea}>
+        <div className="inputArea">
           <Editor
             height="100%"
             language="json"
@@ -98,14 +97,14 @@ function Jsontool({ theme = "dark", changeTheme }: any) {
             onChange={handleEditorChange}
             onMount={handleEditorDidMount}
             options={{...MONACO_OPTIONS, ...monacoConfig}}
-            theme="vs-dark"
+            theme={colorScheme === "light" ? "light" : "vs-dark"}
           />
         </div>
-        <div className={styled.outputArea}>
+        <div className="outputArea">
           {outputData && typeof outputData === "object" && (
             <DynamicReactJson
               src={outputData}
-              theme={theme === "light" ? "rjv-default" : "chalk"}
+              theme={colorScheme === "light" ? "rjv-default" : "chalk"}
               displayDataTypes={false}
               indentWidth={2}
               collapsed={2}
@@ -120,7 +119,6 @@ function Jsontool({ theme = "dark", changeTheme }: any) {
           )}
         </div>
       </Split>
-    </div>
   );
 }
 

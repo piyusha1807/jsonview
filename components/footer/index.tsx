@@ -25,8 +25,9 @@ import { UserInfo } from "../userInfo";
 
 const useStyles = createStyles((theme) => ({
   footer: {
-    backgroundColor: theme.colors.dark[7],
-    borderTop: `${rem(1)} solid ${theme.colors.dark[4]}`,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
+    borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
+    height: '25px'
   },
   inner: {
     display: "flex",
@@ -34,14 +35,14 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
   },
   myCustomButton: {
-    color: theme.colors.dark[0],
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
     fontWeight: 300,
     fontSize: theme.fontSizes.xs,
     borderRadius: 0,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colors.dark[6],
-      color: theme.colors.dark[1],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
     }),
   },
 }));
@@ -74,7 +75,7 @@ function FooterMenu() {
         <div className={classes.inner}>
           <Group spacing={0} position="left" noWrap>
             <Button
-              leftIcon={<IconUser size="1.25rem" />}
+              leftIcon={<IconUser size="1rem" />}
               className={classes.myCustomButton}
               onClick={authOpen}
               variant="subtle"
@@ -83,7 +84,7 @@ function FooterMenu() {
               {session ? session.user.name : "Login"}
             </Button>
             <Button
-              leftIcon={inputData === savedFileData?.json ? <IconCloudCheck size="1.25rem" /> : <IconCloud size="1.25rem" />}
+              leftIcon={inputData === savedFileData?.json ? <IconCloudCheck size="1rem" /> : <IconCloud size="1rem" />}
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
@@ -91,7 +92,7 @@ function FooterMenu() {
               {inputData === savedFileData?.json ? 'Saved' : 'Not Saved'}
             </Button>
             <Button
-              leftIcon={isFilePublic() ? <IconCloudLockOpen size="1.25rem" /> : <IconCloudLock size="1.25rem" />}
+              leftIcon={isFilePublic() ? <IconCloudLockOpen size="1rem" /> : <IconCloudLock size="1rem" />}
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
@@ -102,10 +103,11 @@ function FooterMenu() {
               <HoverCard width={280} shadow="md" withArrow>
                 <HoverCard.Target>
                   <Button
-                    leftIcon={<IconCircleCheck size="1.25rem" />}
+                    leftIcon={<IconCircleCheck size="1rem" />}
                     className={classes.myCustomButton}
                     style={{
                       backgroundColor: inputError === "" ? "" : "#E03131",
+                      color: inputError === "" ? "" : "#E9ECEF",
                     }}
                     variant="subtle"
                     size="xs"

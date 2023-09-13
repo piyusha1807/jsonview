@@ -25,10 +25,10 @@ import { Share } from "../share";
 
 const useStyles = createStyles((theme) => ({
   customButton: {
-    color: theme.colors.dark[0],
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
 
     ...theme.fn.hover({
-      backgroundColor: theme.colors.dark[6],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
     }),
   },
 }));

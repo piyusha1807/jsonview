@@ -1,32 +1,11 @@
 .light {
-  --color: #000000e0;
-  --background-color: #d9d9d9;
-  --background-color-secondary: #f5f5f5;
-  --background-gradient: linear-gradient(0deg, #afafaf33, #afafaf33),
-  linear-gradient(180deg, #d9d9d900 0%, #D9D9D9 98.96%);
-  --button-background: #f2f2f7;
-  --button-border-color :#c7c7cc;
-  --button-border-color-hover: #aeaeb2; 
-  --button-background-color-hover: #e5e5ea;
-  --button-color-hover: #000000;
-  --output-error-background-color: #ff0000;
-  --scrollbar-track: #F1F1F1;
-  --scrollbar-thumb: #c1c1c1;
+  --gutter-background-color: #E9ECEF;
+  --output-background-color: #F1F3F5;
 }
 
 .dark {
-  --color: #FAFAFA;
-  --background-color: #212121;
-  --background-color-secondary: #232C31;
-  --background-gradient: #212121;
-  --button-background: #757575;
-  --button-border-color :#616161;
-  --button-color-hover: #F5F5F5;
-  --button-background-color-hover: #616161;
-  --button-border-color-hover: #424242; 
-  --output-error-background-color: #212121;
-  --scrollbar-track: #616161;
-  --scrollbar-thumb: #424242;
+  --gutter-background-color: #1A1B1E;
+  --output-background-color: #25262B;
 }
 
 * {
@@ -34,30 +13,36 @@
   font-size: small
 }
 
-Works on Firefox
-* {
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: inherit;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-}
-
 body {
   margin: 0;
+  height: 100vh;
+}
+
+.parent-box {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  /* font-family: "MonoLisa, Menlo, Monaco, "Courier New", monospace" !important;
+  font-weight: normal !important;
+  font-size: 14px !important; */
+  /* font-feature-settings: "liga" 0, "calt" 0 !important; */
+  /* line-height: 19px !important; */
+  /* letter-spacing: 0px !important; */
+}
+
+.inputArea {
+  width: 100%;
 }
 
 .gutter {
-  background-color: var(--background-color);
+  background-color: var(--gutter-background-color);
   background-repeat: no-repeat;
   background-position: 50%;
 }
@@ -72,15 +57,11 @@ body {
   background-color: #4DABF7;
 }
 
-
-.monaco-editor.vs-dark {
-  background-color: #1A1B1E;
+.outputArea {
+  width: 100%;
+  background-color: var(--output-background-color);;
 }
 
-.json-view-container {
-  background-color: #25262B;
-}
-
-.react-json-view {
-  background-color: #25262B !important; /* Change this to your desired background color */
+.outputArea .react-json-view {
+  background-color: var(--output-background-color) !important;
 }

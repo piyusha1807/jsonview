@@ -13,37 +13,20 @@ import {
 } from "@/store/actions/dashboardAction";
 import { get } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
+import { useMantineColorScheme } from "@mantine/core";
 
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  const [theme, setTheme] = useState("dark");
+  const { colorScheme } = useMantineColorScheme();
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("set-theme");
-
-    if (currentTheme) {
-      setTheme(currentTheme);
-    }
-  }, []);
 
   useEffect(() => {
     if (id) {
       getData(id);
     }
   }, [id]);
-
-  const handleThemeChange = () => {
-    if (theme === "light") {
-      setTheme("dark");
-      localStorage.setItem("set-theme", "dark");
-    } else {
-      setTheme("light");
-      localStorage.setItem("set-theme", "light");
-    }
-  };
 
   const getData = async (id) => {
     try {
@@ -94,7 +77,7 @@ export default function Home() {
         <meta name="robots" content="noindex, nofollow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={theme}>
+      <main className={colorScheme}>
         <DashboardLayout />
       </main>
     </>

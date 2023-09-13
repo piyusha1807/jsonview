@@ -5,7 +5,7 @@ import { Box } from "@mantine/core";
 
 const DashboardLayout = ({ children }: any) => {
   return (
-    <Box>
+    <Box className="parent-box">
       <HeaderMenu />
       <Jsontool />
       <FooterMenu />

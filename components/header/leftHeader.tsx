@@ -32,11 +32,11 @@ import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   linkButton: {
-    color: theme.colors.dark[0],
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[8],
     fontWeight: 400,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colors.dark[6],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
     }),
   },
 }));
