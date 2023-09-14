@@ -17,6 +17,8 @@ const DynamicReactJson = dynamic(() => import("react-json-view"), {
 });
 
 const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
+  fontFamily: "MonoLisa, monospace",
+  fontSize: 14,
   autoIndent: "full",
   automaticLayout: true,
   contextmenu: true,
@@ -92,6 +94,7 @@ function Jsontool() {
         <div className="inputArea">
           <Editor
             height="100%"
+            className="editor"
             language="json"
             value={inputData}
             onChange={handleEditorChange}

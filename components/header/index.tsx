@@ -13,12 +13,14 @@ const HeaderMenu = ({}) => {
   const { classes } = useStyles();
 
   return (
+    <div>
       <Header className={classes.customHeader} height={50} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           <LeftHeader />
           <RightHeader />
         </Group>
       </Header>
+      </div>
   );
 };
 
