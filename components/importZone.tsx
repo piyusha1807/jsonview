@@ -14,6 +14,8 @@ import {
   setFormatConfig,
 } from "@/store/actions/dashboardAction";
 import * as gtag from "../lib/gtag";
+import prettier from "prettier";
+import parserBabel from "prettier/parser-babel";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -72,12 +74,18 @@ export function ImportZone({ opened, open, close }) {
   const handleImport = () => {
     if (uploadStatus === "uploaded" && file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = (event: any) => {
         try {
           const fileContent = event.target.result;
+          const formattedJSON = prettier.format(fileContent, {
+            parser: "json",
+            tabWidth: 2,
+            printWidth: 30,
+            plugins: [parserBabel],
+          });
           dispatch(setInputError(""));
           dispatch(setFormatConfig());
-          dispatch(setInputData(fileContent));
+          dispatch(setInputData(formattedJSON));
           close();
 
           let obj = "";

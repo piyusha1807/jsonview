@@ -68,16 +68,10 @@ const LeftHeader = ({}) => {
 
   const handleDownload = () => {
     try {
-      const formattedJSON = prettier.format(inputData, {
-        parser: "json",
-        tabWidth: 4,
-        printWidth: 30,
-        plugins: [parserBabel],
-      });
       // const jsonData = JSON.stringify(data, null, 2);
 
       // Create a Blob object with the JSON data
-      const blob = new Blob([formattedJSON], { type: "application/json" });
+      const blob = new Blob([inputData], { type: "application/json" });
 
       // Create a temporary URL for the Blob
       const url = URL.createObjectURL(blob);
@@ -130,7 +124,7 @@ const LeftHeader = ({}) => {
     try {
       const formattedJSON = prettier.format(inputData, {
         parser: "json",
-        tabWidth: 4,
+        tabWidth: 2,
         printWidth: 30,
         plugins: [parserBabel],
       });

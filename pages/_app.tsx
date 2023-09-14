@@ -46,6 +46,9 @@ export default function App({
           <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider
             theme={{
+              fontFamily: 'Source Sans Pro, sans-serif',
+              fontFamilyMonospace: 'Source Sans Pro, sans-serif',
+              headings: { fontFamily: 'Source Sans Pro, sans-serif' },
               colorScheme: colorScheme,
             }}
             withGlobalStyles

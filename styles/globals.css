@@ -9,8 +9,7 @@
 }
 
 * {
-  font-family: Inter, sans-serif;
-  font-size: small
+  font-size: 13px;
 }
 
 body {
@@ -27,14 +26,8 @@ body {
 .container {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: calc(100vh - 66px);
   width: 100%;
-  /* font-family: "MonoLisa, Menlo, Monaco, "Courier New", monospace" !important;
-  font-weight: normal !important;
-  font-size: 14px !important; */
-  /* font-feature-settings: "liga" 0, "calt" 0 !important; */
-  /* line-height: 19px !important; */
-  /* letter-spacing: 0px !important; */
 }
 
 .inputArea {
@@ -59,9 +52,10 @@ body {
 
 .outputArea {
   width: 100%;
-  background-color: var(--output-background-color);;
+  background-color: var(--output-background-color);
 }
 
 .outputArea .react-json-view {
   background-color: var(--output-background-color) !important;
+  font-family: MonoLisa, monospace !important;
 }
