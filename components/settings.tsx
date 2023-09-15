@@ -1,7 +1,12 @@
-import { Modal, Switch, useMantineColorScheme } from "@mantine/core";
+import { setSettingsConfig } from "@/store/actions/dashboardAction";
+import { Modal, Stack, Switch, useMantineColorScheme } from "@mantine/core";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Settings({ opened, open, close }) {
+  const dispatch = useDispatch();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { displayChildrenCount } = useSelector((state: any) => state.dashboard.settingsConfig)
+
   const light = colorScheme === 'light';
 
   const handleThemeChange =(e) => {
@@ -11,20 +16,22 @@ export function Settings({ opened, open, close }) {
 
   return (
     <Modal opened={opened} onClose={close} title="Settings" centered>
+      <Stack>
+
       <Switch
+        size="md"
         label="Light Theme"
         checked={light}
         onChange={(e) => handleThemeChange(e.currentTarget.checked)}
       />
-        <Switch
-          label="Live Preview"
-        />
       <Switch
+        size="md"
         label="Display Children Count"
-        // description="Toggle this switch to make the file accessible to everyone."
-        // checked={}
-        // onClick={() =>}
+        checked={displayChildrenCount}
+        onChange={(e) => dispatch(setSettingsConfig({displayChildrenCount : e.currentTarget.checked}))}
       />
+      </Stack>
+
     </Modal>
   );
 }

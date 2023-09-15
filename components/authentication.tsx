@@ -12,12 +12,13 @@ import {
   Checkbox,
   Anchor,
   Stack,
+  Modal,
 } from "@mantine/core";
 import { GoogleButton, GithubButton } from "./socialButtons/socialButtons";
 import register from "../pages/api/register";
 import { signIn, signOut } from "next-auth/react";
 
-export function AuthenticationForm(props: PaperProps) {
+export function AuthenticationForm({ opened, open, close }) {
   const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
     initialValues: {
@@ -80,6 +81,7 @@ export function AuthenticationForm(props: PaperProps) {
   };
 
   return (
+    <Modal opened={opened} onClose={close} centered>
     <Paper radius="md" p="xl" withBorder>
       <Text size="lg" weight={500}>
         Welcome to JSON Viewer, {type} with
@@ -166,5 +168,6 @@ export function AuthenticationForm(props: PaperProps) {
         </Group>
       </form>
     </Paper>
+    </Modal>
   );
 }

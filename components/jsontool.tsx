@@ -77,6 +77,7 @@ function Jsontool() {
 
   const handleEditorDidMount = (editor: any, monaco: any) => {
     editorRef.current = editor;
+    editor.updateOptions({ tabSize: 2 });
   };
 
   const handleResize = (sizes: any) => {
@@ -114,6 +115,7 @@ function Jsontool() {
               enableClipboard={false}
               groupArraysAfterLength={0}
               quotesOnKeys={false}
+              displayObjectSize={settingsConfig?.displayChildrenCount ?? true}
               style={{
                 height: "100%",
                 overflow: "auto",

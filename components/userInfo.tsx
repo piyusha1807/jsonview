@@ -5,13 +5,17 @@ import {
   Button,
   Divider,
   Avatar,
+  Modal,
 } from "@mantine/core";
 import { useSession, signOut } from "next-auth/react";
 
-export function UserInfo(props: PaperProps) {
+export function UserInfo({ opened, open, close }) {
   const { data: session }: any = useSession();
 
+  if(!session) return <></>;
+
   return (
+    <Modal opened={opened} onClose={close} centered>
     <Paper
       radius="md"
       withBorder
@@ -39,5 +43,6 @@ export function UserInfo(props: PaperProps) {
         Logout
       </Button>
     </Paper>
+    </Modal>
   );
 }
