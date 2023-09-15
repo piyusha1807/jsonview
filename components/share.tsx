@@ -5,6 +5,7 @@ import {
   Input,
   Modal,
   Paper,
+  SegmentedControl,
   Select,
   Stack,
   Text,
@@ -29,33 +30,45 @@ export function Share({ opened, open, close }) {
     } catch (error) {}
   };
   return (
-    <Modal size="lg" opened={opened} onClose={close} title="Share" centered>
+    <Modal size="md" opened={opened} onClose={close} centered>
       <Stack>
-        <Text size="lg" weight={500}>
+      <Flex justify="space-between" align="center">
+        <Text size="lg" weight={500}>Share File</Text>
+        <SegmentedControl
+          data={[
+            { label: 'Private', value: 'private' },
+            { label: 'Public', value: 'public' },
+          ]}
+        />
+      </Flex>
+      <Paper p="xl" withBorder>
+      <Stack>
+        
           <Flex justify="flex-start" align="center" columnGap="0.5rem">
-            <IconWorld size="1rem" /> Everyone with this link can edit
+            <IconWorld size="1.25rem" /> <Text size="lg" weight={500}>Everyone with this link can edit</Text>
           </Flex>
-        </Text>
-
-        <Flex
-          justify="flex-start"
-          align="center"
-          style={{ paddingBottom: "8rem" }}
-        >
-          <Input
-            icon={<IconUsersGroup size="1rem" />}
-            value="Everyone"
-            readOnly
+        
+        <Flex justify="space-between" align="center">
+          <Text size="lg" weight={500}>Permission</Text>
+          <SegmentedControl
+            data={[
+              { label: 'Edit', value: 'edit' },
+              { label: 'View', value: 'view' },
+            ]}
           />
-          <Select
+        </Flex>
+          {/* <Select
             data={[
               { value: "edit", label: "Edit (Make any changes)" },
               { value: "view", label: "View (Cannot make changes)" },
             ]}
-          />
-        </Flex>
-        <Divider labelPosition="center" my="lg" />
+          /> */}
+          </Stack>
+          </Paper>
         <Flex justify="flex-end" align="center">
+          <Button size="sm" onClick={handleCopy}>
+            Save Changes
+          </Button>
           <Button size="sm" onClick={handleCopy}>
             {isUrlCopied ? "Copied!" : "Copy link"}
           </Button>

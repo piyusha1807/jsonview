@@ -14,7 +14,9 @@ const dashboardInitialState = {
   outputData: "",
   inputError: "",
   monacoConfig: {},
-  settingsConfig: {}
+  settingsConfig: {
+    displayChildrenCount: true,
+  }
 };
 
 export const dashboardReducer = (

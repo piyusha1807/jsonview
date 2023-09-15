@@ -112,7 +112,7 @@ const RightHeader = ({}) => {
   return (
     <>
       <Group>
-        {status === "authenticated" && (
+        {status !== "authenticated" && (
           // <Popover width={300} position="bottom" withArrow shadow="md">
           //   <Popover.Target>
           //     <Button

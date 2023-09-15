@@ -22,6 +22,7 @@ import { useSession } from "next-auth/react";
 import { useDisclosure } from "@mantine/hooks";
 import { AuthenticationForm } from "../authentication";
 import { UserInfo } from "../userInfo";
+import { Feedback } from "../feedback";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -54,7 +55,11 @@ function FooterMenu() {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData, inputError, outputData, savedFileData } = dashboard;
 
-  const [authOpened, { open: authOpen, close: authClose }] =
+  const [userInfoOpened, { open: userInfoOpen, close: userInfoClose }] =
+    useDisclosure(false);
+  const [authFormOpened, { open: authFormOpen, close: authFormClose }] =
+    useDisclosure(false);
+  const [feedbackOpened, { open: feedbackOpen, close: feedbackClose }] =
     useDisclosure(false);
 
   
@@ -77,7 +82,7 @@ function FooterMenu() {
             <Button
               leftIcon={<IconUser size="1rem" />}
               className={classes.myCustomButton}
-              onClick={authOpen}
+              onClick={status === "authenticated" ? userInfoOpen : authFormOpen}
               variant="subtle"
               size="xs"
             >
@@ -123,11 +128,21 @@ function FooterMenu() {
               </HoverCard>
             </Group>
           </Group>
+          <Group spacing={0} position="right" noWrap>
+          <Button
+              className={classes.myCustomButton}
+              onClick={feedbackOpen}
+              variant="subtle"
+              size="xs"
+            >
+              Feedback & Recommend Feature
+            </Button>
+          </Group>
         </div>
       </div>
-      <Modal opened={authOpened} onClose={authClose} centered>
-        {status === "authenticated" ? <UserInfo /> : <AuthenticationForm />}
-      </Modal>
+      <UserInfo opened={userInfoOpened} open={userInfoOpen} close={userInfoClose} />
+      <AuthenticationForm opened={authFormOpened} open={authFormOpen} close={authFormClose} />
+      <Feedback opened={feedbackOpened} open={feedbackOpen} close={feedbackClose} />
     </>
   );
 }

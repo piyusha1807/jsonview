@@ -19,15 +19,17 @@ export function GithubButton(props: ButtonProps | any) {
     <Button
       {...props}
       leftIcon={<GithubIcon />}
-      sx={(theme) => ({
-        backgroundColor:
-          theme.colors.dark[theme.colorScheme === "dark" ? 8 : 7],
-        color: "#fff",
-        "&:hover": {
-          backgroundColor:
-            theme.colors.dark[theme.colorScheme === "dark" ? 9 : 6],
-        },
-      })}
+      variant="default"
+      color="gray"
+      // sx={(theme) => ({
+      //   backgroundColor:
+      //     theme.colors.dark[theme.colorScheme === "dark" ? 8 : 7],
+      //   color: "#fff",
+      //   "&:hover": {
+      //     backgroundColor:
+      //       theme.colors.dark[theme.colorScheme === "dark" ? 9 : 6],
+      //   },
+      // })}
     />
   );
 }
