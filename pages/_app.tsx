@@ -1,6 +1,10 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { MantineProvider, ColorSchemeProvider, ColorScheme } from "@mantine/core";
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -15,12 +19,12 @@ export default function App({
 }: AppProps) {
   const router = useRouter();
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
 
   useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    
-    if(theme) {
+    const theme = localStorage.getItem("theme");
+
+    if (theme) {
       setColorScheme(theme);
     }
   }, []);
@@ -36,27 +40,30 @@ export default function App({
   }, [router.events]);
 
   const toggleColorScheme = () => {
-    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
-  }
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  };
 
   return (
     <>
       <SessionProvider session={session}>
         <Provider store={store}>
-          <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider
-            theme={{
-              fontFamily: 'Source Sans Pro, sans-serif',
-              fontFamilyMonospace: 'Source Sans Pro, sans-serif',
-              headings: { fontFamily: 'Source Sans Pro, sans-serif' },
-              colorScheme: colorScheme,
-            }}
-            withGlobalStyles
-            withNormalizeCSS
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
           >
-            <Notifications position="top-right" />
-            <Component {...pageProps}/>
-          </MantineProvider>
+            <MantineProvider
+              theme={{
+                fontFamily: "Source Sans Pro, sans-serif",
+                fontFamilyMonospace: "Source Sans Pro, sans-serif",
+                headings: { fontFamily: "Source Sans Pro, sans-serif" },
+                colorScheme: colorScheme,
+              }}
+              withGlobalStyles
+              withNormalizeCSS
+            >
+              <Notifications position="top-right" />
+              <Component {...pageProps} />
+            </MantineProvider>
           </ColorSchemeProvider>
         </Provider>
       </SessionProvider>

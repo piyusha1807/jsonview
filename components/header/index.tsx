@@ -4,8 +4,13 @@ import RightHeader from "./rightHeader";
 
 const useStyles = createStyles((theme) => ({
   customHeader: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-    borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[0],
+    borderBottom: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
   },
 }));
 
@@ -20,7 +25,7 @@ const HeaderMenu = ({}) => {
           <RightHeader />
         </Group>
       </Header>
-      </div>
+    </div>
   );
 };
 

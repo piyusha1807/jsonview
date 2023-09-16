@@ -32,11 +32,17 @@ import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   linkButton: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[8],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[8],
     fontWeight: 400,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[2],
     }),
   },
 }));
@@ -68,26 +74,19 @@ const LeftHeader = ({}) => {
 
   const handleDownload = () => {
     try {
-      // const jsonData = JSON.stringify(data, null, 2);
-
-      // Create a Blob object with the JSON data
       const blob = new Blob([inputData], { type: "application/json" });
-
-      // Create a temporary URL for the Blob
       const url = URL.createObjectURL(blob);
-
-      // Create a link element
       const link = document.createElement("a");
+
       link.href = url;
-      link.download = "data.json"; // Set the filename for the downloaded file
+      link.download = "data.json";
       link.click();
 
       // Clean up the temporary URL
       URL.revokeObjectURL(url);
     } catch (error) {
       if (error instanceof Error) {
-        // dispatch(setInputError(error.message));
-        // dispatch(setOutputData(""));
+        notifications.show({ message: error.message, color: "red" });
       }
     }
   };
@@ -114,8 +113,7 @@ const LeftHeader = ({}) => {
       // });
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setInputError(error.message));
-        dispatch(setOutputData(""));
+        notifications.show({ message: error.message, color: "red" });
       }
     }
   };
@@ -146,8 +144,7 @@ const LeftHeader = ({}) => {
       // });
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setInputError(error.message));
-        dispatch(setOutputData(""));
+        notifications.show({ message: error.message, color: "red" });
       }
     }
   };
@@ -168,8 +165,8 @@ const LeftHeader = ({}) => {
         query: { id: response.data.id },
       });
 
-      dispatch(setSavedFileData({json: inputData}));
-      
+      dispatch(setSavedFileData({ json: inputData }));
+
       type === "update"
         ? notifications.show({ message: response.message, color: "green" })
         : saveMessageOpen();

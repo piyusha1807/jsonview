@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth/next";
-import { v4 as uuidv4 } from "uuid";
 import connectToDatabase from "../../lib/mongodb";
 import { authOptions } from "./auth/[...nextauth]";
 
@@ -29,15 +28,15 @@ export default async function handler(req, res) {
           .json({ error: "You do not have permission to view this file" });
       }
 
-      const modifiedResult =  {
-          id: result._id,
-          fileName: result.fileName,
-          comments: result.comments,
-          json: result.json,
-          createdAt: result.createdAt,
-          lastModifiedAt: result.lastModifiedAt,
-          globalView: result?.globalAccess?.view,
-          globalEdit: result?.globalAccess?.edit,
+      const modifiedResult = {
+        id: result._id,
+        fileName: result.fileName,
+        comments: result.comments,
+        json: result.json,
+        createdAt: result.createdAt,
+        lastModifiedAt: result.lastModifiedAt,
+        globalView: result?.globalAccess?.view,
+        globalEdit: result?.globalAccess?.edit,
       };
 
       res.status(201).json({

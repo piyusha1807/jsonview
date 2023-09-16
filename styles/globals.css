@@ -1,11 +1,11 @@
 .light {
-  --gutter-background-color: #E9ECEF;
-  --output-background-color: #F1F3F5;
+  --gutter-background-color: #e9ecef;
+  --output-background-color: #f1f3f5;
 }
 
 .dark {
-  --gutter-background-color: #1A1B1E;
-  --output-background-color: #25262B;
+  --gutter-background-color: #1a1b1e;
+  --output-background-color: #25262b;
 }
 
 * {
@@ -41,13 +41,13 @@ body {
 }
 
 .gutter.gutter-horizontal {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
   cursor: col-resize;
   width: 5px;
 }
 
 .gutter.gutter-horizontal:hover {
-  background-color: #4DABF7;
+  background-color: #4dabf7;
 }
 
 .outputArea {
