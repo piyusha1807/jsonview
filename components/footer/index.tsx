@@ -1,23 +1,20 @@
 import {
   createStyles,
   Group,
-  UnstyledButton,
   Text,
   rem,
   Button,
   HoverCard,
-  Modal,
 } from "@mantine/core";
 import {
   IconUser,
   IconCircleCheck,
   IconCloudCheck,
   IconCloud,
-  IconDatabase,
   IconCloudLockOpen,
   IconCloudLock,
 } from "@tabler/icons-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { useDisclosure } from "@mantine/hooks";
 import { AuthenticationForm } from "../authentication";
@@ -26,9 +23,14 @@ import { Feedback } from "../feedback";
 
 const useStyles = createStyles((theme) => ({
   footer: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
-    borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
-    height: '25px'
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[1],
+    borderTop: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+    height: "25px",
   },
   inner: {
     display: "flex",
@@ -36,14 +38,23 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
   },
   myCustomButton: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
     fontWeight: 300,
     fontSize: theme.fontSizes.xs,
     borderRadius: 0,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[3],
+      color:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[1]
+          : theme.colors.gray[7],
     }),
   },
 }));
@@ -62,16 +73,14 @@ function FooterMenu() {
   const [feedbackOpened, { open: feedbackOpen, close: feedbackClose }] =
     useDisclosure(false);
 
-  
   function isFilePublic() {
-    if(status !== 'authenticated') {
-      return true
-    }
-    else if(savedFileData?.globalView || savedFileData.globalEdit){
-      return true
+    if (status !== "authenticated") {
+      return true;
+    } else if (savedFileData?.globalView || savedFileData.globalEdit) {
+      return true;
     }
 
-    return false
+    return false;
   }
 
   return (
@@ -89,20 +98,32 @@ function FooterMenu() {
               {session ? session.user.name : "Login"}
             </Button>
             <Button
-              leftIcon={inputData === savedFileData?.json ? <IconCloudCheck size="1rem" /> : <IconCloud size="1rem" />}
+              leftIcon={
+                inputData === savedFileData?.json ? (
+                  <IconCloudCheck size="1rem" />
+                ) : (
+                  <IconCloud size="1rem" />
+                )
+              }
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              {inputData === savedFileData?.json ? 'Saved' : 'Not Saved'}
+              {inputData === savedFileData?.json ? "Saved" : "Not Saved"}
             </Button>
             <Button
-              leftIcon={isFilePublic() ? <IconCloudLockOpen size="1rem" /> : <IconCloudLock size="1rem" />}
+              leftIcon={
+                isFilePublic() ? (
+                  <IconCloudLockOpen size="1rem" />
+                ) : (
+                  <IconCloudLock size="1rem" />
+                )
+              }
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              {isFilePublic() ? 'Public' : 'Private'}
+              {isFilePublic() ? "Public" : "Private"}
             </Button>
             <Group position="center">
               <HoverCard width={280} shadow="md" withArrow>
@@ -129,7 +150,7 @@ function FooterMenu() {
             </Group>
           </Group>
           <Group spacing={0} position="right" noWrap>
-          <Button
+            <Button
               className={classes.myCustomButton}
               onClick={feedbackOpen}
               variant="subtle"
@@ -140,9 +161,21 @@ function FooterMenu() {
           </Group>
         </div>
       </div>
-      <UserInfo opened={userInfoOpened} open={userInfoOpen} close={userInfoClose} />
-      <AuthenticationForm opened={authFormOpened} open={authFormOpen} close={authFormClose} />
-      <Feedback opened={feedbackOpened} open={feedbackOpen} close={feedbackClose} />
+      <UserInfo
+        opened={userInfoOpened}
+        open={userInfoOpen}
+        close={userInfoClose}
+      />
+      <AuthenticationForm
+        opened={authFormOpened}
+        open={authFormOpen}
+        close={authFormClose}
+      />
+      <Feedback
+        opened={feedbackOpened}
+        open={feedbackOpen}
+        close={feedbackClose}
+      />
     </>
   );
 }

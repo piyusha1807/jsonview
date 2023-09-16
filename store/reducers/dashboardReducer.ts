@@ -16,7 +16,7 @@ const dashboardInitialState = {
   monacoConfig: {},
   settingsConfig: {
     displayChildrenCount: true,
-  }
+  },
 };
 
 export const dashboardReducer = (
@@ -33,7 +33,7 @@ export const dashboardReducer = (
     case SAVED_FILE_DATA:
       return {
         ...state,
-        savedFileData: {...payload},
+        savedFileData: { ...payload },
       };
     case OUTPUT_DATA:
       return {
@@ -65,7 +65,7 @@ export const dashboardReducer = (
       return {
         ...state,
         settingsConfig: {
-          ...payload
+          ...payload,
         },
       };
     default:

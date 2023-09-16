@@ -7,7 +7,6 @@ import {
   Button,
   Stack,
   Loader,
-  Switch,
   Modal,
   Space,
 } from "@mantine/core";
@@ -31,10 +30,6 @@ export function SaveForm({ opened, open, close }: any) {
       comments: "",
       type: "new",
     },
-
-    // validate: {
-    //     name: (val) => val.length<1 ? null : "Invalid name")
-    // },
   });
 
   const handleSubmit = async (event) => {
@@ -54,7 +49,7 @@ export function SaveForm({ opened, open, close }: any) {
         pathname: "/",
         query: { id: response.data.id },
       });
-      dispatch(setSavedFileData({json: inputData}));
+      dispatch(setSavedFileData({ json: inputData }));
       notifications.show({ message: response.message, color: "green" });
       form.reset();
     } catch (error) {

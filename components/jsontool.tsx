@@ -85,45 +85,45 @@ function Jsontool() {
   };
 
   return (
-      <Split
-        className="container"
-        sizes={initialSizes}
-        onDragEnd={handleResize}
-        direction="horizontal"
-        gutterSize={5}
-      >
-        <div className="inputArea">
-          <Editor
-            height="100%"
-            className="editor"
-            language="json"
-            value={inputData}
-            onChange={handleEditorChange}
-            onMount={handleEditorDidMount}
-            options={{...MONACO_OPTIONS, ...monacoConfig}}
-            theme={colorScheme === "light" ? "light" : "vs-dark"}
+    <Split
+      className="container"
+      sizes={initialSizes}
+      onDragEnd={handleResize}
+      direction="horizontal"
+      gutterSize={5}
+    >
+      <div className="inputArea">
+        <Editor
+          height="100%"
+          className="editor"
+          language="json"
+          value={inputData}
+          onChange={handleEditorChange}
+          onMount={handleEditorDidMount}
+          options={{ ...MONACO_OPTIONS, ...monacoConfig }}
+          theme={colorScheme === "light" ? "light" : "vs-dark"}
+        />
+      </div>
+      <div className="outputArea">
+        {outputData && typeof outputData === "object" && (
+          <DynamicReactJson
+            src={outputData}
+            theme={colorScheme === "light" ? "rjv-default" : "chalk"}
+            displayDataTypes={false}
+            indentWidth={2}
+            collapsed={2}
+            enableClipboard={false}
+            groupArraysAfterLength={0}
+            quotesOnKeys={false}
+            displayObjectSize={settingsConfig?.displayChildrenCount ?? true}
+            style={{
+              height: "100%",
+              overflow: "auto",
+            }}
           />
-        </div>
-        <div className="outputArea">
-          {outputData && typeof outputData === "object" && (
-            <DynamicReactJson
-              src={outputData}
-              theme={colorScheme === "light" ? "rjv-default" : "chalk"}
-              displayDataTypes={false}
-              indentWidth={2}
-              collapsed={2}
-              enableClipboard={false}
-              groupArraysAfterLength={0}
-              quotesOnKeys={false}
-              displayObjectSize={settingsConfig?.displayChildrenCount ?? true}
-              style={{
-                height: "100%",
-                overflow: "auto",
-              }}
-            />
-          )}
-        </div>
-      </Split>
+        )}
+      </div>
+    </Split>
   );
 }
 

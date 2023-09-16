@@ -19,6 +19,7 @@
     "@mantine/next": "^6.0.17",
     "@mantine/notifications": "^6.0.17",
     "@monaco-editor/react": "^4.5.1",
+    "@reduxjs/toolkit": "^1.9.5",
     "@tabler/icons-react": "^2.27.0",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",

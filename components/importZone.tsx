@@ -16,6 +16,7 @@ import {
 import * as gtag from "../lib/gtag";
 import prettier from "prettier";
 import parserBabel from "prettier/parser-babel";
+import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -103,6 +104,7 @@ export function ImportZone({ opened, open, close }) {
         } catch (error) {
           if (error instanceof Error) {
             dispatch(setInputError(error.message));
+            notifications.show({ message: error.message, color: "red" });
           }
         }
       };

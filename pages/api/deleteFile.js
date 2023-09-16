@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     const session = await getServerSession(req, res, authOptions);
     const { id } = req.query;
-    console.log("coming");
+
     try {
       const client = await connectToDatabase;
       const filesCollection = client.db("jsonView").collection("files");
