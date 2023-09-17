@@ -1,20 +1,61 @@
+.light {
+  --gutter-background-color: #e9ecef;
+  --output-background-color: #f1f3f5;
+}
+
+.dark {
+  --gutter-background-color: #1a1b1e;
+  --output-background-color: #25262b;
+}
+
 * {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: small
+  font-size: 13px;
 }
 
 body {
   margin: 0;
+  height: 100vh;
+}
+
+.parent-box {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 66px);
+  width: 100%;
+}
+
+.inputArea {
+  width: 100%;
 }
 
 .gutter {
-  background-color: #d9d9d9;
+  background-color: var(--gutter-background-color);
   background-repeat: no-repeat;
   background-position: 50%;
 }
 
 .gutter.gutter-horizontal {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
   cursor: col-resize;
+  width: 5px;
 }
 
+.gutter.gutter-horizontal:hover {
+  background-color: #4dabf7;
+}
+
+.outputArea {
+  width: 100%;
+  background-color: var(--output-background-color);
+}
+
+.outputArea .react-json-view {
+  background-color: var(--output-background-color) !important;
+  font-family: MonoLisa, monospace !important;
+}

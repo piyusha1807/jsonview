@@ -1,44 +1,66 @@
-import React, { useState } from "react";
-import prettier from "prettier";
-import parserBabel from "prettier/parser-babel";
-import ReactJson from "react-json-view";
-import CodeMirror from "@uiw/react-codemirror";
-import { EditorView } from "@codemirror/view";
-import { json as jsonLang } from "@codemirror/lang-json";
+import React, { useEffect, useRef, useState } from "react";
+import Editor from "@monaco-editor/react";
+import * as monaco from "monaco-editor";
 import Split from "react-split";
 import * as gtag from "../lib/gtag";
-import styled from "@/styles/Home.module.css";
+import dynamic from "next/dynamic";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setInputData,
+  setInputError,
+  setOutputData,
+} from "@/store/actions/dashboardAction";
+import { Box, useMantineColorScheme } from "@mantine/core";
 
-const borderRadius = EditorView.theme({
-  "&": {
-    outline: "none !important",
-  },
-  "&.ͼ2 .cm-gutters": {
-    backgroundColor: "#d9d9d9",
-  },
+const DynamicReactJson = dynamic(() => import("react-json-view"), {
+  ssr: false, // Render only on the client-side
 });
 
-function Jsontool() {
-  const [inputVal, setInputVal] = useState("");
-  const [outputVal, setOutputVal] = useState("");
-  const [error, setError] = useState("");
+const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
+  fontFamily: "MonoLisa, monospace",
+  fontSize: 14,
+  autoIndent: "full",
+  automaticLayout: true,
+  contextmenu: true,
+  hideCursorInOverviewRuler: true,
+  matchBrackets: "always",
+  selectOnLineNumbers: true,
+  // renderLineHighlight: "none",
+  // overviewRulerBorder: false,
+  // wordWrap: "on",
+  // wrappingStrategy: "advanced",
+  minimap: {
+    enabled: false,
+  },
+  readOnly: false,
+  scrollbar: {
+    horizontalSliderSize: 18,
+    verticalSliderSize: 18,
+  },
+};
 
-  const handleFormat = () => {
+function Jsontool() {
+  const dispatch = useDispatch();
+  const dashboard = useSelector((state: any) => state.dashboard);
+  const { inputData, outputData, monacoConfig, settingsConfig } = dashboard;
+  const { colorScheme } = useMantineColorScheme();
+  const [initialSizes, setInitialSizes] = useState([40, 60]);
+  const editorRef: any = useRef(null);
+
+  useEffect(() => {
+    handleEditorChange(inputData);
+  }, []);
+
+  const handleEditorChange: any = (value: string) => {
     try {
-      setError("");
-      const formattedInputVal = prettier.format(inputVal, {
-        parser: "json",
-        tabWidth: 2,
-        printWidth: 30,
-        plugins: [parserBabel],
-      });
-      setInputVal(formattedInputVal);
+      dispatch(setInputError(""));
+      dispatch(setInputData(value));
 
       let obj = "";
-      if (formattedInputVal) {
-        obj = JSON.parse(formattedInputVal);
+      if (value) {
+        obj = JSON.parse(value);
       }
-      setOutputVal(obj);
+      dispatch(setOutputData(obj));
 
       gtag.event({
         action: "format",
@@ -48,95 +70,60 @@ function Jsontool() {
       });
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message);
-        setOutputVal("");
+        dispatch(setInputError(error.message));
       }
     }
   };
 
-  const handleMinify = () => {
-    try {
-      setError("");
-      let minifyInputVal = "";
-      if (inputVal) {
-        minifyInputVal = JSON.stringify(JSON.parse(inputVal));
-      }
-      setInputVal(minifyInputVal);
+  const handleEditorDidMount = (editor: any, monaco: any) => {
+    editorRef.current = editor;
+    editor.updateOptions({ tabSize: 2 });
+  };
 
-      if (minifyInputVal) {
-        minifyInputVal = JSON.parse(minifyInputVal);
-      }
-      setOutputVal(minifyInputVal);
-      gtag.event({
-        action: "minify",
-        category: "button",
-        label: "Minify",
-        value: "minify",
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-        setOutputVal("");
-      }
-    }
+  const handleResize = (sizes: any) => {
+    setInitialSizes(sizes);
   };
 
   return (
-    <div>
-      <div className={styled.header}>
-        <h2 className={styled.title}>JSON Viewer</h2>
-        <div className={styled.controls}>
-          <button
-            type="button"
-            className={styled.controls__button}
-            onClick={handleFormat}
-          >
-            Format & View
-          </button>
-          <button
-            type="button"
-            className={styled.controls__button}
-            onClick={handleMinify}
-          >
-            Remove white spaces
-          </button>
-        </div>
+    <Split
+      className="container"
+      sizes={initialSizes}
+      onDragEnd={handleResize}
+      direction="horizontal"
+      gutterSize={5}
+    >
+      <div className="inputArea">
+        <Editor
+          height="100%"
+          className="editor"
+          language="json"
+          value={inputData}
+          onChange={handleEditorChange}
+          onMount={handleEditorDidMount}
+          options={{ ...MONACO_OPTIONS, ...monacoConfig }}
+          theme={colorScheme === "light" ? "light" : "vs-dark"}
+        />
       </div>
-      <Split className={styled.container}>
-        <div className={styled.inputArea}>
-          <CodeMirror
-            extensions={[jsonLang(), borderRadius]}
-            height="100%"
-            width="100%"
-            style={{ height: "100%" }}
-            placeholder="Enter your JSON here..."
-            value={inputVal}
-            onChange={(val: any) => {
-              setInputVal(val);
+      <div className="outputArea">
+        {outputData && typeof outputData === "object" && (
+          <DynamicReactJson
+            src={outputData}
+            theme={colorScheme === "light" ? "rjv-default" : "chalk"}
+            displayDataTypes={false}
+            indentWidth={2}
+            collapsed={2}
+            enableClipboard={false}
+            groupArraysAfterLength={0}
+            quotesOnKeys={false}
+            displayObjectSize={settingsConfig?.displayChildrenCount ?? true}
+            style={{
+              height: "100%",
+              overflow: "auto",
             }}
           />
-        </div>
-        <div className={styled.outputArea}>
-          {error && <pre className={styled.outputError}>{error}</pre>}
-          {outputVal && typeof outputVal === "object" && (
-            <ReactJson
-              src={outputVal}
-              theme="rjv-default"
-              displayDataTypes={false}
-              indentWidth={2}
-              collapsed={1}
-              enableClipboard={false}
-              groupArraysAfterLength={0}
-              quotesOnKeys={false}
-              style={{
-                height: "100%",
-                overflow: "auto",
-              }}
-            />
-          )}
-        </div>
-      </Split>
-    </div>
+        )}
+      </div>
+    </Split>
   );
 }
 
