@@ -34,7 +34,7 @@ export default function Home() {
       const { data } = await get(`/api/getFile/?id=${id}`);
 
       handleEditorChange(data.json);
-      dispatch(setSavedFileData(data))
+      dispatch(setSavedFileData(data));
       // notifications.show({ message: response.message, color: "green" });
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });
@@ -72,6 +72,7 @@ export default function Home() {
         />
         <meta
           name="keywords"
+          // eslint-disable-next-line
           content="json prettify online, json formatter check, json lint online, json reader online, how to view json files, json format checker, check json validity, jsonformatter online, json syntax checker, json formatter beautify, json string formatter, how to format json files, json path finder, json pretty online, code beautify json, json formatter online free, sublime json formatter, json diff online, vscode format json, json formatter chrome extension"
         />
         <meta name="robots" content="noindex, nofollow" />
