@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       }
 
       const client = await connectToDatabase;
-      const filesCollection = client.db("jsonView").collection("files");
+      const filesCollection = client.db("jsonViewer").collection("files");
 
       const resultCursor = await filesCollection.find({
         createdBy: session?.user?.email,

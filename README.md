@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# JSON Viewer - Next.js Web Application
+
+## Overview
+
+JSON Viewer is a web application built with Next.js that allows users to perform various operations on JSON files. Users can upload JSON files, format them for human readability, minify them, save the formatted JSON, and share it with others.
+
+## Features
+
+- Upload JSON files for processing.
+- Format JSON for easy human readability.
+- Minify JSON for more compact storage.
+- Save formatted JSON locally.
+- Share JSON data with others.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Node.js and npm must be installed on your system.
+- Ensure you have a modern web browser installed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+2. Navigate to the project directory:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+3. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Running the Application
 
-## Learn More
+1. Start the development server:
 
-To learn more about Next.js, take a look at the following resources:
+2. Open your web browser and visit `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Upload a JSON file using the provided interface.
+2. Choose the desired operation: Format or Minify.
+3. Perform additional actions if needed (e.g., Save or Share).
+4. View the formatted or minified JSON in the browser.
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you'd like to contribute to this project, please follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes to your fork.
+5. Create a pull request to merge your branch into the main repository.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- The JSON Viewer project was inspired by the need for a simple tool to work with JSON data.
+- Thanks to the Next.js community for providing a robust framework for building web applications.
+
+## Contact
+
+For questions or support, please contact [piyushagrawal1807.com](mailto:your@email.com).

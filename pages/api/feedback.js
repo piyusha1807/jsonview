@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     try {
       const client = await connectToDatabase;
-      const filesCollection = client.db("jsonView").collection("feedback");
+      const filesCollection = client.db("jsonViewer").collection("feedback");
 
       await filesCollection.insertOne({
         _id: uuidv4(),

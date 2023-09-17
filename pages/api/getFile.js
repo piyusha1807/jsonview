@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
     try {
       const client = await connectToDatabase;
-      const filesCollection = client.db("jsonView").collection("files");
+      const filesCollection = client.db("jsonViewer").collection("files");
 
       const result = await filesCollection.findOne({
         _id: id,
