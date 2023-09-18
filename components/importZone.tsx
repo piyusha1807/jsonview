@@ -47,7 +47,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function ImportZone({ opened, open, close }) {
+const ImportZone = ({ opened, open, close }) => {
   const { classes, theme } = useStyles();
   const openRef = useRef<() => void>(null);
   const dispatch = useDispatch();
@@ -184,4 +184,6 @@ export function ImportZone({ opened, open, close }) {
       </div>
     </Modal>
   );
-}
+};
+
+export default ImportZone;

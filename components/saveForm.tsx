@@ -17,7 +17,7 @@ import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
 import { setSavedFileData } from "@/store/actions/dashboardAction";
 
-export function SaveForm({ opened, open, close }: any) {
+const SaveForm = ({ opened, open, close }: any) => {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData } = dashboard;
   const router = useRouter();
@@ -115,4 +115,6 @@ export function SaveForm({ opened, open, close }: any) {
       </Paper>
     </Modal>
   );
-}
+};
+
+export default SaveForm;

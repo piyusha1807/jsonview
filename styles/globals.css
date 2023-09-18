@@ -59,3 +59,10 @@ body {
   background-color: var(--output-background-color) !important;
   font-family: MonoLisa, monospace !important;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}

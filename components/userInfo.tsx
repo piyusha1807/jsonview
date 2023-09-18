@@ -1,7 +1,7 @@
 import { Text, Paper, Button, Avatar, Modal } from "@mantine/core";
 import { useSession, signOut } from "next-auth/react";
 
-export function UserInfo({ opened, open, close }) {
+const UserInfo = ({ opened, open, close }) => {
   const { data: session }: any = useSession();
 
   if (!session) return <></>;
@@ -37,4 +37,6 @@ export function UserInfo({ opened, open, close }) {
       </Paper>
     </Modal>
   );
-}
+};
+
+export default UserInfo;

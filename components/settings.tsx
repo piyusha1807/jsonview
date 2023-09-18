@@ -2,7 +2,7 @@ import { setSettingsConfig } from "@/store/actions/dashboardAction";
 import { Modal, Stack, Switch, useMantineColorScheme } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 
-export function Settings({ opened, open, close }) {
+const Settings = ({ opened, open, close }) => {
   const dispatch = useDispatch();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { displayChildrenCount } = useSelector(
@@ -40,4 +40,6 @@ export function Settings({ opened, open, close }) {
       </Stack>
     </Modal>
   );
-}
+};
+
+export default Settings;

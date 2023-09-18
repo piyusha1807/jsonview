@@ -12,7 +12,7 @@ import {
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 
-export function Feedback({ opened, open, close }) {
+const Feedback = ({ opened, open, close }) => {
   const initialValues = { rating: 0, comments: "" };
   const [data, setData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,4 +73,6 @@ export function Feedback({ opened, open, close }) {
       </Stack>
     </Modal>
   );
-}
+};
+
+export default Feedback;

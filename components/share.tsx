@@ -31,7 +31,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export function Share({ opened, open, close }) {
+const Share = ({ opened, open, close }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
@@ -179,4 +179,6 @@ export function Share({ opened, open, close }) {
       </Stack>
     </Modal>
   );
-}
+};
+
+export default Share;

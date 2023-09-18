@@ -1,6 +1,6 @@
 import { Text, Title, Button, Stack, Modal } from "@mantine/core";
 
-export function LoginMessage({ opened, open, close }) {
+const LoginMessage = ({ opened, open, close }) => {
   return (
     <Modal size={"md"} opened={opened} onClose={close} title={"LogIn"} centered>
       <Stack>
@@ -12,4 +12,6 @@ export function LoginMessage({ opened, open, close }) {
       </Stack>
     </Modal>
   );
-}
+};
+
+export default LoginMessage;

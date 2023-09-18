@@ -13,7 +13,7 @@ export default class _Document extends Document {
         <Head>
           {/* Google tag (gtag.js) */}
           <script
-            async
+            defer
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           ></script>
           <script

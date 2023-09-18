@@ -7,9 +7,15 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { Settings } from "../settings";
+import dynamic from "next/dynamic";
 import { useDisclosure } from "@mantine/hooks";
-import { Share } from "../share";
+
+const Settings = dynamic(() => import("../settings"), {
+  ssr: false,
+});
+const Share = dynamic(() => import("../share"), {
+  ssr: false,
+});
 
 const useStyles = createStyles((theme) => ({
   customButton: {
@@ -89,12 +95,16 @@ const RightHeader = ({}) => {
           <IconSettings size="1.5rem" />
         </ActionIcon>
       </Group>
-      <Settings
-        opened={settingsOpened}
-        open={openSettings}
-        close={closeSettings}
-      />
-      <Share opened={shareOpened} open={openShare} close={closeShare} />
+      {settingsOpened && (
+        <Settings
+          opened={settingsOpened}
+          open={openSettings}
+          close={closeSettings}
+        />
+      )}
+      {shareOpened && (
+        <Share opened={shareOpened} open={openShare} close={closeShare} />
+      )}
     </>
   );
 };

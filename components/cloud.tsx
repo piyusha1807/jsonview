@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function Cloud({ opened, open, close }) {
+const Cloud = ({ opened, open, close }) => {
   const { classes } = useStyles();
   const [isCopied, copy] = useCopyToClipboard();
 
@@ -181,4 +181,6 @@ export function Cloud({ opened, open, close }) {
       </Table>
     </Modal>
   );
-}
+};
+
+export default Cloud;

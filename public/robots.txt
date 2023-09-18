@@ -1,7 +1,3 @@
-User-agent: nameOfBot
-Disallow: /admin/
-
 User-agent: *
-Allow: /
-
-Sitemap: http://www.jsonviewer.info/sitemap.xml
+Disallow: /admin
+Allow: /public

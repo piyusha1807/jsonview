@@ -16,10 +16,16 @@ import {
 } from "@tabler/icons-react";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
 import { useDisclosure } from "@mantine/hooks";
 import { AuthenticationForm } from "../authentication";
-import { UserInfo } from "../userInfo";
-import { Feedback } from "../feedback";
+
+const UserInfo = dynamic(() => import("../userInfo"), {
+  ssr: false,
+});
+const Feedback = dynamic(() => import("../feedback"), {
+  ssr: false,
+});
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -161,21 +167,27 @@ function FooterMenu() {
           </Group>
         </div>
       </div>
-      <UserInfo
-        opened={userInfoOpened}
-        open={userInfoOpen}
-        close={userInfoClose}
-      />
-      <AuthenticationForm
-        opened={authFormOpened}
-        open={authFormOpen}
-        close={authFormClose}
-      />
-      <Feedback
-        opened={feedbackOpened}
-        open={feedbackOpen}
-        close={feedbackClose}
-      />
+      {userInfoOpened && (
+        <UserInfo
+          opened={userInfoOpened}
+          open={userInfoOpen}
+          close={userInfoClose}
+        />
+      )}
+      {authFormOpened && (
+        <AuthenticationForm
+          opened={authFormOpened}
+          open={authFormOpen}
+          close={authFormClose}
+        />
+      )}
+      {feedbackOpened && (
+        <Feedback
+          opened={feedbackOpened}
+          open={feedbackOpen}
+          close={feedbackClose}
+        />
+      )}
     </>
   );
 }

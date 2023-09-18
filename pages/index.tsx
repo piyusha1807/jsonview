@@ -75,7 +75,30 @@ export default function Home() {
           // eslint-disable-next-line
           content="json prettify online, json formatter check, json lint online, json reader online, how to view json files, json format checker, check json validity, jsonformatter online, json syntax checker, json formatter beautify, json string formatter, how to format json files, json path finder, json pretty online, code beautify json, json formatter online free, sublime json formatter, json diff online, vscode format json, json formatter chrome extension"
         />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Online JSON Viewer" />
+        <meta property="og:url" content="https://jsonviewer.info" />
+        <meta
+          property="og:description"
+          content="Online JSON Viewer helps the user to format data and view it as a tree structure. This allows users to identify errors and fix them quickly."
+        />
+        {/* <meta
+          property="og:image"
+          content="https://jsonviewer.info/your-image.jpg"
+        /> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@username" />
+        <meta name="twitter:title" content="Online JSON Viewer" />
+        <meta
+          name="twitter:description"
+          content="Online JSON Viewer helps the user to format data and view it as a tree structure. This allows users to identify errors and fix them quickly."
+        />
+        {/* <meta
+          name="twitter:image"
+          content="https://jsonviewer.info/your-image.jpg"
+        /> */}
+        <link rel="canonical" href="https://jsonviewer.info" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={colorScheme}>

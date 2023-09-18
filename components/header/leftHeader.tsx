@@ -19,16 +19,28 @@ import {
 import prettier from "prettier";
 import parserBabel from "prettier/parser-babel";
 import { useRouter } from "next/router";
-import { ImportZone } from "../importZone";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { useSession } from "next-auth/react";
-import { Cloud } from "../cloud";
-import { LoginMessage } from "../loginMessage";
-import { SaveForm } from "../saveForm";
-import { SaveMessage } from "../saveMessage";
 import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
+
+const ImportZone = dynamic(() => import("../importZone"), {
+  ssr: false,
+});
+const Cloud = dynamic(() => import("../cloud"), {
+  ssr: false,
+});
+const LoginMessage = dynamic(() => import("../loginMessage"), {
+  ssr: false,
+});
+const SaveForm = dynamic(() => import("../saveForm"), {
+  ssr: false,
+});
+const SaveMessage = dynamic(() => import("../saveMessage"), {
+  ssr: false,
+});
 
 const useStyles = createStyles((theme) => ({
   linkButton: {
@@ -266,28 +278,47 @@ const LeftHeader = ({}) => {
             variant="subtle"
             size="xs"
           >
+            {isSaveLoading && (
+              <>
+                <Loader size="1rem" /> <Space w="xs" />
+              </>
+            )}
             Save
           </Button>
         )}
       </Group>
-      <ImportZone opened={importOpened} open={importOpen} close={importClose} />
-      <SaveForm
-        opened={saveFormOpened}
-        open={saveFormOpen}
-        close={saveFormClose}
-      />
-      <SaveMessage
-        opened={saveMessageOpened}
-        open={saveMessageOpen}
-        close={saveMessageClose}
-        windowUrl={windowUrl}
-      />
-      <Cloud opened={cloudOpened} open={cloudOpen} close={cloudClose} />
-      <LoginMessage
-        opened={loginMessageOpened}
-        open={loginMessageOpen}
-        close={loginMessageClose}
-      />
+      {importOpened && (
+        <ImportZone
+          opened={importOpened}
+          open={importOpen}
+          close={importClose}
+        />
+      )}
+      {saveFormOpened && (
+        <SaveForm
+          opened={saveFormOpened}
+          open={saveFormOpen}
+          close={saveFormClose}
+        />
+      )}
+      {saveMessageOpened && (
+        <SaveMessage
+          opened={saveMessageOpened}
+          open={saveMessageOpen}
+          close={saveMessageClose}
+          windowUrl={windowUrl}
+        />
+      )}
+      {cloudOpened && (
+        <Cloud opened={cloudOpened} open={cloudOpen} close={cloudClose} />
+      )}
+      {loginMessageOpened && (
+        <LoginMessage
+          opened={loginMessageOpened}
+          open={loginMessageOpen}
+          close={loginMessageClose}
+        />
+      )}
     </>
   );
 };

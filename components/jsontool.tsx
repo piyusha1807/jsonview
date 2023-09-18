@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Editor from "@monaco-editor/react";
-import * as monaco from "monaco-editor";
 import Split from "react-split";
 import * as gtag from "../lib/gtag";
 import dynamic from "next/dynamic";
@@ -12,11 +10,16 @@ import {
 } from "@/store/actions/dashboardAction";
 import { Box, useMantineColorScheme } from "@mantine/core";
 
-const DynamicReactJson = dynamic(() => import("react-json-view"), {
-  ssr: false, // Render only on the client-side
+const Editor = dynamic(() => import("@monaco-editor/react"), {
+  ssr: false,
+  loading: () => <div className="loading">Loading...</div>,
 });
 
-const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
+const DynamicReactJson = dynamic(() => import("react-json-view"), {
+  ssr: false,
+});
+
+const MONACO_OPTIONS = {
   fontFamily: "MonoLisa, monospace",
   fontSize: 14,
   autoIndent: "full",
@@ -75,7 +78,7 @@ function Jsontool() {
     }
   };
 
-  const handleEditorDidMount = (editor: any, monaco: any) => {
+  const handleEditorDidMount = (editor: any) => {
     editorRef.current = editor;
     editor.updateOptions({ tabSize: 2 });
   };
