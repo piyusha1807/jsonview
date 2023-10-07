@@ -1,5 +1,14 @@
 import { useRef, useState } from "react";
-import { Text, Group, Button, createStyles, rem, Modal } from "@mantine/core";
+import {
+  Text,
+  Group,
+  Button,
+  createStyles,
+  rem,
+  Modal,
+  Flex,
+  Stack,
+} from "@mantine/core";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import {
   IconCloudUpload,
@@ -12,11 +21,13 @@ import {
   setOutputData,
   setInputError,
   setFormatConfig,
+  setSavedFileData,
 } from "@/store/actions/dashboardAction";
 import * as gtag from "../lib/gtag";
 import prettier from "prettier";
 import parserBabel from "prettier/parser-babel";
 import { notifications } from "@mantine/notifications";
+import { get } from "@/utils/api";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -47,6 +58,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const importButtons = [
+  { id: "d2f20558-b9c2-40c1-beea-e225b160607e", name: "User JSON" },
+  { id: "ade39eea-a638-44f9-b085-a3b40f66c4c5", name: "Tweet JSON" },
+  { id: "b2c8a71b-3e31-48c9-9ac9-232f21a09d4f", name: "Github JSON" },
+];
+
 const ImportZone = ({ opened, open, close }) => {
   const { classes, theme } = useStyles();
   const openRef = useRef<() => void>(null);
@@ -54,6 +71,7 @@ const ImportZone = ({ opened, open, close }) => {
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDrop = (files: string | any[]) => {
     if (files && files.length > 0) {
@@ -72,43 +90,65 @@ const ImportZone = ({ opened, open, close }) => {
     setErrorMessage("");
   };
 
+  const handleEditorChange = (value) => {
+    try {
+      const formattedJSON = prettier.format(value, {
+        parser: "json",
+        tabWidth: 2,
+        printWidth: 30,
+        plugins: [parserBabel],
+      });
+      dispatch(setInputError(""));
+      dispatch(setFormatConfig());
+      dispatch(setInputData(formattedJSON));
+      close();
+
+      let obj = "";
+      if (value) {
+        obj = JSON.parse(value);
+      }
+      dispatch(setOutputData(obj));
+
+      gtag.event({
+        action: "import",
+        category: "button",
+        label: "Import",
+        value: "import",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setInputError(error.message));
+      }
+    }
+  };
+
   const handleImport = () => {
     if (uploadStatus === "uploaded" && file) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         try {
           const fileContent = event.target.result;
-          const formattedJSON = prettier.format(fileContent, {
-            parser: "json",
-            tabWidth: 2,
-            printWidth: 30,
-            plugins: [parserBabel],
-          });
-          dispatch(setInputError(""));
-          dispatch(setFormatConfig());
-          dispatch(setInputData(formattedJSON));
-          close();
-
-          let obj = "";
-          if (fileContent) {
-            obj = JSON.parse(fileContent);
-          }
-          dispatch(setOutputData(obj));
-
-          gtag.event({
-            action: "import",
-            category: "button",
-            label: "Import",
-            value: "import",
-          });
+          handleEditorChange(fileContent);
+          dispatch(setSavedFileData({}));
         } catch (error) {
-          if (error instanceof Error) {
-            dispatch(setInputError(error.message));
-            notifications.show({ message: error.message, color: "red" });
-          }
+          notifications.show({ message: error.message, color: "red" });
         }
       };
       reader.readAsText(file);
+    }
+  };
+
+  const getData = async (id) => {
+    try {
+      setIsLoading(true);
+      const { data } = await get(`/api/getFile/?id=${id}`);
+
+      handleEditorChange(data.json);
+      dispatch(setSavedFileData({}));
+    } catch (error) {
+      notifications.show({ message: error.message, color: "red" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -181,6 +221,24 @@ const ImportZone = ({ opened, open, close }) => {
           </div>
         </Dropzone>
         <Button onClick={handleImport}>Import</Button>
+        <Stack spacing="xs">
+          <Text>Not have JSON? Try it out:</Text>
+          <Flex justify="space-between" align="center">
+            {importButtons.map((button) => {
+              return (
+                <Button
+                  size="xs"
+                  variant="light"
+                  key={button.id}
+                  loading={isLoading}
+                  onClick={() => getData(button.id)}
+                >
+                  {button.name}
+                </Button>
+              );
+            })}
+          </Flex>
+        </Stack>
       </div>
     </Modal>
   );

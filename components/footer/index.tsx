@@ -82,7 +82,10 @@ function FooterMenu() {
   function isFilePublic() {
     if (status !== "authenticated") {
       return true;
-    } else if (savedFileData?.globalView || savedFileData.globalEdit) {
+    } else if (
+      savedFileData.globalAccess?.view ||
+      savedFileData.globalAccess?.edit
+    ) {
       return true;
     }
 

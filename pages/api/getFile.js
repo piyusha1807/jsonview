@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       }
 
       if (
-        !result.globalAccess.view &&
+        !(result.globalAccess.view || result.globalAccess.edit) &&
         session?.user?.email !== result.createdBy
       ) {
         res
@@ -33,10 +33,11 @@ export default async function handler(req, res) {
         fileName: result.fileName,
         comments: result.comments,
         json: result.json,
+        createdBy: result.createdBy,
         createdAt: result.createdAt,
+        lastModifiedBy: result.lastModifiedBy,
         lastModifiedAt: result.lastModifiedAt,
-        globalView: result?.globalAccess?.view,
-        globalEdit: result?.globalAccess?.edit,
+        globalAccess: result.globalAccess,
       };
 
       res.status(201).json({

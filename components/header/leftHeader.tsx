@@ -170,17 +170,17 @@ const LeftHeader = ({}) => {
 
     try {
       setIsSaveLoading(true);
-      const response = await post("/api/saveAndUpdate", requestData);
-      setWindowURl(`${window.location.origin}/?id=${response.data.id}`);
+      const { data, message } = await post("/api/saveAndUpdate", requestData);
+      setWindowURl(`${window.location.origin}/?id=${data.id}`);
       router.push({
         pathname: "/",
-        query: { id: response.data.id },
+        query: { id: data.id },
       });
 
-      dispatch(setSavedFileData({ json: inputData }));
+      dispatch(setSavedFileData(data));
 
       type === "update"
-        ? notifications.show({ message: response.message, color: "green" })
+        ? notifications.show({ message: message, color: "green" })
         : saveMessageOpen();
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });

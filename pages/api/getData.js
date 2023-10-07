@@ -31,10 +31,11 @@ export default async function handler(req, res) {
           id: item._id,
           fileName: item.fileName,
           comments: item.comments,
+          createdBy: item.createdBy,
           createdAt: item.createdAt,
+          lastModifiedBy: item.lastModifiedBy,
           lastModifiedAt: item.lastModifiedAt,
-          globalView: item?.globalAccess?.view,
-          globalEdit: item?.globalAccess?.edit,
+          globalAccess: item.globalAccess,
         };
       });
 

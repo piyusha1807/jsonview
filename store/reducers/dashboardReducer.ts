@@ -33,7 +33,7 @@ export const dashboardReducer = (
     case SAVED_FILE_DATA:
       return {
         ...state,
-        savedFileData: { ...payload },
+        savedFileData: payload,
       };
     case OUTPUT_DATA:
       return {

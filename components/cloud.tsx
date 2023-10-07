@@ -138,8 +138,8 @@ const Cloud = ({ opened, open, close }) => {
                   <td>{formatNameComments(element.comments, "comments")}</td>
                   <td>{formatTimestamp(element.createdAt)}</td>
                   <td>{formatTimestamp(element.lastModifiedAt)}</td>
-                  <td>{formatTruthy(element.globalView)}</td>
-                  <td>{formatTruthy(element.globalEdit)}</td>
+                  <td>{formatTruthy(element.globalAccess?.view)}</td>
+                  <td>{formatTruthy(element.globalAccess?.edit)}</td>
                   <td>
                     <Flex
                       justify="flex-start"

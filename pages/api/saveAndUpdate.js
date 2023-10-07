@@ -28,7 +28,7 @@ export default async function handler(req, res) {
             .json({ error: "You do not have permission to edit this file" });
         }
 
-        await filesCollection.updateOne(
+        const { value } = await filesCollection.findOneAndUpdate(
           { _id: id },
           {
             $set: {
@@ -36,16 +36,19 @@ export default async function handler(req, res) {
               lastModifiedBy: session?.user?.email ?? null,
               lastModifiedAt: new Date(),
             },
-          }
+          },
+          { returnOriginal: false }
         );
+
+        (value.id = value._id), delete value._id;
+
         return res.status(200).json({
           message: "Data updated successfully",
-          data: { id: id },
+          data: value,
         });
       }
 
-      const result = await filesCollection.insertOne({
-        _id: uuidv4(),
+      const insertObject = {
         fileName: fileName ?? "",
         comments: comments ?? "",
         json: json,
@@ -55,10 +58,14 @@ export default async function handler(req, res) {
           view: session ? false : true,
           edit: session ? false : true,
         },
+      };
+      const result = await filesCollection.insertOne({
+        _id: uuidv4(),
+        ...insertObject,
       });
       return res.status(201).json({
         message: "Data saved successfully",
-        data: { id: result.insertedId },
+        data: { id: result.insertedId, ...insertObject },
       });
     } catch (error) {
       console.log(error);

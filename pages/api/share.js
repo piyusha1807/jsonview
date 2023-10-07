@@ -35,18 +35,21 @@ export default async function handler(req, res) {
       const existingRecord = await filesCollection.findOne({ _id: id });
 
       if (!existingRecord) {
-        const result = await filesCollection.insertOne({
-          _id: uuidv4(),
+        const insertObject = {
           fileName: fileName ?? "",
           comments: comments ?? "",
           json: json,
           createdBy: session?.user?.email ?? null,
           createdAt: new Date(),
           globalAccess: globalAccess,
+        };
+        const result = await filesCollection.insertOne({
+          _id: uuidv4(),
+          ...insertObject,
         });
         return res.status(201).json({
           message: "Data saved successfully and file permission updated",
-          data: { id: result.insertedId },
+          data: { id: result.insertedId, ...insertObject },
         });
       } else {
         if (session?.user?.email !== existingRecord.createdBy) {
@@ -56,7 +59,7 @@ export default async function handler(req, res) {
           });
         }
 
-        await filesCollection.updateOne(
+        const { value } = await filesCollection.findOneAndUpdate(
           { _id: id },
           {
             $set: {
@@ -65,11 +68,15 @@ export default async function handler(req, res) {
               lastModifiedAt: new Date(),
               globalAccess: globalAccess,
             },
-          }
+          },
+          { returnOriginal: false }
         );
+
+        (value.id = value._id), delete value._id;
+
         return res.status(200).json({
           message: "Data updated successfully and file permission updated",
-          data: { id: id },
+          data: value,
         });
       }
     } catch (error) {

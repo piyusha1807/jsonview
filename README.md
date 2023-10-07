@@ -1,37 +1,39 @@
 # JSON Viewer - Next.js Web Application
 
-## Overview
-
 JSON Viewer is a web application built with Next.js that allows users to perform various operations on JSON files. Users can upload JSON files, format them for human readability, minify them, save the formatted JSON, and share it with others.
+
+## Live Demo
+
+https://jsonviewer.info
+
+### Screenshots
+
+<img src="https://i.imgur.com/Hh1vjr7.png" style="max-width: 100px; width: 100%; height: auto;">
+<img src="https://i.imgur.com/YVySq9O.png" style="max-width: 100px; width: 100%; height: auto;">
+<img src="https://i.imgur.com/OHHsMmd.png" style="max-width: 100px; width: 100%; height: auto;">
+<img src="https://i.imgur.com/xJQAF4n.png" style="max-width: 100px; width: 100%; height: auto;">
+<img src="https://i.imgur.com/jILcYkY.png" style="max-width: 100px; width: 100%; height: auto;">
+<img src="https://i.imgur.com/HGP5PrB.png" style="max-width: 100px; width: 100%; height: auto;">
+
+### Installation
+
+Make sure you have Node.js version 18.17.0 installed.
+
+```
+git clone https://github.com/piyusha1807/jsonview.git
+
+npm install
+
+npm run dev / npm run build
+```
 
 ## Features
 
 - Upload JSON files for processing.
 - Format JSON for easy human readability.
 - Minify JSON for more compact storage.
-- Save formatted JSON locally.
+- Save formatted JSON locally or on cloud.
 - Share JSON data with others.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js and npm must be installed on your system.
-- Ensure you have a modern web browser installed.
-
-### Installation
-
-1. Clone the repository:
-
-2. Navigate to the project directory:
-
-3. Install dependencies:
-
-### Running the Application
-
-1. Start the development server:
-
-2. Open your web browser and visit `http://localhost:3000`.
 
 ## Usage
 
@@ -39,20 +41,6 @@ JSON Viewer is a web application built with Next.js that allows users to perform
 2. Choose the desired operation: Format or Minify.
 3. Perform additional actions if needed (e.g., Save or Share).
 4. View the formatted or minified JSON in the browser.
-
-## Contributing
-
-If you'd like to contribute to this project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with descriptive messages.
-4. Push your changes to your fork.
-5. Create a pull request to merge your branch into the main repository.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 

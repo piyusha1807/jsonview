@@ -43,14 +43,14 @@ const SaveForm = ({ opened, open, close }: any) => {
 
     try {
       setIsLoading(true);
-      const response = await post("/api/saveAndUpdate", requestData);
+      const { data, message } = await post("/api/saveAndUpdate", requestData);
       close();
       router.push({
         pathname: "/",
-        query: { id: response.data.id },
+        query: { id: data.id },
       });
-      dispatch(setSavedFileData({ json: inputData }));
-      notifications.show({ message: response.message, color: "green" });
+      dispatch(setSavedFileData(data));
+      notifications.show({ message: message, color: "green" });
       form.reset();
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });

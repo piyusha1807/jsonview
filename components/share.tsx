@@ -3,33 +3,35 @@ import { setSavedFileData } from "@/store/actions/dashboardAction";
 import { post } from "@/utils/api";
 import {
   Alert,
-  Box,
   Button,
-  Center,
-  Divider,
   Flex,
-  Input,
   Loader,
   Modal,
-  Paper,
-  SegmentedControl,
-  Select,
   Space,
   Stack,
   Text,
+  Menu,
+  UnstyledButton,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
   IconWorld,
-  IconUsersGroup,
-  IconEdit,
-  IconEye,
   IconAlertCircle,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+const shareOptions = [
+  { label: "Restricted", value: "private" },
+  { label: "Anyone with the link", value: "public" },
+];
+const shareTypeOptions = [
+  { label: "View", value: "view" },
+  { label: "Edit", value: "edit" },
+];
 
 const Share = ({ opened, open, close }) => {
   const dispatch = useDispatch();
@@ -40,16 +42,22 @@ const Share = ({ opened, open, close }) => {
     (state: any) => state.dashboard
   );
   const [isCopied, copy] = useCopyToClipboard();
-  const [shareValue, setShareValue] = useState("private");
-  const [permissionValue, setPermissionValue] = useState("edit");
   const [isLoading, setIsLoading] = useState(false);
+  const [shareSelected, setShareSelected] = useState(shareOptions[0]);
+  const [shareTypeSelected, setShareTypeSelected] = useState(
+    shareTypeOptions[0]
+  );
 
   const setDefaultShareValues = () => {
-    if (savedFileData?.globalView || savedFileData?.globalEdit) {
-      setShareValue("public");
-      setPermissionValue(savedFileData?.globalView ? "view" : "edit");
+    if (savedFileData.globalAccess?.view || savedFileData.globalAccess?.edit) {
+      setShareSelected(shareOptions[1]);
+      setShareTypeSelected(
+        savedFileData.globalAccess?.view
+          ? shareTypeOptions[0]
+          : shareTypeOptions[1]
+      );
     } else {
-      setShareValue("private");
+      setShareSelected(shareOptions[0]);
     }
   };
 
@@ -57,8 +65,8 @@ const Share = ({ opened, open, close }) => {
     try {
       const requestData = {
         json: inputData,
-        share: shareValue,
-        shareType: permissionValue,
+        share: shareSelected.value,
+        shareType: shareTypeSelected.value,
         id: id,
       };
 
@@ -89,7 +97,13 @@ const Share = ({ opened, open, close }) => {
   }, [opened]);
 
   return (
-    <Modal size="md" opened={opened} onClose={close} centered>
+    <Modal
+      title="Share File"
+      size="md"
+      opened={opened}
+      onClose={close}
+      centered
+    >
       <Stack>
         {inputData !== savedFileData?.json && (
           <Alert
@@ -102,67 +116,33 @@ const Share = ({ opened, open, close }) => {
             Clicking Save Changes will save your file and apply sharing settings
           </Alert>
         )}
-        <Flex justify="space-between" align="center">
-          <Text size="lg" weight={600}>
-            Share File
-          </Text>
-          <SegmentedControl
-            size="sm"
-            value={shareValue}
-            onChange={setShareValue}
-            data={[
-              { label: "Private", value: "private" },
-              { label: "Public", value: "public" },
-            ]}
-          />
+        <Flex justify="space-between" align="center" columnGap="0.5rem">
+          <Flex align="center" columnGap="0.5rem">
+            <IconWorld size="1.50rem" />
+            <div>
+              <CustomMenu
+                selected={shareSelected}
+                onSelect={setShareSelected}
+                options={shareOptions}
+              />
+              <Text c="dimmed" size="sm">
+                {shareSelected.value === "private" &&
+                  "Owner can only view or edit file"}
+                {shareSelected.value === "public" &&
+                  `Everyone with this link can ${shareTypeSelected.value}`}
+              </Text>
+            </div>
+          </Flex>
+          {shareSelected.value === "public" && (
+            <CustomMenu
+              selected={shareTypeSelected}
+              onSelect={setShareTypeSelected}
+              options={shareTypeOptions}
+              position="bottom-end"
+              width={80}
+            />
+          )}
         </Flex>
-        {shareValue === "public" && (
-          <Paper p="xs" withBorder>
-            <Stack>
-              <Flex justify="flex-start" align="center" columnGap="0.5rem">
-                <IconWorld size="1.25rem" />
-                <Text size="md" weight={500}>
-                  {permissionValue === "view" &&
-                    "Everyone with this link can view"}
-                  {permissionValue === "edit" &&
-                    "Everyone with this link can edit"}
-                </Text>
-              </Flex>
-
-              <Flex justify="space-between" align="center">
-                <Text>Permission</Text>
-                <SegmentedControl
-                  size="xs"
-                  value={permissionValue}
-                  onChange={setPermissionValue}
-                  data={[
-                    {
-                      label: (
-                        <Center>
-                          <IconEye size="1rem" />
-                          <Box ml={8}>View</Box>
-                        </Center>
-                      ),
-                      value: "view",
-                    },
-                    {
-                      label: (
-                        <Center>
-                          <IconEdit size="1rem" />
-                          <Box ml={8}>Edit</Box>
-                        </Center>
-                      ),
-                      value: "edit",
-                    },
-                  ]}
-                />
-              </Flex>
-              {/* "Edit (Make any changes)",
-                "View (Cannot make changes)" },
-              */}
-            </Stack>
-          </Paper>
-        )}
         <Flex justify="flex-end" align="center" columnGap={10}>
           <Button size="sm" onClick={handleShare}>
             {isLoading && (
@@ -178,6 +158,41 @@ const Share = ({ opened, open, close }) => {
         </Flex>
       </Stack>
     </Modal>
+  );
+};
+
+const CustomMenu = ({
+  selected,
+  onSelect,
+  options,
+  position = "bottom-start",
+  width = 200,
+}) => {
+  const [opened, setOpened] = useState(false);
+
+  return (
+    <Menu
+      radius="sm"
+      position={position}
+      width={width}
+      onOpen={() => setOpened(true)}
+      onClose={() => setOpened(false)}
+      withinPortal
+    >
+      <Menu.Target>
+        <UnstyledButton data-expanded={opened || undefined}>
+          <span>{selected.label}</span>
+          <IconChevronDown size="1rem" stroke={1.5} />
+        </UnstyledButton>
+      </Menu.Target>
+      <Menu.Dropdown>
+        {options.map((item: any) => (
+          <Menu.Item onClick={() => onSelect(item)} key={item.value}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu.Dropdown>
+    </Menu>
   );
 };
 
