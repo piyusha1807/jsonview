@@ -71,7 +71,7 @@ const ImportZone = ({ opened, open, close }) => {
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingId, setLoadingId] = useState(null);
 
   const handleDrop = (files: string | any[]) => {
     if (files && files.length > 0) {
@@ -140,7 +140,7 @@ const ImportZone = ({ opened, open, close }) => {
 
   const getData = async (id) => {
     try {
-      setIsLoading(true);
+      setLoadingId(id);
       const { data } = await get(`/api/getFile/?id=${id}`);
 
       handleEditorChange(data.json);
@@ -148,7 +148,7 @@ const ImportZone = ({ opened, open, close }) => {
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });
     } finally {
-      setIsLoading(false);
+      setLoadingId(null);
     }
   };
 
@@ -230,7 +230,7 @@ const ImportZone = ({ opened, open, close }) => {
                   size="xs"
                   variant="light"
                   key={button.id}
-                  loading={isLoading}
+                  loading={loadingId === button.id}
                   onClick={() => getData(button.id)}
                 >
                   {button.name}

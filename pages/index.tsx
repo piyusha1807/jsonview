@@ -83,10 +83,7 @@ export default function Home() {
           property="og:description"
           content="Online JSON Viewer helps the user to format data and view it as a tree structure. This allows users to identify errors and fix them quickly."
         />
-        {/* <meta
-          property="og:image"
-          content="https://jsonviewer.info/your-image.jpg"
-        /> */}
+        <meta property="og:image" content="https://i.imgur.com/Hh1vjr7.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@username" />
         <meta name="twitter:title" content="Online JSON Viewer" />
@@ -94,10 +91,7 @@ export default function Home() {
           name="twitter:description"
           content="Online JSON Viewer helps the user to format data and view it as a tree structure. This allows users to identify errors and fix them quickly."
         />
-        {/* <meta
-          name="twitter:image"
-          content="https://jsonviewer.info/your-image.jpg"
-        /> */}
+        <meta name="twitter:image" content="https://i.imgur.com/Hh1vjr7.png" />
         <link rel="canonical" href="https://jsonviewer.info" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
