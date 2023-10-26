@@ -1,7 +1,6 @@
 import Head from "next/head";
 import DashboardLayout from "@/components/dashboardLayout";
 
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,7 +72,7 @@ export default function Home() {
         <meta
           name="keywords"
           // eslint-disable-next-line
-          content="json prettify online, json formatter check, json lint online, json reader online, how to view json files, json format checker, check json validity, jsonformatter online, json syntax checker, json formatter beautify, json string formatter, how to format json files, json path finder, json pretty online, code beautify json, json formatter online free, sublime json formatter, json diff online, vscode format json, json formatter chrome extension"
+          content="jsonviewer, json prettify online, json formatter check, json lint online, json reader online, how to view json files, json format checker, check json validity, jsonformatter online, json syntax checker, json formatter beautify, json string formatter, how to format json files, json path finder, json pretty online, code beautify json, json formatter online free, sublime json formatter, json diff online, vscode format json, json formatter chrome extension"
         />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />

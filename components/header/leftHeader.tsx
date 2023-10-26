@@ -5,6 +5,7 @@ import {
   Menu,
   Space,
   Loader,
+  ActionIcon,
 } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,20 @@ const useStyles = createStyles((theme) => ({
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
           : theme.colors.gray[2],
+    }),
+  },
+  customButton: {
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[8],
+    fontWeight: 400,
+
+    ...theme.fn.hover({
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[5]
+          : theme.colors.gray[3],
     }),
   },
 }));
@@ -232,51 +247,13 @@ const LeftHeader = ({}) => {
         >
           Cloud
         </Button>
-        {id ? (
-          <Menu shadow="md" width={150}>
-            <Button
-              className={classes.linkButton}
-              onClick={(e) => handleSave(e, "update")}
-              variant="subtle"
-              size="xs"
-            >
-              {isSaveLoading && (
-                <>
-                  <Loader size="1rem" /> <Space w="xs" />
-                </>
-              )}
-              Save <Space w="xs" />
-              <Menu.Target>
-                <IconChevronDown
-                  onClick={(e) => e.stopPropagation()}
-                  size={14}
-                />
-              </Menu.Target>
-            </Button>
-
-            <Menu.Dropdown>
-              <Menu.Item onClick={(e) => handleSave(e, "update")}>
-                Save
-              </Menu.Item>
-              <Menu.Item
-                onClick={(e) =>
-                  status === "authenticated"
-                    ? saveFormOpen()
-                    : handleSave(e, "new")
-                }
-              >
-                Save As New
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
-        ) : (
+        <Menu shadow="md" width={150}>
           <Button
             className={classes.linkButton}
-            onClick={(e) =>
-              status === "authenticated" ? saveFormOpen() : handleSave(e, "new")
-            }
+            onClick={(e) => (id ? handleSave(e, "update") : saveFormOpen())}
             variant="subtle"
             size="xs"
+            style={id && { paddingRight: 0 }}
           >
             {isSaveLoading && (
               <>
@@ -284,8 +261,23 @@ const LeftHeader = ({}) => {
               </>
             )}
             Save
+            {id && (
+              <Menu.Target>
+                <ActionIcon
+                  className={classes.customButton}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <IconChevronDown size={14} />
+                </ActionIcon>
+              </Menu.Target>
+            )}
           </Button>
-        )}
+
+          <Menu.Dropdown>
+            <Menu.Item onClick={(e) => handleSave(e, "update")}>Save</Menu.Item>
+            <Menu.Item onClick={(e) => saveFormOpen()}>Save As New</Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Group>
       {importOpened && (
         <ImportZone

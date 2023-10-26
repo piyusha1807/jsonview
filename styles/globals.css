@@ -66,3 +66,8 @@ body {
   align-items: center;
   height: 100vh; 
 }
+
+.mantine-djvetm:disabled,
+.mantine-djvetm[data-disabled] {
+    pointer-events: auto; /* or whatever value you want */
+}

@@ -1,4 +1,4 @@
-import { createStyles, Group, ActionIcon, Button } from "@mantine/core";
+import { createStyles, ActionIcon, Button, Flex } from "@mantine/core";
 import {
   IconSettings,
   IconArrowsMaximize,
@@ -74,7 +74,7 @@ const RightHeader = ({}) => {
 
   return (
     <>
-      <Group>
+      <Flex justify="flex-end" align="center" gap="md">
         {status === "authenticated" && (
           <Button
             leftIcon={<IconShare3 size="1.2rem" />}
@@ -94,7 +94,7 @@ const RightHeader = ({}) => {
         <ActionIcon className={classes.customButton} onClick={openSettings}>
           <IconSettings size="1.5rem" />
         </ActionIcon>
-      </Group>
+      </Flex>
       {settingsOpened && (
         <Settings
           opened={settingsOpened}

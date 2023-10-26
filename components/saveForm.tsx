@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
 import { setSavedFileData } from "@/store/actions/dashboardAction";
@@ -22,6 +23,7 @@ const SaveForm = ({ opened, open, close }: any) => {
   const { inputData } = dashboard;
   const router = useRouter();
   const dispatch = useDispatch();
+  const { status }: any = useSession();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
@@ -84,6 +86,7 @@ const SaveForm = ({ opened, open, close }: any) => {
             <Textarea
               label="Your comments"
               placeholder="Your comments..."
+              disabled={status !== "authenticated"}
               value={form.values.comments}
               onChange={(event) =>
                 form.setFieldValue("comments", event.currentTarget.value)
