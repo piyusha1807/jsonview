@@ -13,10 +13,13 @@ import {
   IconCloud,
   IconCloudLockOpen,
   IconCloudLock,
+  IconMessageDots,
+  IconQuestionMark
 } from "@tabler/icons-react";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
+import { useRouter } from 'next/router'
 import { useDisclosure } from "@mantine/hooks";
 import { AuthenticationForm } from "../authentication";
 
@@ -66,6 +69,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function FooterMenu() {
+  const router = useRouter();
   const { classes } = useStyles();
   const { data: session, status }: any = useSession();
 
@@ -146,7 +150,7 @@ function FooterMenu() {
                     }}
                     variant="subtle"
                     size="xs"
-                  >
+                    >
                     {inputError === "" ? "Valid Format" : "Invalid Format"}
                   </Button>
                 </HoverCard.Target>
@@ -160,12 +164,22 @@ function FooterMenu() {
           </Group>
           <Group spacing={0} position="right" noWrap>
             <Button
+              leftIcon={<IconMessageDots size="1rem" />}
               className={classes.myCustomButton}
               onClick={feedbackOpen}
               variant="subtle"
               size="xs"
             >
-              Feedback & Recommend Feature
+              Feedback
+            </Button>
+            <Button
+              leftIcon={<IconQuestionMark size="1rem" />}
+              className={classes.myCustomButton}
+              onClick={() => router.push('/about')}
+              variant="subtle"
+              size="xs"
+            >
+              About
             </Button>
           </Group>
         </div>

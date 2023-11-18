@@ -55,11 +55,6 @@ body {
   background-color: var(--output-background-color);
 }
 
-.outputArea .react-json-view {
-  background-color: var(--output-background-color) !important;
-  font-family: MonoLisa, monospace !important;
-}
-
 .loading {
   display: flex;
   justify-content: center;

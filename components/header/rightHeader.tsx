@@ -1,9 +1,10 @@
-import { createStyles, ActionIcon, Button, Flex } from "@mantine/core";
+import { createStyles, ActionIcon, Button, Flex, Input } from "@mantine/core";
 import {
   IconSettings,
   IconArrowsMaximize,
   IconArrowsMinimize,
   IconShare3,
+  IconSearch,
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -38,6 +39,7 @@ const RightHeader = ({}) => {
   const { status }: any = useSession();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const [shareOpened, { open: openShare, close: closeShare }] =
     useDisclosure(false);
@@ -75,6 +77,12 @@ const RightHeader = ({}) => {
   return (
     <>
       <Flex justify="flex-end" align="center" gap="md">
+        <Input
+          placeholder="Search"
+          icon={<IconSearch size={16} />}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
         {status === "authenticated" && (
           <Button
             leftIcon={<IconShare3 size="1.2rem" />}
