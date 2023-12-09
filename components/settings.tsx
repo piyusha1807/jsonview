@@ -20,13 +20,11 @@ const Settings = ({ opened, open, close }) => {
     <Modal opened={opened} onClose={close} title="Settings" centered>
       <Stack>
         <Switch
-          size="md"
           label="Light Theme"
           checked={light}
           onChange={(e) => handleThemeChange(e.currentTarget.checked)}
         />
         <Switch
-          size="md"
           label="Display Children Count"
           checked={displayChildrenCount}
           onChange={(e) =>

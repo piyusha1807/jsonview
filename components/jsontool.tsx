@@ -56,7 +56,7 @@ const customDarkTheme = {
 
 const MONACO_OPTIONS = {
   fontFamily: "MonoLisa, monospace",
-  fontSize: 14,
+  fontSize: "15",
   autoIndent: "full",
   automaticLayout: true,
   contextmenu: true,
@@ -154,6 +154,8 @@ function Jsontool() {
               ...(colorScheme === "light" ? customLightTheme : customDarkTheme),
               height: "100%",
               overflow: "auto",
+              fontSize: "15px",
+              fontFamily: "MonoLisa, monospace",
             }}
           >
             <Quote>

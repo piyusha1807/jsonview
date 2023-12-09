@@ -21,7 +21,7 @@ const HeaderMenu = ({}) => {
 
   return (
     <div>
-      <Header className={classes.customHeader} height={50} px="md">
+      <Header className={classes.customHeader} height={45} px="sm">
         <Box
           sx={{
             display: "grid",
