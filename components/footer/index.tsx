@@ -39,7 +39,6 @@ const useStyles = createStyles((theme) => ({
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
-    height: "25px",
   },
   inner: {
     display: "flex",

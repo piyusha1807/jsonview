@@ -78,6 +78,7 @@ const RightHeader = ({}) => {
     <>
       <Flex justify="flex-end" align="center" gap="md">
         <Input
+          size="xs"
           placeholder="Search"
           icon={<IconSearch size={16} />}
           value={searchText}
@@ -94,13 +95,13 @@ const RightHeader = ({}) => {
         )}
         <ActionIcon className={classes.customButton} onClick={handleFullScreen}>
           {isFullScreen ? (
-            <IconArrowsMinimize size="1.5rem" />
+            <IconArrowsMinimize size="1.25rem" />
           ) : (
-            <IconArrowsMaximize size="1.5rem" />
+            <IconArrowsMaximize size="1.25rem" />
           )}
         </ActionIcon>
         <ActionIcon className={classes.customButton} onClick={openSettings}>
-          <IconSettings size="1.5rem" />
+          <IconSettings size="1.25rem" />
         </ActionIcon>
       </Flex>
       {settingsOpened && (

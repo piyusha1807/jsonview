@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Textarea,
+  Paper
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
@@ -46,6 +47,8 @@ const Feedback = ({ opened, open, close }) => {
       title="Feedback & Recommend Feature"
       centered
     >
+      <Paper radius="md" p="xl" withBorder>
+
       <Stack align="center">
         <Text size="xl" weight={500}>
           How Did It Go?
@@ -56,9 +59,8 @@ const Feedback = ({ opened, open, close }) => {
           onChange={(e) => handleChange("rating", e)}
         />
         <Textarea
-          placeholder="Your comment"
-          label="Please share your thoughts on using JSON Viewer, any suggestions, or
-          feedback you have"
+          placeholder="Your comments..."
+          label="Share your thoughts on JSON Viewer! Suggestions welcome."
           value={data.comments}
           onChange={(e) => handleChange("comments", e.currentTarget.value)}
         />
@@ -68,9 +70,10 @@ const Feedback = ({ opened, open, close }) => {
               <Loader color="white" size="xs" /> <Space w="xs" />
             </>
           )}
-          Submit
+          Submit Feedback
         </Button>
       </Stack>
+      </Paper>
     </Modal>
   );
 };

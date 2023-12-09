@@ -222,7 +222,7 @@ const ImportZone = ({ opened, open, close }) => {
         </Dropzone>
         <Button onClick={handleImport}>Import</Button>
         <Stack spacing="xs">
-          <Text>Not have JSON? Try it out:</Text>
+          <Text size="sm">Not have JSON? Try it out:</Text>
           <Flex justify="space-between" align="center">
             {importButtons.map((button) => {
               return (

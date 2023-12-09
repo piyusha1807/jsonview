@@ -57,9 +57,16 @@ export default function App({
                 fontFamilyMonospace: "Source Sans Pro, sans-serif",
                 headings: { fontFamily: "Source Sans Pro, sans-serif" },
                 colorScheme: colorScheme,
+                fontSizes: {
+                  xs: "0.85rem",
+                  sm: "0.9rem",
+                  md: "1rem",
+                  lg: "1.1rem",
+                  xl: "1.2rem",
+                },
               }}
-              withGlobalStyles
-              withNormalizeCSS
+              // withGlobalStyles
+              // withNormalizeCSS
             >
               <Notifications position="top-right" />
               <Component {...pageProps} />
