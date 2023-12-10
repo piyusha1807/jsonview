@@ -14,7 +14,12 @@ import {
   Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconExternalLink, IconLink, IconTrash } from "@tabler/icons-react";
+import {
+  IconExternalLink,
+  IconLink,
+  IconTrash,
+  IconDatabaseOff,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -115,7 +120,7 @@ const Cloud = ({ opened, open, close }) => {
       title={"Saved Files"}
       centered
     >
-      <Table highlightOnHover withBorder>
+      <Table style={{ minHeight: "200px" }} highlightOnHover withBorder>
         <thead>
           <tr>
             <th>File Name</th>
@@ -128,7 +133,30 @@ const Cloud = ({ opened, open, close }) => {
           </tr>
         </thead>
         <tbody>
-          {isLoading && <Loader size="1rem" />}
+          {isLoading && (
+            <tr>
+              <td colSpan={7}>
+                <Flex direction="column" align="center" justify="center">
+                  <Loader size="1rem" />
+                </Flex>
+              </td>
+            </tr>
+          )}
+          {!isLoading && data && data.length === 0 && (
+            <tr style={{ textAlign: "center" }}>
+              <td colSpan={7}>
+                <Flex
+                  direction="column"
+                  align="center"
+                  justify="center"
+                  gap="sm"
+                >
+                  <IconDatabaseOff size="2rem" />
+                  <Text>No records to show</Text>
+                </Flex>
+              </td>
+            </tr>
+          )}
           {!isLoading &&
             data &&
             data.map((element) => {
