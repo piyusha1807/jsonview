@@ -19,6 +19,7 @@ body {
   width: 100%;
   margin: 0;
   font-size: 0.8rem;
+  font-family: "Source Sans Pro, sans-serif";
 }
 
 .parent-box {
@@ -38,9 +39,9 @@ body {
   overflow: hidden;
 }
 
-.inputArea {
+/* .inputArea {
   background-color: var(--gutter-background-color);
-}
+} */
 
 .gutter {
   background-color: var(--gutter-background-color);

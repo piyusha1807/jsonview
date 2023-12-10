@@ -65,7 +65,7 @@ export default function App({
                   xl: "1.2rem",
                 },
               }}
-              // withGlobalStyles
+              withGlobalStyles
               // withNormalizeCSS
             >
               <Notifications position="top-right" />
