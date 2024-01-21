@@ -81,7 +81,6 @@ const LeftHeader = ({}) => {
   const dispatch = useDispatch();
   const { inputData } = useSelector((state: any) => state.dashboard);
   const { status }: any = useSession();
-  const [windowUrl, setWindowURl] = useState("");
   const [isSaveLoading, setIsSaveLoading] = useState(false);
 
   const [importOpened, { open: importOpen, close: importClose }] =
@@ -186,7 +185,6 @@ const LeftHeader = ({}) => {
     try {
       setIsSaveLoading(true);
       const { data, message } = await post("/api/saveAndUpdate", requestData);
-      setWindowURl(`${window.location.origin}/?id=${data.id}`);
       router.push({
         pathname: "/",
         query: { id: data.id },
@@ -290,6 +288,7 @@ const LeftHeader = ({}) => {
         <SaveForm
           opened={saveFormOpened}
           open={saveFormOpen}
+          saveMessageOpen={saveMessageOpen}
           close={saveFormClose}
         />
       )}
@@ -298,7 +297,7 @@ const LeftHeader = ({}) => {
           opened={saveMessageOpened}
           open={saveMessageOpen}
           close={saveMessageClose}
-          windowUrl={windowUrl}
+          windowUrl={window.location.href}
         />
       )}
       {cloudOpened && (

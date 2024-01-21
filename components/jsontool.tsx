@@ -147,7 +147,7 @@ function Jsontool() {
           <JsonView
             value={outputData}
             displayDataTypes={false}
-            collapsed={2}
+            collapsed={3}
             enableClipboard={false}
             displayObjectSize={settingsConfig?.displayChildrenCount ?? true}
             style={{

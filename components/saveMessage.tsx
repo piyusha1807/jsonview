@@ -12,24 +12,26 @@ const SaveMessage = ({ opened, open, close, windowUrl }: any) => {
       onClose={close}
       title="Your JSON file is saved!"
     >
-      <div style={{ display: "flex" }}>
+      <>
         <Text fz="md">You can access the file directly at</Text>
-        <Code color="red">
-          <Text fz="sm">{windowUrl}</Text>
-        </Code>
-        <Tooltip
-          label={isCopied ? "Copied" : "Copy"}
-          withArrow
-          position="right"
-        >
-          <ActionIcon
-            color={isCopied ? "teal" : "gray"}
-            onClick={() => copy(windowUrl)}
+        <div style={{ display: "flex" }}>
+          <Code color="red">
+            <Text fz="sm">{windowUrl}</Text>
+          </Code>
+          <Tooltip
+            label={isCopied ? "Copied" : "Copy"}
+            withArrow
+            position="right"
           >
-            {isCopied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      </div>
+            <ActionIcon
+              color={isCopied ? "teal" : "gray"}
+              onClick={() => copy(windowUrl)}
+            >
+              {isCopied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+            </ActionIcon>
+          </Tooltip>
+        </div>
+      </>
     </Modal>
   );
 };

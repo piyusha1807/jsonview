@@ -20,12 +20,13 @@ const HeaderMenu = ({}) => {
   const { savedFileData } = useSelector((state: any) => state.dashboard);
 
   return (
-    <div>
+    <div style={{overflow: "auto"}}>
       <Header className={classes.customHeader} height={45} px="sm">
         <Box
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr auto 1fr",
+            columnGap: "2rem",
             height: "100%",
             alignItems: "center",
           }}

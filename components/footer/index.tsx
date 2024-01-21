@@ -32,6 +32,7 @@ const Feedback = dynamic(() => import("../feedback"), {
 
 const useStyles = createStyles((theme) => ({
   footer: {
+    overflow: 'auto',
     backgroundColor:
       theme.colorScheme === "dark"
         ? theme.colors.dark[7]

@@ -18,7 +18,7 @@ import { post } from "@/utils/api";
 import { notifications } from "@mantine/notifications";
 import { setSavedFileData } from "@/store/actions/dashboardAction";
 
-const SaveForm = ({ opened, open, close }: any) => {
+const SaveForm = ({ opened, open, saveMessageOpen, close }: any) => {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData } = dashboard;
   const router = useRouter();
@@ -52,7 +52,9 @@ const SaveForm = ({ opened, open, close }: any) => {
         query: { id: data.id },
       });
       dispatch(setSavedFileData(data));
-      notifications.show({ message: message, color: "green" });
+      status === "authenticated" 
+        ? notifications.show({ message: message, color: "green" }) 
+        : saveMessageOpen();
       form.reset();
     } catch (error) {
       notifications.show({ message: error.message, color: "red" });
