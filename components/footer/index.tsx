@@ -76,6 +76,10 @@ function FooterMenu() {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData, inputError, outputData, savedFileData } = dashboard;
 
+  const [userInfoOpened, { open: userInfoOpen, close: userInfoClose }] =
+    useDisclosure(false);
+  const [authFormOpened, { open: authFormOpen, close: authFormClose }] =
+    useDisclosure(false);
   const [feedbackOpened, { open: feedbackOpen, close: feedbackClose }] =
     useDisclosure(false);
 
@@ -97,6 +101,15 @@ function FooterMenu() {
       <div className={classes.footer}>
         <div className={classes.inner}>
           <Group spacing={0} position="left" noWrap>
+            <Button
+              leftIcon={<IconUser size="1rem" />}
+              className={classes.myCustomButton}
+              onClick={status === "authenticated" ? userInfoOpen : authFormOpen}
+              variant="subtle"
+              size="xs"
+            >
+              {session ? session.user.name : "Login"}
+            </Button>
             <Button
               leftIcon={
                 inputData === savedFileData?.json ? (
@@ -171,6 +184,20 @@ function FooterMenu() {
           </Group>
         </div>
       </div>
+      {userInfoOpened && (
+        <UserInfo
+          opened={userInfoOpened}
+          open={userInfoOpen}
+          close={userInfoClose}
+        />
+      )}
+      {authFormOpened && (
+        <AuthenticationForm
+          opened={authFormOpened}
+          open={authFormOpen}
+          close={authFormClose}
+        />
+      )}
       {feedbackOpened && (
         <Feedback
           opened={feedbackOpened}

@@ -1,63 +1,77 @@
-import { createStyles, Group, Button, Menu, Space, Loader, ActionIcon, Title } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
-import { useDispatch, useSelector } from 'react-redux';
-import prettier from 'prettier';
-import parserBabel from 'prettier/parser-babel';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
-import { useDisclosure } from '@mantine/hooks';
-import { useSession } from 'next-auth/react';
-import { notifications } from '@mantine/notifications';
-import { post } from '@/utils/api';
+import {
+  createStyles,
+  Group,
+  Button,
+  Menu,
+  Space,
+  Loader,
+  ActionIcon,
+} from "@mantine/core";
+import { IconChevronDown } from "@tabler/icons-react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setInputData,
   setInputError,
   setOutputData,
   setMinifyConfig,
   setFormatConfig,
-  setSavedFileData
-} from '@/store/actions/dashboardAction';
-import Minify from '../minify';
+  setSavedFileData,
+} from "@/store/actions/dashboardAction";
+import prettier from "prettier";
+import parserBabel from "prettier/parser-babel";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { useSession } from "next-auth/react";
+import { post } from "@/utils/api";
+import { notifications } from "@mantine/notifications";
 
-const ImportZone = dynamic(() => import('../importZone'), {
-  ssr: false
+const ImportZone = dynamic(() => import("../importZone"), {
+  ssr: false,
 });
-const Cloud = dynamic(() => import('../cloud'), {
-  ssr: false
+const Cloud = dynamic(() => import("../cloud"), {
+  ssr: false,
 });
-const LoginMessage = dynamic(() => import('../loginMessage'), {
-  ssr: false
+const LoginMessage = dynamic(() => import("../loginMessage"), {
+  ssr: false,
 });
-const SaveForm = dynamic(() => import('../saveForm'), {
-  ssr: false
+const SaveForm = dynamic(() => import("../saveForm"), {
+  ssr: false,
 });
-const SaveMessage = dynamic(() => import('../saveMessage'), {
-  ssr: false
-});
-const Share = dynamic(() => import('../share'), {
-  ssr: false
+const SaveMessage = dynamic(() => import("../saveMessage"), {
+  ssr: false,
 });
 
 const useStyles = createStyles((theme) => ({
   linkButton: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[8],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[8],
     fontWeight: 400,
-    paddingLeft: 12,
-    paddingRight: 12,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2]
-    })
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[2],
+    }),
   },
   customButton: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[8],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[8],
     fontWeight: 400,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[3]
-    })
-  }
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[5]
+          : theme.colors.gray[3],
+    }),
+  },
 }));
 
 const LeftHeader = ({}) => {
@@ -69,51 +83,80 @@ const LeftHeader = ({}) => {
   const { status }: any = useSession();
   const [isSaveLoading, setIsSaveLoading] = useState(false);
 
-  const [importOpened, { open: importOpen, close: importClose }] = useDisclosure(false);
-  const [minifyOpened, { open: minifyOpen, close: minifyClose }] = useDisclosure(false);
-  const [saveFormOpened, { open: saveFormOpen, close: saveFormClose }] = useDisclosure(false);
-  const [saveMessageOpened, { open: saveMessageOpen, close: saveMessageClose }] =
+  const [importOpened, { open: importOpen, close: importClose }] =
     useDisclosure(false);
-  const [cloudOpened, { open: cloudOpen, close: cloudClose }] = useDisclosure(false);
-  const [loginMessageOpened, { open: loginMessageOpen, close: loginMessageClose }] =
+  const [saveFormOpened, { open: saveFormOpen, close: saveFormClose }] =
     useDisclosure(false);
-  const [shareOpened, { open: openShare, close: closeShare }] = useDisclosure(false);
+  const [
+    saveMessageOpened,
+    { open: saveMessageOpen, close: saveMessageClose },
+  ] = useDisclosure(false);
+  const [cloudOpened, { open: cloudOpen, close: cloudClose }] =
+    useDisclosure(false);
+  const [
+    loginMessageOpened,
+    { open: loginMessageOpen, close: loginMessageClose },
+  ] = useDisclosure(false);
 
   const handleDownload = () => {
     try {
-      const blob = new Blob([inputData], { type: 'application/json' });
+      const blob = new Blob([inputData], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
 
       link.href = url;
-      link.download = 'data.json';
+      link.download = "data.json";
       link.click();
 
       // Clean up the temporary URL
       URL.revokeObjectURL(url);
     } catch (error) {
       if (error instanceof Error) {
-        notifications.show({ message: error.message, color: 'red' });
+        notifications.show({ message: error.message, color: "red" });
+      }
+    }
+  };
+
+  const handleMinify = () => {
+    try {
+      dispatch(setInputError(""));
+      let minifyInputVal = "";
+      if (inputData) {
+        minifyInputVal = JSON.stringify(JSON.parse(inputData));
+      }
+      dispatch(setMinifyConfig());
+      dispatch(setInputData(minifyInputVal));
+
+      if (minifyInputVal) {
+        minifyInputVal = JSON.parse(minifyInputVal);
+      }
+      dispatch(setOutputData(minifyInputVal));
+      // gtag.event({
+      //   action: "minify",
+      //   category: "button",
+      //   label: "Minify",
+      //   value: "minify",
+      // });
+    } catch (error) {
+      if (error instanceof Error) {
+        notifications.show({ message: error.message, color: "red" });
       }
     }
   };
 
   const handleFormat = () => {
     try {
-      let formattedJSON = inputData;
-      try {
-        const parsedJSON = JSON.parse(inputData);
-
-        formattedJSON = JSON.stringify(parsedJSON, null, 2);
-      } catch (prettierError) {
-        console.warn('Prettier formatting failed:', prettierError);
-      }
-
-      dispatch(setInputError(''));
+      const formattedJSON = prettier.format(inputData, {
+        parser: "json",
+        tabWidth: 2,
+        printWidth: 30,
+        plugins: [parserBabel],
+      });
+      dispatch(setInputError(""));
       dispatch(setFormatConfig());
       dispatch(setInputData(formattedJSON));
 
-      let obj = '';
+      let obj = "";
       if (inputData) {
         obj = JSON.parse(inputData);
       }
@@ -127,7 +170,7 @@ const LeftHeader = ({}) => {
       // });
     } catch (error) {
       if (error instanceof Error) {
-        notifications.show({ message: error.message, color: 'red' });
+        notifications.show({ message: error.message, color: "red" });
       }
     }
   };
@@ -136,24 +179,24 @@ const LeftHeader = ({}) => {
     const requestData = {
       json: inputData,
       type: type,
-      id: id
+      id: id,
     };
 
     try {
       setIsSaveLoading(true);
-      const { data, message } = await post('/api/saveAndUpdate', requestData);
+      const { data, message } = await post("/api/saveAndUpdate", requestData);
       router.push({
-        // pathname: '/',
-        query: { id: data.id }
+        pathname: "/",
+        query: { id: data.id },
       });
 
       dispatch(setSavedFileData(data));
 
-      type === 'update'
-        ? notifications.show({ message: message, color: 'green' })
+      type === "update"
+        ? notifications.show({ message: message, color: "green" })
         : saveMessageOpen();
     } catch (error) {
-      notifications.show({ message: error.message, color: 'red' });
+      notifications.show({ message: error.message, color: "red" });
     } finally {
       setIsSaveLoading(false);
     }
@@ -161,58 +204,51 @@ const LeftHeader = ({}) => {
 
   return (
     <>
-      <Group sx={{ height: '100%' }} spacing={0}>
-        <Title
-          order={4}
-          onClick={() => router.push('/')}
-          style={{ cursor: 'pointer', marginRight: '8px' }}
+      <Group sx={{ height: "100%" }} spacing={0}>
+        <Button
+          className={classes.linkButton}
+          onClick={importOpen}
+          variant="subtle"
+          size="xs"
         >
-          JSON Viewer
-        </Title>
-        <Menu trigger="hover" openDelay={100} closeDelay={400} width={130}>
-          <Menu.Target>
-            <Button
-              className={classes.linkButton}
-              variant="subtle"
-              size="xs"
-              rightIcon={<IconChevronDown size={14} />}
-            >
-              File
-            </Button>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-            <Menu.Item onClick={importOpen}>Import</Menu.Item>
-            <Menu.Item onClick={handleDownload}>Export</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
-        <Menu trigger="hover" openDelay={100} closeDelay={400} width={150}>
-          <Menu.Target>
-            <Button
-              className={classes.linkButton}
-              variant="subtle"
-              size="xs"
-              rightIcon={<IconChevronDown size={14} />}
-            >
-              Tools
-            </Button>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-            <Menu.Item onClick={minifyOpen}>Minify JSON</Menu.Item>
-            <Menu.Item onClick={handleDownload}>Compare JSON</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
-        <Button className={classes.linkButton} onClick={cloudOpen} variant="subtle" size="xs">
-          Saved files
+          Import
         </Button>
-        <Button className={classes.linkButton} onClick={saveFormOpen} variant="subtle" size="xs">
-          {status === 'authenticated' ? 'Save' : 'Save & Share'}
+        <Button
+          className={classes.linkButton}
+          onClick={handleDownload}
+          variant="subtle"
+          size="xs"
+        >
+          Download
         </Button>
-        {/* <Menu shadow="md" width={150}>
+        <Button
+          className={classes.linkButton}
+          onClick={handleFormat}
+          variant="subtle"
+          size="xs"
+        >
+          Format
+        </Button>
+        <Button
+          className={classes.linkButton}
+          onClick={handleMinify}
+          variant="subtle"
+          size="xs"
+        >
+          Minify
+        </Button>
+        <Button
+          className={classes.linkButton}
+          onClick={status === "authenticated" ? cloudOpen : loginMessageOpen}
+          variant="subtle"
+          size="xs"
+        >
+          Cloud
+        </Button>
+        <Menu shadow="md" width={150}>
           <Button
             className={classes.linkButton}
-            onClick={(e) => (id ? handleSave(e, 'update') : saveFormOpen())}
+            onClick={(e) => (id ? handleSave(e, "update") : saveFormOpen())}
             variant="subtle"
             size="xs"
             style={id && { paddingRight: 0 }}
@@ -225,7 +261,10 @@ const LeftHeader = ({}) => {
             Save
             {id && (
               <Menu.Target>
-                <ActionIcon className={classes.customButton} onClick={(e) => e.stopPropagation()}>
+                <ActionIcon
+                  className={classes.customButton}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <IconChevronDown size={14} />
                 </ActionIcon>
               </Menu.Target>
@@ -233,32 +272,18 @@ const LeftHeader = ({}) => {
           </Button>
 
           <Menu.Dropdown>
-            <Menu.Item onClick={(e) => handleSave(e, 'update')}>Save</Menu.Item>
+            <Menu.Item onClick={(e) => handleSave(e, "update")}>Save</Menu.Item>
             <Menu.Item onClick={(e) => saveFormOpen()}>Save As New</Menu.Item>
           </Menu.Dropdown>
-        </Menu> */}
-        {status === 'authenticated' && (
-          <Button
-            className={classes.linkButton}
-            variant="subtle"
-            size="xs"
-            onClick={status === 'authenticated' ? openShare : saveMessageOpen}
-          >
-            Share
-          </Button>
-        )}
-        {/* {status === "authenticated" && (
-          <Button
-            leftIcon={<IconShare3 size="1.2rem" />}
-            size="xs"
-            onClick={openShare}
-          >
-            Share
-          </Button>
-        )} */}
+        </Menu>
       </Group>
-      {importOpened && <ImportZone opened={importOpened} open={importOpen} close={importClose} />}
-      {minifyOpened && <Minify opened={minifyOpened} open={importOpen} close={minifyClose} />}
+      {importOpened && (
+        <ImportZone
+          opened={importOpened}
+          open={importOpen}
+          close={importClose}
+        />
+      )}
       {saveFormOpened && (
         <SaveForm
           opened={saveFormOpened}
@@ -275,8 +300,9 @@ const LeftHeader = ({}) => {
           windowUrl={window.location.href}
         />
       )}
-      {cloudOpened && <Cloud opened={cloudOpened} open={cloudOpen} close={cloudClose} />}
-      {shareOpened && <Share opened={shareOpened} open={openShare} close={closeShare} />}
+      {cloudOpened && (
+        <Cloud opened={cloudOpened} open={cloudOpen} close={cloudClose} />
+      )}
       {loginMessageOpened && (
         <LoginMessage
           opened={loginMessageOpened}

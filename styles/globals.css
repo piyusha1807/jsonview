@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
-
 .light {
   --gutter-background-color: #e9ecef;
   --output-background-color: #f1f3f5;
@@ -21,7 +19,7 @@ body {
   width: 100%;
   margin: 0;
   font-size: 0.8rem;
-  font-family: 'Source Sans Pro, sans-serif';
+  font-family: "Source Sans Pro, sans-serif";
 }
 
 .parent-box {
@@ -52,7 +50,7 @@ body {
 }
 
 .gutter.gutter-horizontal {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
   cursor: col-resize;
   width: 5px;
 }
@@ -63,24 +61,16 @@ body {
 
 .outputArea {
   background-color: var(--output-background-color);
-  height: 90vh;
-  overflow: auto;
-  padding: 12px;
 }
 
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; 
 }
 
 .mantine-djvetm:disabled,
 .mantine-djvetm[data-disabled] {
-  pointer-events: auto;
-}
-
-.w-rjv-line {
-  padding-left: 0; /* Remove extra padding */
-  margin-left: 0; /* Remove extra margin */
+    pointer-events: auto;
 }

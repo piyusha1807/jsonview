@@ -1,5 +1,5 @@
-import { useToggle, upperFirst } from '@mantine/hooks';
-import { useForm } from '@mantine/form';
+import { useToggle, upperFirst } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
 import {
   TextInput,
   PasswordInput,
@@ -11,66 +11,69 @@ import {
   Checkbox,
   Anchor,
   Stack,
-  Modal
-} from '@mantine/core';
-import { signIn } from 'next-auth/react';
-import { GoogleButton, GithubButton } from './socialButtons/socialButtons';
+  Modal,
+} from "@mantine/core";
+import { GoogleButton, GithubButton } from "./socialButtons/socialButtons";
+import { signIn } from "next-auth/react";
 
 export function AuthenticationForm({ opened, open, close }) {
-  const [type, toggle] = useToggle(['login', 'register']);
+  const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
     initialValues: {
-      email: '',
-      name: '',
-      password: '',
-      terms: true
+      email: "",
+      name: "",
+      password: "",
+      terms: true,
     },
 
     validate: {
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null)
-    }
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
+      password: (val) =>
+        val.length <= 6
+          ? "Password should include at least 6 characters"
+          : null,
+    },
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (type === 'login') {
+    if (type === "login") {
       const loginData = {
         email: form.values.email,
-        password: form.values.password
+        password: form.values.password,
       };
 
       try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(loginData)
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData),
         });
         const data = await response.json();
-        console.log('Login Successful', data);
+        console.log("Login Successful", data);
       } catch (error) {
-        console.error('Login Failed', error);
+        console.error("Login Failed", error);
       }
-    } else if (type === 'register') {
+    } else if (type === "register") {
       // Handle register form submission
       const registerData = {
         name: form.values.name,
         email: form.values.email,
         password: form.values.password,
-        terms: form.values.terms
+        terms: form.values.terms,
       };
 
       try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(registerData)
+        const response = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(registerData),
         });
         const data = await response.json();
-        console.log('Registration Successful', data);
+        console.log("Registration Successful", data);
       } catch (error) {
-        console.error('Registration Failed', error);
+        console.error("Registration Failed", error);
       }
     }
   };
@@ -83,24 +86,36 @@ export function AuthenticationForm({ opened, open, close }) {
         </Text>
 
         <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl" onClick={async () => await signIn('google')}>
+          <GoogleButton
+            radius="xl"
+            onClick={async () => await signIn("google")}
+          >
             Google
           </GoogleButton>
-          <GithubButton radius="xl" onClick={async () => await signIn('github')}>
+          <GithubButton
+            radius="xl"
+            onClick={async () => await signIn("github")}
+          >
             Github
           </GithubButton>
         </Group>
 
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
+        <Divider
+          label="Or continue with email"
+          labelPosition="center"
+          my="lg"
+        />
 
         <form onSubmit={handleSubmit}>
           <Stack>
-            {type === 'register' && (
+            {type === "register" && (
               <TextInput
                 label="Name"
                 placeholder="Your name"
                 value={form.values.name}
-                onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+                onChange={(event) =>
+                  form.setFieldValue("name", event.currentTarget.value)
+                }
                 radius="md"
               />
             )}
@@ -110,8 +125,10 @@ export function AuthenticationForm({ opened, open, close }) {
               label="Email"
               placeholder="hello@jsonviewer.com"
               value={form.values.email}
-              onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-              error={form.errors.email && 'Invalid email'}
+              onChange={(event) =>
+                form.setFieldValue("email", event.currentTarget.value)
+              }
+              error={form.errors.email && "Invalid email"}
               radius="md"
             />
 
@@ -120,16 +137,23 @@ export function AuthenticationForm({ opened, open, close }) {
               label="Password"
               placeholder="Your password"
               value={form.values.password}
-              onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-              error={form.errors.password && 'Password should include at least 6 characters'}
+              onChange={(event) =>
+                form.setFieldValue("password", event.currentTarget.value)
+              }
+              error={
+                form.errors.password &&
+                "Password should include at least 6 characters"
+              }
               radius="md"
             />
 
-            {type === 'register' && (
+            {type === "register" && (
               <Checkbox
                 label="I accept terms and conditions"
                 checked={form.values.terms}
-                onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
+                onChange={(event) =>
+                  form.setFieldValue("terms", event.currentTarget.checked)
+                }
               />
             )}
           </Stack>
@@ -142,8 +166,8 @@ export function AuthenticationForm({ opened, open, close }) {
               onClick={() => toggle()}
               size="xs"
             >
-              {type === 'register'
-                ? 'Already have an account? Login'
+              {type === "register"
+                ? "Already have an account? Login"
                 : "Don't have an account? Register"}
             </Anchor>
             <Button type="submit" radius="xl">

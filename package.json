@@ -24,10 +24,12 @@
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
+    "@uiw/react-json-view": "^2.0.0-alpha.9",
     "mongodb": "^5.7.0",
     "next": "^13.4.10",
     "next-auth": "^4.22.4",
     "npm": "^9.8.1",
+    "prettier": "^2.8.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.1.1",
@@ -43,9 +45,6 @@
   "devDependencies": {
     "@types/prettier": "^2.7.3",
     "eslint": "^8.45.0",
-    "eslint-config-next": "^13.4.10",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3"
+    "eslint-config-next": "^13.4.10"
   }
 }

@@ -10,9 +10,7 @@ import {
 
 const dashboardInitialState = {
   inputData: "",
-  savedFileData: {
-    fileName: "Untitled"
-  },
+  savedFileData: {},
   outputData: "",
   inputError: "",
   monacoConfig: {},
