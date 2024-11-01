@@ -1,34 +1,31 @@
-import { createStyles, Header, rem, Text, Box } from "@mantine/core";
-import { useSelector } from "react-redux";
-import LeftHeader from "./leftHeader";
-import RightHeader from "./rightHeader";
+import { createStyles, Header, rem, Text, Box } from '@mantine/core';
+import { useSelector } from 'react-redux';
+import LeftHeader from './leftHeader';
+import RightHeader from './rightHeader';
 
 const useStyles = createStyles((theme) => ({
   customHeader: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[7]
-        : theme.colors.gray[0],
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
     borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
-  },
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`
+  }
 }));
 
-const HeaderMenu = ({}) => {
+const HeaderMenu = () => {
   const { classes } = useStyles();
   const { savedFileData } = useSelector((state: any) => state.dashboard);
 
   return (
-    <div style={{overflow: "auto"}}>
+    <div style={{ overflow: 'auto' }}>
       <Header className={classes.customHeader} height={45} px="sm">
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
-            columnGap: "2rem",
-            height: "100%",
-            alignItems: "center",
+            display: 'grid',
+            gridTemplateColumns: '1fr auto 1fr',
+            columnGap: '2rem',
+            height: '100%',
+            alignItems: 'center'
           }}
         >
           <Box>
