@@ -1,70 +1,14 @@
-import Head from "next/head";
-import DashboardLayout from "@/components/dashboardLayout";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setInputData,
-  setInputError,
-  setOutputData,
-  setSavedFileData,
-} from "@/store/actions/dashboardAction";
-import { get } from "@/utils/api";
-import { notifications } from "@mantine/notifications";
-import { useMantineColorScheme } from "@mantine/core";
+import Head from 'next/head';
+import { useMantineColorScheme } from '@mantine/core';
+import LandingPageComponent from '@/components/landingPageComonent';
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { id } = router.query;
   const { colorScheme } = useMantineColorScheme();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (id) {
-      getData(id);
-    }
-  }, [id]);
-
-  const getData = async (id) => {
-    try {
-      setIsLoading(true);
-      const { data } = await get(`/api/getFile/?id=${id}`);
-
-      handleEditorChange(data.json);
-      dispatch(setSavedFileData(data));
-      // notifications.show({ message: response.message, color: "green" });
-    } catch (error) {
-      notifications.show({ message: error.message, color: "red" });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleEditorChange: any = (value: string) => {
-    try {
-      dispatch(setInputError(""));
-      dispatch(setInputData(value));
-
-      let obj = "";
-      if (value) {
-        obj = JSON.parse(value);
-      }
-      dispatch(setOutputData(obj));
-    } catch (error) {
-      if (error instanceof Error) {
-        dispatch(setInputError(error.message));
-      }
-    }
-  };
 
   return (
     <>
       <Head>
-        <title>
-          JSON Viewer Online: Open, view, Format, and Share JSON File
-        </title>
+        <title>JSON Viewer Online: Open, view, Format, and Share JSON File</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -104,7 +48,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={colorScheme}>
-        <DashboardLayout />
+        <LandingPageComponent />
       </main>
     </>
   );
