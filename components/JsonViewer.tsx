@@ -20,73 +20,59 @@ const JsonViewer = ({ data }) => {
           style={{
             listStyleType: 'none',
             padding: '0px',
-
             marginLeft: level === 0 ? '0px' : '23px'
           }}
         >
           {Object.entries(data).map(([key, value], index, array) => {
             const currentPath = `${path}/${key}`;
             const isExpanded = expandedKeys[currentPath];
+            const itemsCount =
+              typeof value === 'object' && value !== null ? Object.keys(value).length : null;
             const isArray = Array.isArray(value);
-            const itemsCount = isArray
-              ? value.length
-              : typeof value === 'object' && value !== null
-                ? Object.keys(value).length
-                : null;
             const typeSymbol = isArray
               ? '[]'
               : typeof value === 'object' && value !== null
                 ? '{}'
                 : null;
             const isLastElement = index === array.length - 1;
-            const isNested = typeof value === 'object' && value !== null && itemsCount;
+            // const itemsCount = typeof value === 'object' && value !== null && itemsCount;
 
             return (
               <li
                 key={key}
                 style={{
                   position: 'relative',
-                  borderLeft: isNested || isLastElement ? 'none' : '0.5px dotted grey', // Apply full border for non-last elements
-                  // paddingLeft: isNested ? '23px' : ''
-                  marginLeft: isNested ? '' : '8px'
+                  borderLeft: itemsCount || isLastElement ? 'none' : '0.5px dotted grey', // Apply full border for non-last elements
+                  // paddingLeft: itemsCount ? '23px' : ''
+                  marginLeft: itemsCount ? '' : '8px'
                 }}
               >
-                {isNested && !isLastElement && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: '8px',
-                      top: 0,
-                      height: '100%', // Shorter height for the border
-                      borderLeft: '0.5px dotted grey'
-                    }}
-                  ></div>
-                )}
-                {!isNested && isLastElement && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: '0px',
-                      top: 0,
-                      height: '50%', // Shorter height for the border
-                      borderLeft: '0.5px dotted grey'
-                    }}
-                  ></div>
-                )}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {/* {!isNested && (
-                    <hr
+                {!!itemsCount &&
+                  !isLastElement && ( // full | for objects/array but not for last
+                    <div
                       style={{
-                        width: '18px',
-                        borderWidth: '0.5px 0px 0px 0px',
-                        borderStyle: 'dotted',
-                        borderColor: 'grey',
-                        margin: '0px'
+                        position: 'absolute',
+                        left: '8px',
+                        top: 0,
+                        height: '100%',
+                        borderLeft: '0.5px dotted grey'
                       }}
-                    />
-                  )} */}
-
-                  {isNested && (
+                    ></div>
+                  )}
+                {Boolean(!itemsCount) &&
+                  isLastElement && ( // half | for the last single element
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0px',
+                        top: 0,
+                        height: '50%',
+                        borderLeft: '0.5px dotted grey'
+                      }}
+                    ></div>
+                  )}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {!!itemsCount && (
                     <ActionIcon
                       size="xs"
                       color="rgb(38, 139, 210)"
@@ -98,7 +84,7 @@ const JsonViewer = ({ data }) => {
                   )}
                   <hr
                     style={{
-                      width: isNested ? '5px' : '18px',
+                      width: itemsCount ? '5px' : '18px',
                       borderWidth: '0.5px 0px 0px 0px',
                       borderStyle: 'dotted',
                       borderColor: 'grey',
@@ -110,7 +96,7 @@ const JsonViewer = ({ data }) => {
                       display: 'flex',
                       alignItems: 'center',
                       columnGap: '5px',
-                      width: '100%'
+                      width: '90%'
                     }}
                   >
                     {typeSymbol ? (
@@ -148,7 +134,7 @@ const JsonViewer = ({ data }) => {
                     ) : (
                       <div
                         style={{
-                          maxWidth: 'calc(100% - 12rem)', // Set max width for the string
+                          maxWidth: 'calc(100% - 8rem)', // Set max width for the string
                           overflow: 'hidden',
                           textOverflow: 'ellipsis', // Add ellipsis for long strings
                           whiteSpace: 'nowrap',

@@ -108,7 +108,7 @@ const RightHeader = ({}) => {
             radius="xl"
             size="sm"
             key={session.user.name}
-            name={session.user.name}
+            // name={session.user.name}
             color="initials"
             src={session.user.image}
             alt={session.user.name}
