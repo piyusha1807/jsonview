@@ -99,7 +99,7 @@ const Share = ({ opened, open, close }) => {
   }, [opened]);
 
   return (
-    <Modal title="Share File" size="md" opened={opened} onClose={close} centered>
+    <Modal title="Share File" size="lg" opened={opened} onClose={close} centered>
       <Stack>
         {inputData !== savedFileData?.json && (
           <Alert icon={<IconAlertCircle size="1rem" />} color="yellow" radius="xs">
@@ -112,12 +112,14 @@ const Share = ({ opened, open, close }) => {
             <Text fz="sm">Shareable Link:</Text>
             <div style={{ display: 'flex' }}>
               <Code color="indigo">
-                <Text fz="md">{`${window.location.origin}/?id=${shareableId}`}</Text>
+                <Text fz="md">{`${window.location.href}${window.location.pathname}/?id=${shareableId}`}</Text>
               </Code>
               <Tooltip label={isCopied ? 'Copied' : 'Copy'} withArrow position="right">
                 <ActionIcon
                   color={isCopied ? 'teal' : 'gray'}
-                  onClick={() => copy(`${window.location.origin}/?id=${shareableId}`)}
+                  onClick={() =>
+                    copy(`${window.location.href}${window.location.pathname}/?id=${shareableId}`)
+                  }
                 >
                   {isCopied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
                 </ActionIcon>

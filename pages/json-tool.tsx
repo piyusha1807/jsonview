@@ -29,6 +29,23 @@ const JsonToolPage = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (!id) {
+      getLandingData();
+    }
+  }, []);
+
+  const getLandingData = async () => {
+    try {
+      const res = await fetch('/landing.txt');
+      const text = await res.text();
+
+      handleEditorChange(text);
+    } catch (error) {
+      notifications.show({ message: error.message, color: 'red' });
+    }
+  };
+
   const getData = async (id) => {
     try {
       setIsLoading(true);
@@ -46,6 +63,7 @@ const JsonToolPage = () => {
 
   const handleEditorChange: any = (value: string) => {
     try {
+      console.log(value);
       dispatch(setInputError(''));
       dispatch(setInputData(value));
 

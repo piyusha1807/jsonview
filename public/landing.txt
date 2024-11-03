@@ -1,0 +1,83 @@
+{
+  "features": {
+    "title": "Key Features",
+    "list": [
+      {
+        "feature": "Real-time JSON Formatting",
+        "description": "Automatically formats your JSON data for readability as soon as you upload or paste it."
+      },
+      {
+        "feature": "Syntax Highlighting",
+        "description": "Color-coded syntax highlighting makes it easy to distinguish between keys, values, and data types."
+      },
+      {
+        "feature": "Error Detection",
+        "description": "Quickly find and correct errors in your JSON data with our error detection tool."
+      },
+      {
+        "feature": "Search and Navigate",
+        "description": "Effortlessly search and navigate through complex JSON data with powerful search tools."
+      },
+      {
+        "feature": "Save and Share",
+        "description": "Save your JSON data locally or in the cloud and share it with others with a unique link."
+      }
+    ]
+  },
+  "howToUse": {
+    "title": "How to Use the JSON Viewer",
+    "steps": [
+      {
+        "step": "Step 1",
+        "instruction": "Open the application and select 'Import JSON' to upload your JSON file or paste your JSON data."
+      },
+      {
+        "step": "Step 2",
+        "instruction": "View your JSON data in a formatted and color-coded display for easy readability."
+      },
+      {
+        "step": "Step 3",
+        "instruction": "Use the search function to quickly find specific elements within your JSON data."
+      },
+      {
+        "step": "Step 4",
+        "instruction": "Make any necessary changes or corrections using the editing tools provided."
+      },
+      {
+        "step": "Step 5",
+        "instruction": "Save your edited JSON data locally or share it using the 'Share' option which provides a shareable link."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What Our Users Say",
+    "entries": [
+      {
+        "name": "Jane Doe",
+        "comment": "This tool has drastically increased my efficiency when working with JSON data!"
+      },
+      {
+        "name": "John Smith",
+        "comment": "I love the intuitive design and how easy it makes managing large JSON files."
+      }
+    ]
+  },
+  "FAQs": {
+    "title": "Frequently Asked Questions",
+    "questions": [
+      {
+        "question": "Can I use the JSON Viewer for very large files?",
+        "answer": "Yes, our tool can handle large JSON files efficiently, ensuring smooth and responsive performance."
+      },
+      {
+        "question": "Is my data safe?",
+        "answer": "Absolutely, data security is paramount for us. Your data is processed securely and we never store it on our servers."
+      }
+    ]
+  },
+  "callToAction": {
+    "text": "Ready to simplify your JSON handling?",
+    "buttonText": "Try JSON Viewer Free",
+    "link": "signup"
+  }
+}

@@ -71,7 +71,7 @@ const Cloud = ({ opened, open, close }) => {
   };
 
   const handleOpen = (id) => {
-    window.open(`${window.location.origin}?id=${id}`, '_blank');
+    window.open(`${window.location.origin}${window.location.pathname}?id=${id}`, '_blank');
   };
 
   const handleDelete = async (id) => {
@@ -179,7 +179,11 @@ const Cloud = ({ opened, open, close }) => {
                       <Tooltip label="Copy link" withArrow>
                         <ActionIcon
                           className={classes.customButton}
-                          onClick={() => copy(`${window.location.origin}?id=${element.id}`)}
+                          onClick={() =>
+                            copy(
+                              `${window.location.href}${window.location.pathname}?id=${element.id}`
+                            )
+                          }
                         >
                           <IconLink size="1.2rem" color="#69DB7C" />
                         </ActionIcon>
