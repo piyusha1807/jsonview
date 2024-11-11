@@ -1,0 +1,147 @@
+.pageWrapper {
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+  background: linear-gradient(90deg, #ebebeb 0%, #fafafa 70%);
+}
+
+.pageWrapper::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #ebebeb 1px, transparent 1px),
+    linear-gradient(to bottom, #ebebeb 1px, transparent 1px);
+  background-size: 100px 100px;
+  z-index: 0;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+
+  .logoText {
+  }
+
+  .links {
+    margin-right: 6rem;
+    display: flex;
+    gap: 2rem;
+
+    a {
+      all: unset;
+      cursor: pointer;
+      font-size: 16px;
+      color: rgb(53, 52, 52);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.heroSection {
+  position: relative;
+  margin-top: 2rem;
+  display: flex;
+
+  .heroTitle {
+    margin-top: 8rem;
+  }
+
+  .heroSubtitle {
+    margin-top: 0.5rem;
+  }
+
+  .heroButtons {
+    margin-top: 1rem;
+  }
+
+  .heroImage {
+    z-index: 1;
+  }
+}
+
+.importanceSection {
+  position: relative;
+  display: flex;
+  margin-top: 8rem;
+
+  .importanceSubtitle {
+    margin-top: 0.5rem;
+  }
+
+  .importancePoints {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+
+.featureSection {
+  position: relative;
+  margin-top: 6rem;
+
+  .featureContainer {
+    max-width: 80rem;
+  }
+
+  .featureTitle {
+    text-align: center;
+  }
+
+  .featureCards {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between grid items */
+    padding: 1rem;
+
+    .featureCard {
+      text-align: center;
+      padding: 2rem 1rem;
+      .featureHeading {
+        margin: 0.8rem;
+      }
+    }
+  }
+}
+
+.ctaSection {
+  position: relative;
+  margin-top: 8rem;
+  padding: '4rem 2rem';
+  text-align: 'center';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // color: theme.colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.dark[7]
+
+  .ctaSubtitle {
+    margin-top: 0.5rem;
+  }
+  .ctaButtons {
+    margin-top: 2rem;
+  }
+}
+
+.footer {
+  position: relative;
+  margin-top: 4rem;
+  padding: '2rem';
+  // color: theme.colorScheme === 'dark' ? theme.colors.gray[4] : theme.colors.dark[6],
+  text-align: 'center';
+  font-size: '0.9rem';
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

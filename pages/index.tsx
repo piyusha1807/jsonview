@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useMantineColorScheme } from '@mantine/core';
-import LandingPageComponent from '@/components/landingPageComonent';
+import LandingPage from '@/components/LandingPage';
 
 export default function Home() {
   const { colorScheme } = useMantineColorScheme();
@@ -48,7 +48,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={colorScheme}>
-        <LandingPageComponent />
+        <LandingPage />
       </main>
     </>
   );
