@@ -1,83 +1,77 @@
 {
-  "features": {
-    "title": "Key Features",
-    "list": [
+  "appInfo": {
+    "appName": "JSON Viewer",
+    "version": "1.0",
+    "releaseDate": "2024-11-01",
+    "developer": {
+      "name": "Piyush Agrawal",
+      "contactEmail": "piyush@jsonviewer.com",
+      "website": "https://www.jsonviewer.com"
+    },
+    "purpose": "Designed to simplify JSON handling and improve coding efficiency for developers.",
+    "features": [
+      "Import JSON files",
+      "Export JSON data",
+      "Visual editing",
+      "Syntax highlighting",
+      "Search and navigation tools",
       {
-        "feature": "Real-time JSON Formatting",
-        "description": "Automatically formats your JSON data for readability as soon as you upload or paste it."
-      },
-      {
-        "feature": "Syntax Highlighting",
-        "description": "Color-coded syntax highlighting makes it easy to distinguish between keys, values, and data types."
-      },
-      {
-        "feature": "Error Detection",
-        "description": "Quickly find and correct errors in your JSON data with our error detection tool."
-      },
-      {
-        "feature": "Search and Navigate",
-        "description": "Effortlessly search and navigate through complex JSON data with powerful search tools."
-      },
-      {
-        "feature": "Save and Share",
-        "description": "Save your JSON data locally or in the cloud and share it with others with a unique link."
+        "collaboration": {
+          "realTime": true,
+          "comments": true,
+          "sharingOptions": [
+            "via email",
+            "via link",
+            "embedded in websites"
+          ]
+        }
       }
     ]
   },
-  "howToUse": {
-    "title": "How to Use the JSON Viewer",
-    "steps": [
-      {
-        "step": "Step 1",
-        "instruction": "Open the application and select 'Import JSON' to upload your JSON file or paste your JSON data."
-      },
-      {
-        "step": "Step 2",
-        "instruction": "View your JSON data in a formatted and color-coded display for easy readability."
-      },
-      {
-        "step": "Step 3",
-        "instruction": "Use the search function to quickly find specific elements within your JSON data."
-      },
-      {
-        "step": "Step 4",
-        "instruction": "Make any necessary changes or corrections using the editing tools provided."
-      },
-      {
-        "step": "Step 5",
-        "instruction": "Save your edited JSON data locally or share it using the 'Share' option which provides a shareable link."
+  "sampleData": {
+    "type": "example",
+    "content": {
+      "numericValue": 12345,
+      "stringValue": "Sample Text",
+      "booleanValue": true,
+      "nullValue": null,
+      "nestedArray": [
+        {
+          "id": 1,
+          "description": "First element"
+        },
+        {
+          "id": 2,
+          "description": "Second element"
+        }
+      ],
+      "nestedObject": {
+        "levelOne": {
+          "levelTwo": {
+            "attribute": "Value",
+            "arrayInside": [
+              "Item 1",
+              "Item 2"
+            ]
+          }
+        }
       }
-    ]
+    }
   },
-  "testimonials": {
-    "title": "What Our Users Say",
-    "entries": [
-      {
-        "name": "Jane Doe",
-        "comment": "This tool has drastically increased my efficiency when working with JSON data!"
-      },
-      {
-        "name": "John Smith",
-        "comment": "I love the intuitive design and how easy it makes managing large JSON files."
-      }
-    ]
-  },
-  "FAQs": {
-    "title": "Frequently Asked Questions",
-    "questions": [
-      {
-        "question": "Can I use the JSON Viewer for very large files?",
-        "answer": "Yes, our tool can handle large JSON files efficiently, ensuring smooth and responsive performance."
-      },
-      {
-        "question": "Is my data safe?",
-        "answer": "Absolutely, data security is paramount for us. Your data is processed securely and we never store it on our servers."
-      }
-    ]
-  },
-  "callToAction": {
-    "text": "Ready to simplify your JSON handling?",
-    "buttonText": "Try JSON Viewer Free",
-    "link": "signup"
+  "support": {
+    "documentation": "https://www.jsonviewer.com/docs",
+    "community": {
+      "forums": "https://community.jsonviewer.com",
+      "socialMedia": [
+        {
+          "platform": "LinkedIn",
+          "url": "https://www.linkedin.com/in/piyush-agrawal-json"
+        },
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/PiyushJSONViewer"
+        }
+      ]
+    }
   }
 }

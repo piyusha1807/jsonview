@@ -1,0 +1,99 @@
+.pageWrapper {
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+
+  .logoText {
+    cursor: pointer;
+  }
+
+  .links {
+    margin-right: 6rem;
+    display: flex;
+    gap: 2rem;
+
+    a {
+      all: unset;
+      cursor: pointer;
+      font-size: 16px;
+      color: rgb(53, 52, 52);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  margin: 1rem 4rem;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .descriptionText {
+    width: 60%;
+    font-size: 20px;
+  }
+}
+
+// .description,
+// .profileSection,
+// .features {
+//   margin: 1rem 4rem;
+//   padding: 15px;
+//   // background-color: #f4f4f4; /* Light gray background for sections */
+//   // border-radius: 8px;
+// }
+
+.profileSection {
+  margin: 1rem 4rem;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.features ul {
+  list-style: none; /* No default list style */
+  padding-left: 20px; /* Indent list items */
+}
+
+.features li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between icon and text */
+}
+
+.footer {
+  position: relative;
+  margin-top: 4rem;
+  padding: '2rem';
+  // color: theme.colorScheme === 'dark' ? theme.colors.gray[4] : theme.colors.dark[6],
+  text-align: 'center';
+  font-size: '0.9rem';
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
