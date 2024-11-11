@@ -1,16 +1,16 @@
 // utils/api.js
-const API_BASE_URL = "https://api.example.com"; // Replace with your API's base URL
+const API_BASE_URL = 'https://api.example.com'; // Replace with your API's base URL
 
 async function fetchData(url, options = {}) {
   const headers = {
-    "Content-Type": "application/json",
-    ...options.headers,
+    'Content-Type': 'application/json',
+    ...options.headers
   };
 
   const requestOptions = {
-    method: options.method || "GET",
+    method: options.method || 'GET',
     headers,
-    body: options.body ? JSON.stringify(options.body) : undefined,
+    body: options.body ? JSON.stringify(options.body) : undefined
   };
 
   try {
@@ -29,20 +29,20 @@ async function fetchData(url, options = {}) {
 }
 
 export async function get(endpoint, options = {}) {
-  return fetchData(endpoint, { ...options, method: "GET" });
+  return fetchData(endpoint, { ...options, method: 'GET' });
 }
 
 export async function post(endpoint, body, options = {}) {
-  return fetchData(endpoint, { ...options, method: "POST", body });
+  return fetchData(endpoint, { ...options, method: 'POST', body });
 }
 
 export async function deleteApi(endpoint, options = {}) {
-  return fetchData(endpoint, { ...options, method: "DELETE" });
+  return fetchData(endpoint, { ...options, method: 'DELETE' });
 }
 
 // Add more HTTP methods (PUT, DELETE, etc.) as needed
 
 export default {
   get,
-  post,
+  post
 };

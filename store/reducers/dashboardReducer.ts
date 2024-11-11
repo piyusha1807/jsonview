@@ -5,70 +5,67 @@ import {
   MINIFY_CONFIG,
   FORMAT_CONFIG,
   SAVED_FILE_DATA,
-  SETTINGS_CONFIG,
-} from "../constants/dashboardConstants";
+  SETTINGS_CONFIG
+} from '../constants/dashboardConstants';
 
 const dashboardInitialState = {
-  inputData: "",
+  inputData: '',
   savedFileData: {
-    fileName: "Untitled"
+    fileName: 'Untitled'
   },
-  outputData: "",
-  inputError: "",
+  outputData: '',
+  inputError: '',
   monacoConfig: {},
   settingsConfig: {
-    displayChildrenCount: true,
-  },
+    displayChildrenCount: true
+  }
 };
 
-export const dashboardReducer = (
-  state = dashboardInitialState,
-  { type, payload }: any
-) => {
+export const dashboardReducer = (state = dashboardInitialState, { type, payload }: any) => {
   switch (type) {
     case INPUT_DATA:
-      localStorage.setItem("input-data", payload);
+      localStorage.setItem('input-data', payload);
       return {
         ...state,
-        inputData: payload,
+        inputData: payload
       };
     case SAVED_FILE_DATA:
       return {
         ...state,
-        savedFileData: payload,
+        savedFileData: payload
       };
     case OUTPUT_DATA:
       return {
         ...state,
-        outputData: payload,
+        outputData: payload
       };
     case INPUT_ERROR:
       return {
         ...state,
-        inputError: payload,
+        inputError: payload
       };
     case MINIFY_CONFIG:
       return {
         ...state,
         monacoConfig: {
-          wordWrap: "on",
-          wrappingStrategy: "advanced",
-        },
+          wordWrap: 'on',
+          wrappingStrategy: 'advanced'
+        }
       };
     case FORMAT_CONFIG:
       return {
         ...state,
         monacoConfig: {
-          wordWrap: "off",
-          wrappingStrategy: "simple",
-        },
+          wordWrap: 'off',
+          wrappingStrategy: 'simple'
+        }
       };
     case SETTINGS_CONFIG:
       return {
         ...state,
         settingsConfig: {
-          ...payload,
-        },
+          ...payload
+        }
       };
     default:
       return state;

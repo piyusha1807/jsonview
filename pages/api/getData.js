@@ -1,29 +1,27 @@
-import { getServerSession } from "next-auth/next";
-import connectToDatabase from "../../lib/mongodb";
-import { authOptions } from "./auth/[...nextauth]";
+import { getServerSession } from 'next-auth/next';
+import connectToDatabase from '../../lib/mongodb';
+import { authOptions } from './auth/[...nextauth]';
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const session = await getServerSession(req, res, authOptions);
 
     try {
       if (!session) {
-        res
-          .status(403)
-          .json({ error: "You do not have permission to view the data" });
+        res.status(403).json({ error: 'You do not have permission to view the data' });
       }
 
       const client = await connectToDatabase;
-      const filesCollection = client.db("jsonViewer").collection("files");
+      const filesCollection = client.db('jsonViewer').collection('files');
 
       const resultCursor = await filesCollection.find({
-        createdBy: session?.user?.email,
+        createdBy: session?.user?.email
       });
 
       const result = await resultCursor.toArray();
 
       if (!result) {
-        res.status(404).json({ error: "Data not found" });
+        res.status(404).json({ error: 'Data not found' });
       }
 
       const modifiedResult = result.map((item) => {
@@ -35,19 +33,19 @@ export default async function handler(req, res) {
           createdAt: item.createdAt,
           lastModifiedBy: item.lastModifiedBy,
           lastModifiedAt: item.lastModifiedAt,
-          globalAccess: item.globalAccess,
+          globalAccess: item.globalAccess
         };
       });
 
       res.status(201).json({
-        message: "Data fetch successfully",
-        data: modifiedResult,
+        message: 'Data fetch successfully',
+        data: modifiedResult
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "An error occurred while fetching data" });
+      res.status(500).json({ error: 'An error occurred while fetching data' });
     }
   } else {
-    res.status(405).json({ error: "Method not allowed" });
+    res.status(405).json({ error: 'Method not allowed' });
   }
 }

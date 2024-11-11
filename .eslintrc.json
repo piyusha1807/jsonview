@@ -4,11 +4,7 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:react/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     // "ecmaFeatures": {
@@ -24,14 +20,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ]
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
       }
     ]
   }

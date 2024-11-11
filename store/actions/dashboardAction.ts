@@ -5,52 +5,52 @@ import {
   MINIFY_CONFIG,
   FORMAT_CONFIG,
   SAVED_FILE_DATA,
-  SETTINGS_CONFIG,
-} from "../constants/dashboardConstants";
+  SETTINGS_CONFIG
+} from '../constants/dashboardConstants';
 
 export function setInputData(payload: any) {
   return {
     type: INPUT_DATA,
-    payload,
+    payload
   };
 }
 
 export function setSavedFileData(payload: any) {
   return {
     type: SAVED_FILE_DATA,
-    payload,
+    payload
   };
 }
 
 export function setOutputData(payload: any) {
   return {
     type: OUTPUT_DATA,
-    payload,
+    payload
   };
 }
 
 export function setInputError(payload: any) {
   return {
     type: INPUT_ERROR,
-    payload,
+    payload
   };
 }
 
 export function setMinifyConfig() {
   return {
-    type: MINIFY_CONFIG,
+    type: MINIFY_CONFIG
   };
 }
 
 export function setFormatConfig() {
   return {
-    type: FORMAT_CONFIG,
+    type: FORMAT_CONFIG
   };
 }
 
 export function setSettingsConfig(payload: any) {
   return {
     type: SETTINGS_CONFIG,
-    payload,
+    payload
   };
 }
