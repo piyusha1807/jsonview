@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMantineColorScheme } from '@mantine/core';
 import { setInputData, setInputError, setOutputData } from '@/store/actions/dashboardAction';
 import * as gtag from '../lib/gtag';
-// import JsonView from "@uiw/react-json-view";
-// import { lightTheme } from "@uiw/react-json-view/light";
 import JsonViewer from './JsonViewer';
 
 const Editor = dynamic(() => import('@monaco-editor/react'), {
@@ -103,7 +101,7 @@ const MONACO_OPTIONS = {
 function JsonTool() {
   const dispatch = useDispatch();
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, outputData, monacoConfig, settingsConfig } = dashboard;
+  const { inputData, outputData, monacoConfig } = dashboard;
   const { colorScheme } = useMantineColorScheme();
   const [initialSizes, setInitialSizes] = useState([40, 60]);
   const editorRef: any = useRef(null);

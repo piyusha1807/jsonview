@@ -3,9 +3,7 @@ import {
   IconSettings,
   IconArrowsMaximize,
   IconArrowsMinimize,
-  IconShare3,
-  IconSearch,
-  IconLogin
+  IconSearch
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -14,9 +12,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { AuthenticationForm } from '../authentication';
 
 const Settings = dynamic(() => import('../settings'), {
-  ssr: false
-});
-const Share = dynamic(() => import('../share'), {
   ssr: false
 });
 const UserInfo = dynamic(() => import('../userInfo'), {
@@ -43,9 +38,9 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-const RightHeader = ({}) => {
+const RightHeader = () => {
   const { classes } = useStyles();
-  const { data: session, status }: any = useSession();
+  const { data: session }: any = useSession();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -127,9 +122,7 @@ const RightHeader = ({}) => {
       {userInfoOpened && (
         <UserInfo opened={userInfoOpened} open={userInfoOpen} close={userInfoClose} />
       )}
-      {authFormOpened && (
-        <AuthenticationForm opened={authFormOpened} open={authFormOpen} close={authFormClose} />
-      )}
+      {authFormOpened && <AuthenticationForm opened={authFormOpened} close={authFormClose} />}
     </>
   );
 };

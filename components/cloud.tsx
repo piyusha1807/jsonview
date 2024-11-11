@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   Table,
-  Paper,
-  PaperProps,
-  Modal,
   Loader,
   ActionIcon,
   createStyles,
@@ -29,7 +26,7 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-const Cloud = ({ opened, open, close }) => {
+const Cloud = ({ opened, close }) => {
   const { classes } = useStyles();
   const [isCopied, copy] = useCopyToClipboard();
   const { status }: any = useSession();
@@ -88,7 +85,7 @@ const Cloud = ({ opened, open, close }) => {
     }
   };
 
-  const formatNameComments = (value, columnName) => {
+  const formatNameComments = (value) => {
     return (
       <Tooltip label={value} width={220} position="right" withArrow multiline>
         <Text
@@ -148,8 +145,8 @@ const Cloud = ({ opened, open, close }) => {
             data.map((element) => {
               return (
                 <tr key={element.id} style={{ backgroundColor: element.local ? '#fef7ea' : '' }}>
-                  <td>{formatNameComments(element.fileName, 'filename')}</td>
-                  <td>{formatNameComments(element.comments, 'comments')}</td>
+                  <td>{formatNameComments(element.fileName)}</td>
+                  <td>{formatNameComments(element.comments)}</td>
                   <td>{formatTimestamp(element.createdAt)}</td>
                   <td>{formatTimestamp(element.lastModifiedAt)}</td>
                   <td>{formatTruthy(element.globalAccess?.view)}</td>

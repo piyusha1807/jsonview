@@ -1,8 +1,8 @@
-import { Text, Title, Button, Stack, Modal } from "@mantine/core";
+import { Text, Title, Button, Stack, Modal } from '@mantine/core';
 
-const LoginMessage = ({ opened, open, close }) => {
+const LoginMessage = ({ opened, close }) => {
   return (
-    <Modal size={"md"} opened={opened} onClose={close} title={"LogIn"} centered>
+    <Modal size={'md'} opened={opened} onClose={close} title={'LogIn'} centered>
       <Stack>
         <Title order={2}>Welcome Back!</Title>
         <Text fz="md">Login to unlock full potential of JSON Viewer!</Text>

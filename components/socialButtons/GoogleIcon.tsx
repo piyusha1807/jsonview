@@ -1,4 +1,6 @@
-function GoogleIcon(props: React.ComponentPropsWithoutRef<"svg">) {
+import React from 'react';
+
+function GoogleIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

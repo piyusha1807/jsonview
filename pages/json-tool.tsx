@@ -2,7 +2,7 @@ import { Box } from '@mantine/core';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { notifications } from '@mantine/notifications';
 import { useMantineColorScheme } from '@mantine/core';
 import {
@@ -12,7 +12,7 @@ import {
   setSavedFileData
 } from '@/store/actions/dashboardAction';
 import { get } from '@/utils/api';
-import JsonTool from '../components/jsonTool';
+import JsonTool from '../components/jsontool';
 import FooterMenu from '../components/footer';
 import HeaderMenu from '../components/header';
 

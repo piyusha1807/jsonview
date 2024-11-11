@@ -1,15 +1,5 @@
 import { useForm } from '@mantine/form';
-import {
-  TextInput,
-  Textarea,
-  Paper,
-  Group,
-  Button,
-  Stack,
-  Loader,
-  Modal,
-  Space
-} from '@mantine/core';
+import { TextInput, Textarea, Paper, Group, Button, Stack, Modal } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -18,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { post } from '@/utils/api';
 import { setSavedFileData } from '@/store/actions/dashboardAction';
 
-const SaveForm = ({ opened, open, saveMessageOpen, close }: any) => {
+const SaveForm = ({ opened, saveMessageOpen, close }: any) => {
   const dashboard = useSelector((state: any) => state.dashboard);
   const { inputData, savedFileData } = dashboard;
   const router = useRouter();

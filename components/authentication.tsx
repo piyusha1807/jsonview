@@ -16,7 +16,7 @@ import {
 import { signIn } from 'next-auth/react';
 import { GoogleButton, GithubButton } from './socialButtons/socialButtons';
 
-export function AuthenticationForm({ opened, open, close }) {
+export function AuthenticationForm({ opened, close }) {
   const [type, toggle] = useToggle(['login', 'register']);
   const form = useForm({
     initialValues: {

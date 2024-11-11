@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 import promiseMiddleware from "redux-promise-middleware";
+import rootReducer from "./reducers";
 
 const middlewares = [thunk, promiseMiddleware];
 

@@ -2,9 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Title, Text, Button, useMantineTheme, Flex } from '@mantine/core';
+import { Title, Text, useMantineTheme, Flex } from '@mantine/core';
 import {
-  IconArrowRight,
   IconBrandLinkedin,
   IconBug,
   IconDeviceFloppy,

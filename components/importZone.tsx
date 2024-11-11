@@ -1,10 +1,8 @@
 import { useRef, useState } from 'react';
 import { Text, Group, Button, createStyles, rem, Modal, Flex, Stack } from '@mantine/core';
-import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import { IconCloudUpload, IconCheck, IconAlertCircle } from '@tabler/icons-react';
 import { useDispatch } from 'react-redux';
-import prettier from 'prettier/standalone';
-import parserBabel from 'prettier/parser-babel';
 import { notifications } from '@mantine/notifications';
 import {
   setInputData,
@@ -48,7 +46,7 @@ const importButtons = [
   { id: 'b2c8a71b-3e31-48c9-9ac9-232f21a09d4f', name: 'Github JSON' }
 ];
 
-const ImportZone = ({ opened, open, close }) => {
+const ImportZone = ({ opened, close }) => {
   const { classes, theme } = useStyles();
   const openRef = useRef<() => void>(null);
   const dispatch = useDispatch();

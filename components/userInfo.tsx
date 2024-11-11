@@ -1,7 +1,7 @@
-import { Text, Paper, Button, Avatar, Modal } from "@mantine/core";
-import { useSession, signOut } from "next-auth/react";
+import { Text, Paper, Button, Avatar, Modal } from '@mantine/core';
+import { useSession, signOut } from 'next-auth/react';
 
-const UserInfo = ({ opened, open, close }) => {
+const UserInfo = ({ opened, close }) => {
   const { data: session }: any = useSession();
 
   if (!session) return <></>;
@@ -13,8 +13,7 @@ const UserInfo = ({ opened, open, close }) => {
         withBorder
         p="lg"
         sx={(theme) => ({
-          backgroundColor:
-            theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white
         })}
       >
         <Avatar src={session.user.image} size={120} radius={120} mx="auto" />
@@ -25,13 +24,7 @@ const UserInfo = ({ opened, open, close }) => {
           {session.user.email}
         </Text>
 
-        <Button
-          variant="filled"
-          color="red"
-          fullWidth
-          mt="md"
-          onClick={() => signOut()}
-        >
+        <Button variant="filled" color="red" fullWidth mt="md" onClick={() => signOut()}>
           Logout
         </Button>
       </Paper>

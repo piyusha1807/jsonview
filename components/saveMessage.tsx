@@ -2,7 +2,7 @@ import { ActionIcon, Code, Modal, Tooltip, Text } from '@mantine/core';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import useCopyToClipboard from '@/hooks/useCopyToClipboard';
 
-const SaveMessage = ({ opened, open, close, windowUrl }: any) => {
+const SaveMessage = ({ opened, close, windowUrl }: any) => {
   const [isCopied, copy] = useCopyToClipboard();
 
   return (

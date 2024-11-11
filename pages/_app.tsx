@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import { SessionProvider } from 'next-auth/react';
 import { Notifications } from '@mantine/notifications';
 import store from '../store';

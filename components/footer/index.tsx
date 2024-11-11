@@ -1,13 +1,5 @@
+import { createStyles, Group, Text, rem, Button, HoverCard } from '@mantine/core';
 import {
-  createStyles,
-  Group,
-  Text,
-  rem,
-  Button,
-  HoverCard,
-} from "@mantine/core";
-import {
-  IconUser,
   IconCircleCheck,
   IconCloudCheck,
   IconCloud,
@@ -15,77 +7,57 @@ import {
   IconCloudLock,
   IconMessageDots,
   IconQuestionMark
-} from "@tabler/icons-react";
-import { useSelector } from "react-redux";
-import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
-import { useRouter } from 'next/router'
-import { useDisclosure } from "@mantine/hooks";
-import { AuthenticationForm } from "../authentication";
+} from '@tabler/icons-react';
+import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useDisclosure } from '@mantine/hooks';
 
-const UserInfo = dynamic(() => import("../userInfo"), {
-  ssr: false,
-});
-const Feedback = dynamic(() => import("../feedback"), {
-  ssr: false,
+const Feedback = dynamic(() => import('../feedback'), {
+  ssr: false
 });
 
 const useStyles = createStyles((theme) => ({
   footer: {
     overflow: 'auto',
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[7]
-        : theme.colors.gray[1],
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
     borderTop: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`
   },
   inner: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   myCustomButton: {
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
     fontWeight: 300,
     fontSize: theme.fontSizes.xs,
     borderRadius: 0,
 
     ...theme.fn.hover({
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
-          : theme.colors.gray[3],
-      color:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[1]
-          : theme.colors.gray[7],
-    }),
-  },
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7]
+    })
+  }
 }));
 
 function FooterMenu() {
   const router = useRouter();
   const { classes } = useStyles();
-  const { data: session, status }: any = useSession();
+  const { status }: any = useSession();
 
   const dashboard = useSelector((state: any) => state.dashboard);
-  const { inputData, inputError, outputData, savedFileData } = dashboard;
+  const { inputData, inputError, savedFileData } = dashboard;
 
-  const [feedbackOpened, { open: feedbackOpen, close: feedbackClose }] =
-    useDisclosure(false);
+  const [feedbackOpened, { open: feedbackOpen, close: feedbackClose }] = useDisclosure(false);
 
   function isFilePublic() {
-    if (status !== "authenticated") {
+    if (status !== 'authenticated') {
       return true;
-    } else if (
-      savedFileData.globalAccess?.view ||
-      savedFileData.globalAccess?.edit
-    ) {
+    } else if (savedFileData.globalAccess?.view || savedFileData.globalAccess?.edit) {
       return true;
     }
 
@@ -109,21 +81,17 @@ function FooterMenu() {
               variant="subtle"
               size="xs"
             >
-              {inputData === savedFileData?.json ? "Saved" : "Not Saved"}
+              {inputData === savedFileData?.json ? 'Saved' : 'Not Saved'}
             </Button>
             <Button
               leftIcon={
-                isFilePublic() ? (
-                  <IconCloudLockOpen size="1rem" />
-                ) : (
-                  <IconCloudLock size="1rem" />
-                )
+                isFilePublic() ? <IconCloudLockOpen size="1rem" /> : <IconCloudLock size="1rem" />
               }
               className={classes.myCustomButton}
               variant="subtle"
               size="xs"
             >
-              {isFilePublic() ? "Public" : "Private"}
+              {isFilePublic() ? 'Public' : 'Private'}
             </Button>
             <Group position="center">
               <HoverCard width={280} shadow="md" withArrow>
@@ -132,13 +100,13 @@ function FooterMenu() {
                     leftIcon={<IconCircleCheck size="1rem" />}
                     className={classes.myCustomButton}
                     style={{
-                      backgroundColor: inputError === "" ? "" : "#E03131",
-                      color: inputError === "" ? "" : "#E9ECEF",
+                      backgroundColor: inputError === '' ? '' : '#E03131',
+                      color: inputError === '' ? '' : '#E9ECEF'
                     }}
                     variant="subtle"
                     size="xs"
-                    >
-                    {inputError === "" ? "Valid Format" : "Invalid Format"}
+                  >
+                    {inputError === '' ? 'Valid Format' : 'Invalid Format'}
                   </Button>
                 </HoverCard.Target>
                 {inputError && (
@@ -171,13 +139,7 @@ function FooterMenu() {
           </Group>
         </div>
       </div>
-      {feedbackOpened && (
-        <Feedback
-          opened={feedbackOpened}
-          open={feedbackOpen}
-          close={feedbackClose}
-        />
-      )}
+      {feedbackOpened && <Feedback opened={feedbackOpened} close={feedbackClose} />}
     </>
   );
 }

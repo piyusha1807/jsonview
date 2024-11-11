@@ -1,23 +1,11 @@
-import { createStyles, Group, Button, Menu, Space, Loader, ActionIcon, Title } from '@mantine/core';
+import { createStyles, Group, Button, Menu, Title } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
-import { useDispatch, useSelector } from 'react-redux';
-import prettier from 'prettier';
-import parserBabel from 'prettier/parser-babel';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
 import { useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
-import { post } from '@/utils/api';
-import {
-  setInputData,
-  setInputError,
-  setOutputData,
-  setMinifyConfig,
-  setFormatConfig,
-  setSavedFileData
-} from '@/store/actions/dashboardAction';
 import Minify from '../minify';
 
 const ImportZone = dynamic(() => import('../importZone'), {
@@ -60,14 +48,11 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-const LeftHeader = ({}) => {
+const LeftHeader = () => {
   const { classes } = useStyles();
   const router = useRouter();
-  const { id } = router.query;
-  const dispatch = useDispatch();
   const { inputData } = useSelector((state: any) => state.dashboard);
   const { status }: any = useSession();
-  const [isSaveLoading, setIsSaveLoading] = useState(false);
 
   const [importOpened, { open: importOpen, close: importClose }] = useDisclosure(false);
   const [minifyOpened, { open: minifyOpen, close: minifyClose }] = useDisclosure(false);
@@ -95,67 +80,6 @@ const LeftHeader = ({}) => {
       if (error instanceof Error) {
         notifications.show({ message: error.message, color: 'red' });
       }
-    }
-  };
-
-  const handleFormat = () => {
-    try {
-      let formattedJSON = inputData;
-      try {
-        const parsedJSON = JSON.parse(inputData);
-
-        formattedJSON = JSON.stringify(parsedJSON, null, 2);
-      } catch (prettierError) {
-        console.warn('Prettier formatting failed:', prettierError);
-      }
-
-      dispatch(setInputError(''));
-      dispatch(setFormatConfig());
-      dispatch(setInputData(formattedJSON));
-
-      let obj = '';
-      if (inputData) {
-        obj = JSON.parse(inputData);
-      }
-      dispatch(setOutputData(obj));
-
-      // gtag.event({
-      //   action: "format",
-      //   category: "button",
-      //   label: "Format",
-      //   value: "format",
-      // });
-    } catch (error) {
-      if (error instanceof Error) {
-        notifications.show({ message: error.message, color: 'red' });
-      }
-    }
-  };
-
-  const handleSave = async (e, type) => {
-    const requestData = {
-      json: inputData,
-      type: type,
-      id: id
-    };
-
-    try {
-      setIsSaveLoading(true);
-      const { data, message } = await post('/api/saveAndUpdate', requestData);
-      router.push({
-        // pathname: '/',
-        query: { id: data.id }
-      });
-
-      dispatch(setSavedFileData(data));
-
-      type === 'update'
-        ? notifications.show({ message: message, color: 'green' })
-        : saveMessageOpen();
-    } catch (error) {
-      notifications.show({ message: error.message, color: 'red' });
-    } finally {
-      setIsSaveLoading(false);
     }
   };
 
@@ -209,34 +133,6 @@ const LeftHeader = ({}) => {
         <Button className={classes.linkButton} onClick={saveFormOpen} variant="subtle" size="xs">
           {status === 'authenticated' ? 'Save' : 'Save & Share'}
         </Button>
-        {/* <Menu shadow="md" width={150}>
-          <Button
-            className={classes.linkButton}
-            onClick={(e) => (id ? handleSave(e, 'update') : saveFormOpen())}
-            variant="subtle"
-            size="xs"
-            style={id && { paddingRight: 0 }}
-          >
-            {isSaveLoading && (
-              <>
-                <Loader size="1rem" /> <Space w="xs" />
-              </>
-            )}
-            Save
-            {id && (
-              <Menu.Target>
-                <ActionIcon className={classes.customButton} onClick={(e) => e.stopPropagation()}>
-                  <IconChevronDown size={14} />
-                </ActionIcon>
-              </Menu.Target>
-            )}
-          </Button>
-
-          <Menu.Dropdown>
-            <Menu.Item onClick={(e) => handleSave(e, 'update')}>Save</Menu.Item>
-            <Menu.Item onClick={(e) => saveFormOpen()}>Save As New</Menu.Item>
-          </Menu.Dropdown>
-        </Menu> */}
         {status === 'authenticated' && (
           <Button
             className={classes.linkButton}
@@ -247,15 +143,6 @@ const LeftHeader = ({}) => {
             Share
           </Button>
         )}
-        {/* {status === "authenticated" && (
-          <Button
-            leftIcon={<IconShare3 size="1.2rem" />}
-            size="xs"
-            onClick={openShare}
-          >
-            Share
-          </Button>
-        )} */}
       </Group>
       {importOpened && <ImportZone opened={importOpened} open={importOpen} close={importClose} />}
       {minifyOpened && <Minify opened={minifyOpened} open={importOpen} close={minifyClose} />}
@@ -275,7 +162,7 @@ const LeftHeader = ({}) => {
           windowUrl={window.location.href}
         />
       )}
-      {cloudOpened && <Cloud opened={cloudOpened} open={cloudOpen} close={cloudClose} />}
+      {cloudOpened && <Cloud opened={cloudOpened} close={cloudClose} />}
       {shareOpened && <Share opened={shareOpened} open={openShare} close={closeShare} />}
       {loginMessageOpened && (
         <LoginMessage
