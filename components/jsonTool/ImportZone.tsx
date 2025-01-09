@@ -12,7 +12,7 @@ import {
   setSavedFileData
 } from '@/store/actions/dashboardAction';
 import { get } from '@/utils/api';
-import * as gtag from '../lib/gtag';
+import * as gtag from '../../lib/gtag';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {

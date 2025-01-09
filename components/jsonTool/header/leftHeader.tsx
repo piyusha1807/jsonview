@@ -6,24 +6,24 @@ import dynamic from 'next/dynamic';
 import { useDisclosure } from '@mantine/hooks';
 import { useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
-import Minify from '../minify';
+import Minify from '../Minify';
 
-const ImportZone = dynamic(() => import('../importZone'), {
+const ImportZone = dynamic(() => import('../ImportZone'), {
   ssr: false
 });
-const Cloud = dynamic(() => import('../cloud'), {
+const Cloud = dynamic(() => import('../Cloud'), {
   ssr: false
 });
-const LoginMessage = dynamic(() => import('../loginMessage'), {
+const LoginMessage = dynamic(() => import('../LoginMessage'), {
   ssr: false
 });
-const SaveForm = dynamic(() => import('../saveForm'), {
+const SaveForm = dynamic(() => import('../SaveForm'), {
   ssr: false
 });
-const SaveMessage = dynamic(() => import('../saveMessage'), {
+const SaveMessage = dynamic(() => import('../SaveMessage'), {
   ssr: false
 });
-const Share = dynamic(() => import('../share'), {
+const Share = dynamic(() => import('../Share'), {
   ssr: false
 });
 

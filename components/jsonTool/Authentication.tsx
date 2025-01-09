@@ -14,7 +14,7 @@ import {
   Modal
 } from '@mantine/core';
 import { signIn } from 'next-auth/react';
-import { GoogleButton, GithubButton } from './socialButtons/socialButtons';
+import { GoogleButton, GithubButton } from '../socialButtons/socialButtons';
 
 export function AuthenticationForm({ opened, close }) {
   const [type, toggle] = useToggle(['login', 'register']);

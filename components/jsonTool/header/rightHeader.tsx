@@ -9,12 +9,12 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useDisclosure } from '@mantine/hooks';
-import { AuthenticationForm } from '../authentication';
+import { AuthenticationForm } from '../Authentication';
 
-const Settings = dynamic(() => import('../settings'), {
+const Settings = dynamic(() => import('../Settings'), {
   ssr: false
 });
-const UserInfo = dynamic(() => import('../userInfo'), {
+const UserInfo = dynamic(() => import('../UserInfo'), {
   ssr: false
 });
 
@@ -82,7 +82,7 @@ const RightHeader = () => {
       <Flex justify="flex-end" align="center" gap="xs">
         <Input
           size="xs"
-          placeholder="Search"
+          placeholder="Search value"
           icon={<IconSearch size={16} />}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}

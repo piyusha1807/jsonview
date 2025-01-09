@@ -1,0 +1,74 @@
+.jsonList {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.jsonItem {
+  position: relative;
+  border-left: 0.5px dotted grey; // default dotted border for items
+}
+
+.jsonItemNoBorder {
+  border-left: none;
+}
+
+.jsonItemLine {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  height: 100%;
+  border-left: 0.5px dotted grey;
+}
+
+.jsonItemLineHalf {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  height: 50%;
+  border-left: 0.5px dotted grey;
+}
+
+.jsonHR {
+  width: 18px; // default
+  border-width: 0.5px 0px 0px 0px;
+  border-style: dotted;
+  border-color: grey;
+  margin: 0px;
+}
+
+.jsonHRShort {
+  width: 5px;
+}
+
+.jsonValueContainer {
+  display: flex;
+  align-items: center;
+}
+
+.jsonKeyValue {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  width: 90%;
+}
+
+.jsonKey {
+  color: rgb(118, 28, 234);
+}
+
+.jsonItemCount {
+  color: rgb(133, 153, 0);
+}
+
+.jsonValue {
+  max-width: calc(100% - 8rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jsonViewer {
+  font-family: 'Fira Code';
+  font-size: 15px;
+  font-weight: 450;
+}

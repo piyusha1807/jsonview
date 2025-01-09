@@ -10,3 +10,15 @@ export function formatTimestamp(timestamp): any {
   const minutes = String(date.getMinutes()).padStart(2, '0');
   return `${day}-${month}-${year} ${hours}:${minutes}`;
 }
+
+export function getColor(value) {
+  return typeof value === 'string'
+    ? 'rgb(83, 83, 83)'
+    : typeof value === 'number'
+      ? 'rgb(253, 0, 121)'
+      : typeof value === 'boolean'
+        ? 'rgb(116, 135, 0)'
+        : value === null
+          ? 'rgb(175, 175, 175)'
+          : 'black';
+}

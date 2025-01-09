@@ -14,7 +14,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useDisclosure } from '@mantine/hooks';
 
-const Feedback = dynamic(() => import('../feedback'), {
+const Feedback = dynamic(() => import('./Feedback'), {
   ssr: false
 });
 

@@ -12,9 +12,9 @@ import {
   setSavedFileData
 } from '@/store/actions/dashboardAction';
 import { get } from '@/utils/api';
-import JsonTool from '../components/jsontool';
-import FooterMenu from '../components/footer';
-import HeaderMenu from '../components/header';
+import JsonTool from '../components/jsonTool/Jsontool';
+import FooterMenu from '../components/jsonTool/Footer';
+import HeaderMenu from '../components/jsonTool/header';
 
 const JsonToolPage = () => {
   const dispatch = useDispatch();

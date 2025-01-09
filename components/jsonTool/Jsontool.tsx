@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMantineColorScheme } from '@mantine/core';
 import { setInputData, setInputError, setOutputData } from '@/store/actions/dashboardAction';
-import * as gtag from '../lib/gtag';
+import * as gtag from '../../lib/gtag';
 import JsonViewer from './JsonViewer';
 
 const Editor = dynamic(() => import('@monaco-editor/react'), {

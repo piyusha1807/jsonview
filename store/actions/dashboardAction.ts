@@ -54,3 +54,11 @@ export function setSettingsConfig(payload: any) {
     payload
   };
 }
+
+export function setSearch(payload: any) {
+  return {
+    type: SETTINGS_CONFIG,
+    payload
+  };
+}
+

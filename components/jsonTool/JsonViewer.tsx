@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { IconSquarePlus, IconSquareMinus } from '@tabler/icons-react';
 import { ActionIcon, rem } from '@mantine/core';
+import styles from '@/styles/JsonViewer.module.scss';
+import { getColor } from '@/utils/utils';
 
 const JsonViewer = ({ data }) => {
-  const regex = new RegExp(`(comment_id: )`, 'gi');
+  const regex = new RegExp(`(true)`, 'gi');
   const [expandedKeys, setExpandedKeys] = useState({ '/JSON': true });
 
   const toggleExpand = (key) => {
@@ -17,9 +19,8 @@ const JsonViewer = ({ data }) => {
     if (typeof data === 'object' && data !== null) {
       return (
         <ul
+          className={`${styles.jsonList}`}
           style={{
-            listStyleType: 'none',
-            padding: '0px',
             marginLeft: level === 0 ? '0px' : '23px'
           }}
         >
@@ -35,7 +36,6 @@ const JsonViewer = ({ data }) => {
                 ? '{}'
                 : null;
             const isLastElement = index === array.length - 1;
-            // const itemsCount = typeof value === 'object' && value !== null && itemsCount;
 
             return (
               <li
@@ -43,36 +43,20 @@ const JsonViewer = ({ data }) => {
                 style={{
                   position: 'relative',
                   borderLeft: itemsCount || isLastElement ? 'none' : '0.5px dotted grey', // Apply full border for non-last elements
-                  // paddingLeft: itemsCount ? '23px' : ''
                   marginLeft: itemsCount ? '' : '8px'
                 }}
               >
-                {!!itemsCount &&
+                {Boolean(itemsCount) &&
                   !isLastElement && ( // full | for objects/array but not for last
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: '8px',
-                        top: 0,
-                        height: '100%',
-                        borderLeft: '0.5px dotted grey'
-                      }}
-                    ></div>
+                    <div className={styles.jsonItemLine}></div>
                   )}
                 {Boolean(!itemsCount) &&
                   isLastElement && ( // half | for the last single element
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: '0px',
-                        top: 0,
-                        height: '50%',
-                        borderLeft: '0.5px dotted grey'
-                      }}
-                    ></div>
+                    <div className={styles.jsonItemLineHalf}></div>
                   )}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {!!itemsCount && (
+
+                <div className={`${styles.jsonValueContainer}`}>
+                  {Boolean(itemsCount) && (
                     <ActionIcon
                       size="xs"
                       color="rgb(38, 139, 210)"
@@ -82,23 +66,8 @@ const JsonViewer = ({ data }) => {
                       {isExpanded ? <IconSquareMinus /> : <IconSquarePlus />}
                     </ActionIcon>
                   )}
-                  <hr
-                    style={{
-                      width: itemsCount ? '5px' : '18px',
-                      borderWidth: '0.5px 0px 0px 0px',
-                      borderStyle: 'dotted',
-                      borderColor: 'grey',
-                      margin: '0px'
-                    }}
-                  />
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      columnGap: '5px',
-                      width: '90%'
-                    }}
-                  >
+                  <hr className={`${styles.jsonHR} ${itemsCount ? styles.jsonHRShort : ''}`} />
+                  <div className={styles.jsonKeyValue}>
                     {typeSymbol ? (
                       typeSymbol
                     ) : (
@@ -106,48 +75,26 @@ const JsonViewer = ({ data }) => {
                         style={{
                           width: rem(10),
                           height: rem(10),
-                          backgroundColor:
-                            typeof value === 'string'
-                              ? 'rgb(83, 83, 83)'
-                              : typeof value === 'number'
-                                ? 'rgb(253, 0, 121)'
-                                : typeof value === 'boolean'
-                                  ? 'rgb(116, 135, 0)'
-                                  : value === null
-                                    ? 'rgb(175, 175, 175)'
-                                    : 'black'
+                          backgroundColor: getColor(value)
                         }}
                       ></div>
                     )}
 
-                    {/* <div style={{ color: 'rgb(118, 28, 234)' }} >{`${key}:`}</div> */}
                     <span
-                      style={{ color: 'rgb(118, 28, 234)' }}
+                      className={styles.jsonKey}
                       dangerouslySetInnerHTML={{
                         __html: `${key}:`.replace(regex, '<mark>$1</mark>')
                       }}
                     />
                     {itemsCount !== null ? (
-                      <div style={{ color: 'rgb(133, 153, 0)' }}>
+                      <div className={`${styles.jsonItemCount}`}>
                         {itemsCount} {itemsCount === 1 ? 'item' : 'items'}
                       </div>
                     ) : (
                       <div
+                        className={`${styles.jsonValue}`}
                         style={{
-                          maxWidth: 'calc(100% - 8rem)', // Set max width for the string
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis', // Add ellipsis for long strings
-                          whiteSpace: 'nowrap',
-                          color:
-                            typeof value === 'string'
-                              ? 'rgb(83, 83, 83)'
-                              : typeof value === 'number'
-                                ? 'rgb(253, 0, 121)'
-                                : typeof value === 'boolean'
-                                  ? 'rgb(116, 135, 0)'
-                                  : value === null
-                                    ? 'rgb(175, 175, 175)'
-                                    : 'black'
+                          color: getColor(value)
                         }}
                         title={typeof value === 'string' ? value : ''}
                       >
@@ -175,11 +122,7 @@ const JsonViewer = ({ data }) => {
     }
   };
 
-  return (
-    <div style={{ fontFamily: 'Fira Code', fontSize: '15px', fontWeight: 450 }}>
-      {renderJson({ JSON: data })}
-    </div>
-  );
+  return <div className={styles.jsonViewer}>{renderJson({ JSON: data })}</div>;
 };
 
 export default JsonViewer;
